@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'preference.dart';   // 개인설정 페이지
 import 'scenario.dart';     // 시나리오 컨텐츠 페이지
+import 'login.dart';
 
 class ContentsBar extends StatefulWidget {
+  final String token;
+  final String name;
+
+  ContentsBar({required this.token, required this.name});
+
   @override
   _ContentsBarState createState() => _ContentsBarState();
 }
@@ -14,7 +20,8 @@ class _ContentsBarState extends State<ContentsBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("발달장애인 사회화 교육 컨텐츠"),
+        title: Text("${widget.name}님을 위한 교육 컨텐츠"),
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),
@@ -25,6 +32,15 @@ class _ContentsBarState extends State<ContentsBar> {
               );
             },
           ),
+          IconButton(
+            icon: Icon(Icons.output),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
+          )
         ],
       ),
       body: Column(
