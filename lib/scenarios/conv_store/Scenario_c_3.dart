@@ -53,6 +53,8 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                         onPressed: () async {
                           await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                           await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                          await Future.delayed(Duration(seconds: 2));
+
                           sinarioProvider.updateIndex();
                         },
                         child: Text("과자 코너"),
@@ -63,7 +65,13 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async{
+                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                          await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                          await Future.delayed(Duration(seconds: 2));
+
+                          sinarioProvider.updateIndex();
+                        },
                         child: Text("젤리코너"),
                       ),
                     ),
@@ -73,7 +81,11 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.bottomLeft,
                       child: ElevatedButton(
                         onPressed: () async {
+                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                           await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                          await Future.delayed(Duration(seconds: 2));
+
+                          sinarioProvider.updateIndex();
                         },
                         child: Text("아이스크림 코너"),
                       ),
@@ -84,7 +96,11 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
                         onPressed: () async {
+                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                           await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                          await Future.delayed(Duration(seconds: 2));
+
+                          sinarioProvider.updateIndex();
                         },
                         child: Text("라면 코너"),
                       ),
@@ -95,7 +111,11 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.topRight,
                       child: ElevatedButton(
                         onPressed: () async {
+                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                           await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                          await Future.delayed(Duration(seconds: 2));
+
+                          sinarioProvider.updateIndex();
                         },
                         child: Text("음료수 코너"),
                       ),
@@ -106,7 +126,11 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                         onPressed: () async {
+                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                           await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                          await Future.delayed(Duration(seconds: 2));
+
+                          sinarioProvider.updateIndex();
                         },
                         child: Text("생필품 코너"),
                       ),
@@ -117,7 +141,7 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                         ? ClipRRect(
                       borderRadius: BorderRadius.circular(20), // 경계 반경 설정
                       child: FadeInImage(
-                        placeholder: AssetImage("asdf/asdf.png"), // 빈 투명 이미지
+                        placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
                         image: AssetImage("assets/actor_sample.png"),
                         fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
                       ),
@@ -145,39 +169,29 @@ class _c_3_display_rightState extends State<c_3_display_right> {
   Future<void> _helpTTS() async {
     await Future.delayed(Duration(seconds: 1));
 
-    await tts.TextToSpeech("도움이 필요하신가요? 편의점 직원분께 도움을 구해보도록 해요. 오른쪽의 버튼을 터치하고 도와주세요라고 말해보세요",
+    await tts.TextToSpeech("편의점 직원분께 도움을 구해보도록 해요. 오른쪽의 버튼을 터치하고 도와주세요라고 말해보세요",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(Duration(seconds: 7));
-
-    await tts.TextToSpeech("잘 하셨습니다",
-        "ko-KR-Wavenet-D");
-
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 9));
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
     await tts.TextToSpeech("네. 부르셨나요? 무엇을 도와드릴까요?",
         "ko-KR-Wavenet-C");
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 4));
 
-    await tts.TextToSpeech("편의점 직원분께 사고 싶은 물건이 어디에 있는지 물어보도록 해요. 오른쪽의 버튼을 터치하고 말해보세요",
+    await tts.TextToSpeech("오른쪽의 버튼을 터치하고 과자가 어디에 있나요?라고 말해보세요",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(Duration(seconds: 7));
-
-    await tts.TextToSpeech("잘 하셨습니다",
-        "ko-KR-Wavenet-D");
-
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 8));
 
     await tts.TextToSpeech("과자를 사고 싶으시군요. 그 물건은 과자 코너에 있습니다.",
         "ko-KR-Wavenet-C");
 
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 5));
 
-    await tts.TextToSpeech("도움이 됐나요? 아직도 잘 모르겠다면 도와주세요 버튼을 한 번 더 눌러보도록 해요",
+    await tts.TextToSpeech("도움이 됐나요? 다시 듣고 싶다면 도와주세요 버튼을 한 번 더 눌러보도록 해요",
         "ko-KR-Wavenet-D");
 
     await Future.delayed(Duration(seconds: 7));

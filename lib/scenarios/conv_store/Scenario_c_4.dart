@@ -53,6 +53,8 @@ class _c_4_display_leftState extends State<c_4_display_left> {
                       onPressed: () async {
                         await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                         await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 2));
+
                         sinarioProvider.updateIndex();
                       },
                       child: Container(
@@ -72,6 +74,8 @@ class _c_4_display_leftState extends State<c_4_display_left> {
                       onPressed: () async{
                         await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                         await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 2));
+
                         sinarioProvider.updateIndex();
                       },
                       child: Container(
@@ -91,6 +95,8 @@ class _c_4_display_leftState extends State<c_4_display_left> {
                       onPressed: () async {
                         await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                         await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 2));
+
                         sinarioProvider.updateIndex();
                       },
                       child: Container(
@@ -110,6 +116,8 @@ class _c_4_display_leftState extends State<c_4_display_left> {
                       onPressed: () async {
                         await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                         await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 2));
+
                         sinarioProvider.updateIndex();
                       },
                       child: Container(
@@ -129,6 +137,8 @@ class _c_4_display_leftState extends State<c_4_display_left> {
                       onPressed: () async {
                         await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                         await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 2));
+
                         sinarioProvider.updateIndex();
                       },
                       child: Container(

@@ -7,6 +7,8 @@ import '../tts.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
+final TTS tts = TTS();
+
 
 class c_6_display_left extends StatefulWidget {
   const c_6_display_left({super.key});
@@ -17,7 +19,6 @@ class c_6_display_left extends StatefulWidget {
 
 class _c_6_display_leftState extends State<c_6_display_left> {
 
-  final TTS tts = TTS();
 
   @override
   void initState() {
@@ -32,10 +33,10 @@ class _c_6_display_leftState extends State<c_6_display_left> {
 
     await Future.delayed(Duration(seconds: 10));
 
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
     await tts.TextToSpeech("안녕히 가세요",
         "ko-KR-Wavenet-C");
-
-    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
     await Future.delayed(Duration(seconds: 2));
 
@@ -44,15 +45,7 @@ class _c_6_display_leftState extends State<c_6_display_left> {
 
     await Future.delayed(Duration(seconds: 10));
 
-    await tts.TextToSpeech("잘 하셨습니다. 이제 오른쪽 화면의 문을 터치해 편의점을 나가보세요",
-        "ko-KR-Wavenet-D");
-
-    Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
-
-
-    await Future.delayed(Duration(seconds: 4));
-
   }
 
   @override
@@ -66,12 +59,10 @@ class _c_6_display_leftState extends State<c_6_display_left> {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: sinarioProvider.flag2 == 1
-                        ? Image(
+                    child: Image(
                       image: AssetImage("assets/c_exit.webp"),
                       fit: BoxFit.cover, // 이미지가 ClipRRect 경계 내에 꽉 차도록 설정
                     )
-                        : SizedBox.shrink(),
                   ),
                   Positioned.fill(
                     child: sinarioProvider.flag == 1
@@ -79,14 +70,12 @@ class _c_6_display_leftState extends State<c_6_display_left> {
                       placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
                       image: AssetImage("assets/actor_sample.png"),
                       fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
-                      fit: BoxFit.cover, // 이미지가 ClipRRect 경계 내에 꽉 차도록 설정
                     )
                         : SizedBox.shrink(),
                   ),
                 ],
               ),
             )
-
           );
         },
       ),
@@ -107,29 +96,56 @@ class _c_6_display_rightState extends State<c_6_display_right> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ElevatedButton(
-          onPressed: () async {
-            await _audioPlayer.play(AssetSource("effect_door.mp3"));
-            setState(() {
-              door_image = "assets/door_open.png";
-              print("door_image: $door_image");
-            });
-            await Future.delayed(Duration(seconds: 1));
-            setState(() {
-              door_image = "";
-              print("door_image: $door_image");
-            });
-            Provider.of<Scenario_Manager>(context, listen: false)
-                .updateIndex();
+      body: Consumer<Scenario_Manager>(
+        builder: (context, sinarioProvider, child) {
+          return Stack(
+            children: [
+              Center(
+                child: sinarioProvider.flag2 == 1 ?
+                ElevatedButton(
+                  onPressed: () async {
+                    await Future.delayed(Duration(seconds: 3));
+                    await tts.TextToSpeech("잘 하셨습니다. 이제 오른쪽 화면의 문을 터치해 편의점을 나가보세요",
+                        "ko-KR-Wavenet-D");
+                    await Future.delayed(Duration(seconds: 6));
 
-          },
-          child: Center(
-            child: door_image != ""
-                ? Image(
-              image: AssetImage(door_image),
-            )
-                : SizedBox.shrink(),
-          )
+                    sinarioProvider.decrement_flag();
+                    sinarioProvider.decrement_flag2();
+                    sinarioProvider.increment_flag3();
+
+                  },
+                  child: Center(
+                    child: Icon(Icons.mic),
+
+                  ),
+                ) : SizedBox.shrink(),
+              ),
+              Center(
+                child: sinarioProvider.flag3 == 1 ?
+                ElevatedButton(
+                  onPressed: () async {
+                    await _audioPlayer.play(AssetSource("effect_door.mp3"));
+                    setState(() {
+                      door_image = "assets/door_open.png";
+                      print("door_image: $door_image");
+                    });
+                    await Future.delayed(Duration(seconds: 1));
+                    setState(() {
+                      door_image = "";
+                      print("door_image: $door_image");
+                    });
+                    sinarioProvider.updateIndex(); // Provider 상태 업데이트
+                  },
+                  child: Center(
+                    child: Image(
+                      image: AssetImage(door_image),
+                    ),
+                  ),
+                ) : SizedBox.shrink(),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
