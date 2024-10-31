@@ -1,4 +1,4 @@
-name: flutter_demo
+name: flutterpractice
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -30,7 +30,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
+  flutter_svg: ^2.0.0
+  provider: ^6.0.0
+  audioplayers: ^6.1.0
+  http: ^0.13.5
+  google_fonts: ^4.0.4
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,16 +59,9 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/thumbnails/park.webp
-    - assets/thumbnails/disability_center.webp
-    - assets/thumbnails/store.webp
-    - assets/thumbnails/toilet.webp
-    - assets/thumbnails/terras.webp
-    - assets/thumbnails/kitchen.webp
-    - assets/thumbnails/bad_attraction.webp
-    - assets/thumbnails/missing.webp
-    - assets/thumbnails/earthquake.webp
-    - assets/preferences/avatars/boy_01.png
+    - assets/thumbnails/
+    - assets/preferences/avatars/
+    - assets/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
