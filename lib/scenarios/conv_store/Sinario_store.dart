@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'providers/Scenario_c_provider.dart';
+import '../../providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
-import 'providers/Scenario_Manager.dart';
+import '../../providers/Scenario_Manager.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:google_fonts/google_fonts.dart';
 

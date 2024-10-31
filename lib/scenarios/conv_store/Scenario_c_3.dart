@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpractice/providers/Scenario_Manager.dart';
-import 'providers/Scenario_c_provider.dart';
+import '../../providers/Scenario_Manager.dart';
+import '../../providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
-import 'tts.dart';
+import '../tts.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();

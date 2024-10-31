@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpractice/providers/Scenario_Manager.dart';
-import 'providers/Scenario_c_provider.dart';
+import '../../providers/Scenario_Manager.dart';
+import '../../providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
+import '../tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpractice/providers/Scenario_Manager.dart';
+import 'Scenario_Manager.dart';
 
-import '../Scenario_c_1.dart';
-import '../Scenario_c_2.dart';
-import '../Scenario_c_3.dart';
-import '../Scenario_c_4.dart';
-import '../Scenario_c_5.dart';
-import '../Scenario_c_6.dart';
-import '../Scenario_c_7.dart';
+import '../scenarios/conv_store/Scenario_c_1.dart';
+import '../scenarios/conv_store/Scenario_c_2.dart';
+import '../scenarios/conv_store/Scenario_c_3.dart';
+import '../scenarios/conv_store/Scenario_c_4.dart';
+import '../scenarios/conv_store/Scenario_c_5.dart';
+import '../scenarios/conv_store/Scenario_c_6.dart';
+import '../scenarios/conv_store/Scenario_c_7.dart';
 
 class Sinario_c_provider extends Scenario_Manager {
 

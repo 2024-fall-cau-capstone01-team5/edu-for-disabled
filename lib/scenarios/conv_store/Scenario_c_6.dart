@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutterpractice/providers/Scenario_Manager.dart';
+import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
-import 'providers/Scenario_c_provider.dart';
-import 'tts.dart';
+import '../../providers/Scenario_c_provider.dart';
+import '../tts.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
