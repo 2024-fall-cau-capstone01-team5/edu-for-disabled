@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../StepData.dart';
-import '../tts.dart';
+import '../scenarios/StepData.dart';
+import '../scenarios/tts.dart';
 
 abstract class Scenario_Manager extends ChangeNotifier {
   int flag = 0;
