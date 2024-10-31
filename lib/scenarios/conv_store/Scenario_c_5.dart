@@ -73,8 +73,10 @@ class _c_5_display_leftState extends State<c_5_display_left> {
                 ),
                 Positioned.fill(
                   child: sinarioProvider.flag4 == 1
-                      ? Image(
-                    image: AssetImage("assets/actor_sample.png"),
+                      ? FadeInImage(
+                    placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
+                    image: AssetImage(actors_image),
+                    fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
                   )
                       : SizedBox.shrink(),
                 ),
@@ -150,8 +152,35 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                     alignment: Alignment.bottomLeft,
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
-                      onPressed: () {
-                        sinarioProvider.updateIndex();
+                      onPressed: () async{
+                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                        await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 1));
+                        sinarioProvider.decrement_flag();
+                        sinarioProvider.decrement_flag2();
+                        await tts.TextToSpeech(
+                          "드디어 차례가 왔네요. 지금부터 계산을 해볼까요?",
+                          "ko-KR-Wavenet-D",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        sinarioProvider.increment_flag4();
+
+                        await Future.delayed(Duration(seconds: 1));
+
+                        await tts.TextToSpeech(
+                          "천 오백원입니다. 결제 도와드릴게요",
+                          "ko-KR-Wavenet-C",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        await tts.TextToSpeech(
+                          "오른쪽 화면의 카드를 터치해 편의점 직원분께 카드를 넘겨주세요.",
+                          "ko-KR-Wavenet-D",
+                        );
+                        sinarioProvider.increment_flag3();
                       },
                       child: Icon(
                         Icons.sentiment_very_dissatisfied,
@@ -165,8 +194,35 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                     alignment: Alignment.bottomRight,
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
-                      onPressed: () {
-                        sinarioProvider.updateIndex();
+                      onPressed: () async{
+                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                        await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 1));
+                        sinarioProvider.decrement_flag();
+                        sinarioProvider.decrement_flag2();
+                        await tts.TextToSpeech(
+                          "드디어 차례가 왔네요. 지금부터 계산을 해볼까요?",
+                          "ko-KR-Wavenet-D",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        sinarioProvider.increment_flag4();
+
+                        await Future.delayed(Duration(seconds: 1));
+
+                        await tts.TextToSpeech(
+                          "천 오백원입니다. 결제 도와드릴게요",
+                          "ko-KR-Wavenet-C",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        await tts.TextToSpeech(
+                          "오른쪽 화면의 카드를 터치해 편의점 직원분께 카드를 넘겨주세요.",
+                          "ko-KR-Wavenet-D",
+                        );
+                        sinarioProvider.increment_flag3();
                       },
                       child: Icon(
                         Icons.sentiment_satisfied_alt_outlined,
@@ -192,9 +248,10 @@ class _c_5_display_rightState extends State<c_5_display_right> {
 
                         await tts.TextToSpeech("결제 완료되셨습니다", "ko-KR-Wavenet-C");
 
-                        await Future.delayed(Duration(seconds: 4));
+                        await Future.delayed(Duration(seconds: 3));
 
                         sinarioProvider.decrement_flag4();
+                        sinarioProvider.decrement_flag3();
 
                         sinarioProvider.updateIndex();
                       },
