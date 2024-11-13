@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'contents_bar.dart';
+import 'multiProfiles.dart';
 import 'signup.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,14 +25,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
       final accessToken = data["access_token"];
       final username = data["user_name"];
+      final userId = _userIdController.text;
 
-      // 로그인 성공 시 ContentsBar로 이동
+      // 로그인 성공 시 MultiProfilesScreen으로 이동
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ContentsBar(token: accessToken, name: username)),
+        MaterialPageRoute(
+          builder: (context) => MultiProfilesScreen(token: accessToken, userId: userId, username: username),
+        ),
       );
     } else {
       // 오류 시 알림
