@@ -3,7 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'contents_bar.dart';
 import 'addProfile.dart';
-import 'removeProfile.dart'; // remove_profile 파일 임포트
+import 'removeProfile.dart';
+import 'login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MultiProfilesScreen extends StatefulWidget {
   final String userId;
@@ -11,6 +13,43 @@ class MultiProfilesScreen extends StatefulWidget {
   final String username;
 
   MultiProfilesScreen({required this.token, required this.userId, required this.username});
+
+  Future<void> _logout(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("로그아웃"),
+          content: Text("정말 로그아웃하시겠습니까?"),
+          actions: [
+            TextButton(
+              child: Text("취소"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("확인"),
+              onPressed: () async {
+                Navigator.of(context).pop();
+
+                // SharedPreferences에서 로그인 정보 삭제
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.clear();
+
+                // LoginScreen으로 이동 및 이전 스택 삭제
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (route) => false,
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   _MultiProfilesScreenState createState() => _MultiProfilesScreenState();
@@ -50,16 +89,25 @@ class _MultiProfilesScreenState extends State<MultiProfilesScreen> {
         } else {
           print("Error: 'profiles' key not found in response.");
         }
+      } else if (response.statusCode == 404) {
+        // 404: 프로필 없음 처리
+        setState(() {
+          profiles = [];
+        });
+        print("No profiles found for this user.");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("프로필이 존재하지 않습니다. 새 프로필을 추가하세요.")),
+        );
       } else {
         print("Failed to load profiles: ${response.statusCode} - ${response.body}");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to load profiles")),
+          SnackBar(content: Text("프로필을 불러오는 데 실패했습니다.")),
         );
       }
     } catch (e) {
       print("Error fetching profiles: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to load profiles")),
+        SnackBar(content: Text("프로필을 불러오는 중 오류가 발생했습니다.")),
       );
     }
   }
@@ -68,10 +116,10 @@ class _MultiProfilesScreenState extends State<MultiProfilesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.userId}님의 프로필"),
+        title: Text("${widget.username}님의 프로필"),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.delete_forever_outlined),
             onPressed: () {
               Navigator.push(
                 context,
@@ -87,13 +135,15 @@ class _MultiProfilesScreenState extends State<MultiProfilesScreen> {
               );
             },
           ),
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () => widget._logout(context),
+          ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: profiles.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
+        child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: List.generate(profiles.length + 1, (index) {

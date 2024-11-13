@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'multiProfiles.dart';
 import 'signup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -12,6 +13,29 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _userIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+    final userId = prefs.getString('user_id');
+    final username = prefs.getString('user_name');
+
+    if (token != null && userId != null && username != null) {
+      // 로그인 토큰이 디바이스에 있으면 MultiProfilesScreen으로 이동
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MultiProfilesScreen(token: token, userId: userId, username: username),
+        ),
+      );
+    }
+  }
 
   Future<void> _login() async {
     final url = Uri.parse("http://20.9.151.223:8080/login");
@@ -30,7 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
       final username = data["user_name"];
       final userId = _userIdController.text;
 
-      // 로그인 성공 시 MultiProfilesScreen으로 이동
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('access_token', accessToken);
+      await prefs.setString('user_id', userId);
+      await prefs.setString('user_name', username);
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -38,9 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     } else {
-      // 오류 시 알림
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Login failed. Please check your credentials.")),
+        SnackBar(content: Text("로그인에 실패했습니다. 아이디와 비밀번호를 확인하세요.")),
       );
     }
   }
