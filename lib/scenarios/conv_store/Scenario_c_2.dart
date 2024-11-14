@@ -169,7 +169,7 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag2 == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      await tts.TextToSpeech("잘 하셨습니다. 힘차게 인사를 해주셨네요. 인사를 하고"
+                      await tts.TextToSpeech("잘 하셨습니다. 인사를 하고"
                           "나니 기분이 어떤가요? 오른쪽 화면에 나와있는 얼굴들 중 하나를 선택해보세요",
                           "ko-KR-Wavenet-D");
                       await Future.delayed(const Duration(seconds: 7));
