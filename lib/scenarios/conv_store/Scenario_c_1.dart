@@ -6,7 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../tts.dart';
 
+import 'package:rive/rive.dart' hide Image;
+
 final AudioPlayer _audioPlayer = AudioPlayer();
+final TTS tts = TTS();
 
 class c_1_enterTheStore_left extends StatefulWidget {
   const c_1_enterTheStore_left({super.key});
@@ -21,7 +24,7 @@ class _c_1_enterTheStore_leftState extends State<c_1_enterTheStore_left> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
-      child: Image(
+      child: const Image(
         image: AssetImage("assets/c_outside.PNG"),
         fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
       ),
@@ -38,10 +41,6 @@ class c_1_enterTheStore_right extends StatefulWidget {
 }
 
 class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
-  String door_image = "assets/door_closed.png";
-
-  final TTS tts = TTS();
-
   @override
   void initState() {
     super.initState();
@@ -56,30 +55,11 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ElevatedButton(
-        onPressed: () async {
-          await _audioPlayer.play(AssetSource("effect_door.mp3"));
-
-          setState(() {
-            door_image = "assets/door_open.png";
-            print("door_image: $door_image");
-          });
-          await Future.delayed(Duration(seconds: 1));
-          setState(() {
-            door_image = "";
-            print("door_image: $door_image");
-          });
-          Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-        },
-        child: Center(
-          child: door_image != ""
-              ? Image(
-                  image: AssetImage(door_image),
-                )
-              : SizedBox.shrink(),
-        ),
+    return const Scaffold(
+        body: Center(
+      child: RiveAnimation.asset(
+          "assets/door_opening.riv"
       ),
-    );
+    ));
   }
 }
