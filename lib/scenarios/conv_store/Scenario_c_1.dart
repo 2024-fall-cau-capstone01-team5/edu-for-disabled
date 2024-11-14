@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../providers/Scenario_Manager.dart';
-import '../../providers/Scenario_c_provider.dart';
+
+// import '../../providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
-import '../tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
+import '../tts.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -49,7 +50,7 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-        "편의점에 도착했습니다. 저기 편의점 출입구가 보이네요. 왼쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
+        "편의점에 도착했습니다. 저기 편의점 출입구가 보이네요. 오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
         "ko-KR-Wavenet-D");
   }
 

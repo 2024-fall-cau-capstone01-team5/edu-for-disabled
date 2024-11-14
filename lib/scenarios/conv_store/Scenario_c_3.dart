@@ -30,8 +30,18 @@ class _c_3_display_leftState extends State<c_3_display_left> {
         "ko-KR-Wavenet-D");
   }
 
+  Future<void> _good_job() async {
+
+    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+    await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+
     return Consumer<Scenario_Manager>(
       builder: (context, sinarioProvider, child) {
         return Center(
@@ -51,9 +61,8 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.topCenter,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                          await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                          await Future.delayed(Duration(seconds: 2));
+                          await _good_job();
+
 
                           sinarioProvider.updateIndex();
                         },
@@ -66,9 +75,7 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.bottomRight,
                       child: ElevatedButton(
                         onPressed: () async{
-                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                          await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                          await Future.delayed(Duration(seconds: 2));
+                          await _good_job();
 
                           sinarioProvider.updateIndex();
                         },
@@ -81,9 +88,7 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.bottomLeft,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                          await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                          await Future.delayed(Duration(seconds: 2));
+                          await _good_job();
 
                           sinarioProvider.updateIndex();
                         },
@@ -96,9 +101,7 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                          await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                          await Future.delayed(Duration(seconds: 2));
+                          await _good_job();
 
                           sinarioProvider.updateIndex();
                         },
@@ -111,9 +114,7 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.topRight,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                          await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                          await Future.delayed(Duration(seconds: 2));
+                          await _good_job();
 
                           sinarioProvider.updateIndex();
                         },
@@ -126,9 +127,7 @@ class _c_3_display_leftState extends State<c_3_display_left> {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                          await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                          await Future.delayed(Duration(seconds: 2));
+                          await _good_job();
 
                           sinarioProvider.updateIndex();
                         },

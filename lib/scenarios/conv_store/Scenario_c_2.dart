@@ -115,6 +115,7 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
+                      await good_job();
 
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
@@ -132,10 +133,8 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                      await tts.TextToSpeech("잘 하셨습니다.",
-                          "ko-KR-Wavenet-D");
-                      await Future.delayed(const Duration(seconds: 1));
+                      await good_job();
+
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
@@ -152,10 +151,8 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                      await tts.TextToSpeech("잘 하셨습니다.",
-                          "ko-KR-Wavenet-D");
-                      await Future.delayed(const Duration(seconds: 1));
+                      await good_job();
+
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
