@@ -75,7 +75,7 @@ class _c_5_display_leftState extends State<c_5_display_left> {
                   child: sinarioProvider.flag4 == 1
                       ? FadeInImage(
                     placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
-                    image: AssetImage(actors_image),
+                    image: AssetImage("assets/actor_sample.png"),
                     fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
                   )
                       : SizedBox.shrink(),
