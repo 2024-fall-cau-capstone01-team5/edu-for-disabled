@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
 
-// import '../../providers/Scenario_c_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../tts.dart';
 
@@ -57,12 +56,34 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
 
   void _onRiveInit(Artboard artboard) {
     final controller =
-        StateMachineController.fromArtboard(artboard, 'State Machine 1');
+        StateMachineController.fromArtboard(
+            artboard,
+            'State Machine 1',
+          onStateChange: _onStateChange,
+
+        );
     artboard.addController(controller!);
-    _touch = controller.findInput<bool>('Trigger 1') as SMITrigger;
+
+
+
+    _touch = controller.findInput<bool>('touch') as SMITrigger;
+
+
   }
 
-  void _hitBump() => _touch?.fire();
+  void _hitBump(){
+    _touch?.fire();
+    print("Touch TRIGGERED!!!!");
+
+  }
+
+  void _onStateChange(String stateMachineName, String stateName) {
+    // 애니메이션이 끝나는 상태를 확인하여 print
+    if (stateName == 'exit') {
+      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+      print("EXIT");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +92,7 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
       child: GestureDetector(
         onTap: _hitBump,
         child: RiveAnimation.asset(
-          "assets/door_opening.riv",
+          "assets/door_open.riv",
           fit: BoxFit.contain,
           onInit: _onRiveInit,
         ),

@@ -219,7 +219,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                         await Future.delayed(Duration(seconds: 4));
 
                         await tts.TextToSpeech(
-                          "오른쪽 화면의 카드를 터치해 편의점 직원분께 카드를 넘겨주세요.",
+                          "오른쪽 화면의 카드를 터치해 카드 리더기에 카드를 넣어보세요!",
                           "ko-KR-Wavenet-D",
                         );
                         sinarioProvider.increment_flag3();
@@ -260,6 +260,8 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                         size: 100,
                         color: Colors.black,
                       ),
+
+
                     )
                         : SizedBox.shrink(),
                   ),
