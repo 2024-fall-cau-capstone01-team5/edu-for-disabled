@@ -31,22 +31,22 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
     await tts.TextToSpeech("편의점 안으로 들어왔습니다. 편의점 카운터에 직원분이 보이네요. 직원분께서 어서오세요라고 인사를 합니다",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(Duration(seconds: 7));
+    await Future.delayed(const Duration(seconds: 7));
 
     setState(() {
       actors_image = "assets/actor_sample.png";
     });
 
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     await tts.TextToSpeech("어서오세요~", "ko-KR-Wavenet-C");
 
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     await tts.TextToSpeech("편의점 직원분께서 인사를 해주셨네요. 저희도 안녕하세요라고 인사를 해볼까요? 오른쪽 화면의 버튼을 클릭해 안녕하세요라고 소리내어 말해보세요",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(Duration(seconds: 7));
+    await Future.delayed(const Duration(seconds: 7));
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
   }
@@ -61,7 +61,7 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
             child: Stack(
               children: [
                 // 배경 이미지 (아래쪽에 위치)
-                Positioned.fill(
+                const Positioned.fill(
                   child: Image(
                     image: AssetImage("assets/c_inside.PNG"),
                     fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
@@ -71,11 +71,11 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
                 Positioned.fill(
                   child: actors_image != ""
                       ? FadeInImage(
-                    placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
+                    placeholder: const AssetImage("assets/transparent.png"), // 빈 투명 이미지
                     image: AssetImage(actors_image),
-                    fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
+                    fadeInDuration: const Duration(seconds: 1), // 페이드 인 지속 시간
                   )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ),
               ],
             ),
@@ -94,7 +94,13 @@ class c_2_enterTheStore_right extends StatefulWidget {
 }
 
 class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
-  String Facechoice = "";
+
+  Future<void> good_job() async{
+    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+    await tts.TextToSpeech("잘 하셨습니다.",
+        "ko-KR-Wavenet-D");
+    await Future.delayed(const Duration(seconds: 2));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,20 +115,17 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                      await tts.TextToSpeech("잘 하셨습니다.",
-                          "ko-KR-Wavenet-D");
-                      await Future.delayed(Duration(seconds: 1));
+
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.sentiment_neutral, // 중립 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,
@@ -132,17 +135,17 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                       await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                       await tts.TextToSpeech("잘 하셨습니다.",
                           "ko-KR-Wavenet-D");
-                      await Future.delayed(Duration(seconds: 1));
+                      await Future.delayed(const Duration(seconds: 1));
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.sentiment_very_dissatisfied, // 화난 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
@@ -152,36 +155,37 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                       await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
                       await tts.TextToSpeech("잘 하셨습니다.",
                           "ko-KR-Wavenet-D");
-                      await Future.delayed(Duration(seconds: 1));
+                      await Future.delayed(const Duration(seconds: 1));
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.sentiment_satisfied_alt_outlined, // 만족 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ),
                 Align(
                   alignment: Alignment.center,
                   child: sinarioProvider.flag2 == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      await tts.TextToSpeech("잘 하셨습니다. 여기서 퀴즈. 인사를 받은 편의점 직원분의 얼굴은 어떤 표정일까요? 왼쪽 화면에 보이는 여러 얼굴들 중 하나를 선택해 터치해보세요",
+                      await tts.TextToSpeech("잘 하셨습니다. 힘차게 인사를 해주셨네요. 인사를 하고"
+                          "나니 기분이 어떤가요? 오른쪽 화면에 나와있는 얼굴들 중 하나를 선택해보세요",
                           "ko-KR-Wavenet-D");
-                      await Future.delayed(Duration(seconds: 7));
+                      await Future.delayed(const Duration(seconds: 7));
                       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag2();
                       Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.mic, // 만족 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ),
               ],
             );
