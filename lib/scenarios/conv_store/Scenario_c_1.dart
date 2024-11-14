@@ -20,6 +20,18 @@ class c_1_enterTheStore_left extends StatefulWidget {
 
 class _c_1_enterTheStore_leftState extends State<c_1_enterTheStore_left> {
   @override
+  void initState() {
+    super.initState();
+    _playWelcomeTTS();
+  }
+
+  Future<void> _playWelcomeTTS() async {
+    await tts.TextToSpeech(
+        "편의점에 도착했습니다. 저기 편의점 출입구가 보이네요. 오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
+        "ko-KR-Wavenet-D");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
@@ -41,24 +53,28 @@ class c_1_enterTheStore_right extends StatefulWidget {
 }
 
 class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
-  @override
-  void initState() {
-    super.initState();
-    _playWelcomeTTS();
+  SMITrigger? _touch;
+
+  void _onRiveInit(Artboard artboard) {
+    final controller =
+        StateMachineController.fromArtboard(artboard, 'State Machine 1');
+    artboard.addController(controller!);
+    _touch = controller.findInput<bool>('Trigger 1') as SMITrigger;
   }
 
-  Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech(
-        "편의점에 도착했습니다. 저기 편의점 출입구가 보이네요. 오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
-        "ko-KR-Wavenet-D");
-  }
+  void _hitBump() => _touch?.fire();
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: Center(
-      child: RiveAnimation.asset(
-          "assets/door_opening.riv"
+      child: GestureDetector(
+        onTap: _hitBump,
+        child: RiveAnimation.asset(
+          "assets/door_opening.riv",
+          fit: BoxFit.contain,
+          onInit: _onRiveInit,
+        ),
       ),
     ));
   }
