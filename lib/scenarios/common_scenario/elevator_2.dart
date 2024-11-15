@@ -38,8 +38,6 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
   }
 }
 
-
-
 class Elevator_2_right extends StatefulWidget {
   const Elevator_2_right({super.key});
 
@@ -82,7 +80,7 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
         child: GestureDetector(
           onTap: _hitBump,
           child: RiveAnimation.asset(
-            "assets/common/elevator_door.riv",
+            "assets/elevator_door.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           ),

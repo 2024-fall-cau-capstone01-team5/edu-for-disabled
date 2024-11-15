@@ -226,7 +226,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: sinarioProvider.flag3 == 1
+                    child: true
                         ? GestureDetector(
                      onTap: _hitBump,
                      child: RiveAnimation.asset(

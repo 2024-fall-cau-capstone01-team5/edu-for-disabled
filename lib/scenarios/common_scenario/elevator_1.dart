@@ -89,7 +89,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
           onTapDown: (_) => _hitBumpDown(),
           onTapUp: (_) => _hitBumpUp(),
           child: RiveAnimation.asset(
-            "assets/door_open.riv",
+            "assets/elevator_button.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           ),
