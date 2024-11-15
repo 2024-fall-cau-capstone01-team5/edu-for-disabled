@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
-class Elevator_left extends StatefulWidget {
-  const Elevator_left({super.key});
+final tts = TTS();
+
+class Elevator_1_left extends StatefulWidget {
+  const Elevator_1_left({super.key});
 
   @override
-  State<Elevator_left> createState() => _Elevator_leftState();
+  State<Elevator_1_left> createState() => _Elevator_1_leftState();
 }
 
-class _Elevator_leftState extends State<Elevator_left> {
+class _Elevator_1_leftState extends State<Elevator_1_left> {
   @override
   void initState() {
     super.initState();
@@ -35,14 +38,14 @@ class _Elevator_leftState extends State<Elevator_left> {
   }
 }
 
-class Elevator_right extends StatefulWidget {
-  const Elevator_right({super.key});
+class Elevator_1_right extends StatefulWidget {
+  const Elevator_1_right({super.key});
 
   @override
-  State<Elevator_right> createState() => _Elevator_rightState();
+  State<Elevator_1_right> createState() => _Elevator_1_rightState();
 }
 
-class _Elevator_rightState extends State<Elevator_right> {
+class _Elevator_1_rightState extends State<Elevator_1_right> {
   SMITrigger? _touch_down;
   SMITrigger? _touch_up;
 

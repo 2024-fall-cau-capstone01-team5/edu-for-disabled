@@ -1,19 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
-class Elevator_right extends StatefulWidget {
-  const Elevator_right({super.key});
+final tts = TTS();
+
+class Elevator_2_left extends StatefulWidget {
+  const Elevator_2_left({super.key});
 
   @override
-  State<Elevator_right> createState() => _Elevator_rightState();
+  State<Elevator_2_left> createState() => _Elevator_2_leftState();
 }
 
-class _Elevator_rightState extends State<Elevator_right> {
-  SMITrigger? _touch_down;
-  SMITrigger? _touch_up;
+class _Elevator_2_leftState extends State<Elevator_2_left> {
+  @override
+  void initState() {
+    super.initState();
+    _playWelcomeTTS();
+  }
+
+  Future<void> _playWelcomeTTS() async {
+    await tts.TextToSpeech("문을 터치해보세요!", "ko-KR-Wavenet-D");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      // Container의 borderRadius와 동일하게 설정
+      child: const Image(
+        image: AssetImage("assets/elevator.png"),
+        fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
+      ),
+    );
+  }
+}
+
+
+
+class Elevator_2_right extends StatefulWidget {
+  const Elevator_2_right({super.key});
+
+  @override
+  State<Elevator_2_right> createState() => _Elevator_2_rightState();
+}
+
+class _Elevator_2_rightState extends State<Elevator_2_right> {
+  SMITrigger? _touch;
 
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
@@ -24,19 +59,13 @@ class _Elevator_rightState extends State<Elevator_right> {
 
     if (controller != null) {
       artboard.addController(controller);
-      _touch_down = controller.findInput<SMITrigger>('touch_down') as SMITrigger?;
-      _touch_up = controller.findInput<SMITrigger>('touch_up') as SMITrigger?;
+      _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
     }
   }
 
-  void _hitBumpDown() {
-    _touch_down?.fire();
-    print("Touch Down TRIGGERED!");
-  }
-
-  void _hitBumpUp() {
-    _touch_up?.fire();
-    print("Touch Up TRIGGERED!");
+  void _hitBump() {
+    _touch?.fire();
+    print("Touch TRIGGERED!");
   }
 
   void _onStateChange(String stateMachineName, String stateName) {
@@ -51,10 +80,9 @@ class _Elevator_rightState extends State<Elevator_right> {
     return Scaffold(
       body: Center(
         child: GestureDetector(
-          onTapDown: (_) => _hitBumpDown(),
-          onTapUp: (_) => _hitBumpUp(),
+          onTap: _hitBump,
           child: RiveAnimation.asset(
-            "assets/door_open.riv",
+            "assets/common/elevator_door.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           ),
