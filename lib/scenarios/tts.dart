@@ -4,7 +4,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:http/http.dart' as http;
 
 class TTS{
-
   final String url = "https://texttospeech.googleapis.com/v1/text:synthesize?key="
       "AIzaSyD9g2hlOrDb5YU_P25v4F5fjyLbPGIfk1M";
   final player = AudioPlayer();
@@ -15,7 +14,7 @@ class TTS{
       "audioConfig": {
         "audioEncoding": "LINEAR16",
         "pitch": 0,
-        "speakingRate": 0
+        "speakingRate": 0.8
       },
       "input": {
         "text": text  // 매개변수로 받은 값을 사용
@@ -46,5 +45,8 @@ class TTS{
       print('Error: ${response.statusCode} ${response.body}');
     }
   }
-}
 
+  void dispose(){
+    player.dispose();
+  }
+}
