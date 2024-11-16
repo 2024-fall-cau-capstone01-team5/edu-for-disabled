@@ -79,8 +79,11 @@ lib/third.dart
 lib/main.dart
 
 # test directory
-
 test/
+
+# project dir
+.idea
+.gitignore
 
 
 
