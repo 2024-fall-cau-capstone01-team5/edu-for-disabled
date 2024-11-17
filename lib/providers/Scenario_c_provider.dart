@@ -21,7 +21,7 @@ class Sinario_c_provider extends Scenario_Manager {
   List<Widget> get leftScreen => [
     c_1_enterTheStore_left(),
     c_2_enterTheStore_left(),
-    c_3_display_left(),
+    // c_3_display_left(),
     c_4_display_left(),
     c_5_display_left(),
     c_6_display_left(),
@@ -32,7 +32,7 @@ class Sinario_c_provider extends Scenario_Manager {
   List<Widget> get rightScreen => [
     c_1_enterTheStore_right(),
     c_2_enterTheStore_right(),
-    c_3_display_right(),
+    // c_3_display_right(),
     c_4_display_right(),
     c_5_display_right(),
     c_6_display_right(),

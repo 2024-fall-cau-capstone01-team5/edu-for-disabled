@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
-import '../../providers/Scenario_c_provider.dart';
 import '../tts.dart';
+import '../stt.dart';
 import 'package:audioplayers/audioplayers.dart';
+
+import '../StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -17,6 +18,7 @@ class c_2_enterTheStore_left extends StatefulWidget {
 }
 
 final TTS tts = TTS();
+final STT stt = STT();
 
 class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
   String actors_image = "";
@@ -94,12 +96,22 @@ class c_2_enterTheStore_right extends StatefulWidget {
 }
 
 class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
+  String? face_choice;
+
+
 
   Future<void> good_job() async{
     await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
     await tts.TextToSpeech("잘 하셨습니다.",
         "ko-KR-Wavenet-D");
     await Future.delayed(const Duration(seconds: 2));
+
+    StepData step_data = StepData(
+        sceneId: "convenience 2",
+        question: "인사를 했을 때의 나의 기분을 선택해보세요",
+        answer: face_choice!,
+      //수정 필요
+    );
   }
 
   @override
@@ -115,6 +127,9 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
+                      setState(() {
+                        face_choice = "neutral";
+                      });
                       await good_job();
 
                       sinarioProvider.decrement_flag();
@@ -133,6 +148,9 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
+                      setState(() {
+                        face_choice = "dissatisfied";
+                      });
                       await good_job();
 
                       sinarioProvider.decrement_flag();
@@ -151,6 +169,9 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
+                      setState(() {
+                        face_choice = "satisfied";
+                      });
                       await good_job();
 
                       sinarioProvider.decrement_flag();
@@ -169,6 +190,17 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag2 == 1
                       ? ElevatedButton(
                     onPressed: () async{
+
+                      String answer = await stt.gettext(3);
+                      StepData step_data = StepData(
+                          sceneId: "convenience 2",
+                          question: "편의점 직원분께 인사를 해보세요",
+                          answer: answer
+                      );
+
+                      //step_data.toJson();
+                      //Json 리턴
+
                       await tts.TextToSpeech("잘 하셨습니다. 인사를 하고"
                           "나니 기분이 어떤가요? 오른쪽 화면에 나와있는 얼굴들 중 하나를 선택해보세요",
                           "ko-KR-Wavenet-D");

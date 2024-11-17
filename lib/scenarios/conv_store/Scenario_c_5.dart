@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
 import '../tts.dart';
+import '../stt.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rive/rive.dart' hide Image;
 

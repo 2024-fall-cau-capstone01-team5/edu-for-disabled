@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
-import '../../providers/Scenario_c_provider.dart';
 import '../tts.dart';
 import 'package:audioplayers/audioplayers.dart';
+import '../StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -18,6 +17,7 @@ class c_4_display_left extends StatefulWidget {
 class _c_4_display_leftState extends State<c_4_display_left> {
 
   final TTS tts = TTS();
+  String? stuff_choice;
 
   @override
   void initState() {
@@ -29,6 +29,20 @@ class _c_4_display_leftState extends State<c_4_display_left> {
 
     await tts.TextToSpeech("찾는 물건은 어디있나요? 올바른 물건을 선택해보세요",
         "ko-KR-Wavenet-D");
+  }
+
+  Future<void> _goodChoiceTTS() async {
+
+    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+    await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
+    await Future.delayed(Duration(seconds: 2));
+
+    StepData step_data = StepData(
+        sceneId: "convenience 3",
+        question: "찾는 물건은 어디있나요? 올바른 물건을 선택해보세요",
+        answer: stuff_choice!,
+    );
+
   }
 
   @override
@@ -51,10 +65,10 @@ class _c_4_display_leftState extends State<c_4_display_left> {
                     alignment: Alignment.topCenter,
                     child: ElevatedButton(
                       onPressed: () async {
-                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                        await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                        await Future.delayed(Duration(seconds: 2));
-
+                        setState(() {
+                          stuff_choice = "과자";
+                        });
+                        _goodChoiceTTS();
                         sinarioProvider.updateIndex();
                       },
                       child: Container(
@@ -62,91 +76,6 @@ class _c_4_display_leftState extends State<c_4_display_left> {
                         height: 50, // 원하는 높이
                         child: Image(
                           image: AssetImage("assets/cookie.png"),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () async{
-                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                        await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                        await Future.delayed(Duration(seconds: 2));
-
-                        sinarioProvider.updateIndex();
-                      },
-                      child: Container(
-                        width: 50, // 원하는 너비
-                        height: 50, // 원하는 높이
-                        child: Image(
-                          image: AssetImage("assets/chips.png"),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment(100, 100),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                        await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                        await Future.delayed(Duration(seconds: 2));
-
-                        sinarioProvider.updateIndex();
-                      },
-                      child: Container(
-                        width: 50, // 원하는 너비
-                        height: 50, // 원하는 높이
-                        child: Image(
-                          image: AssetImage("assets/chocolate.png"),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                        await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                        await Future.delayed(Duration(seconds: 2));
-
-                        sinarioProvider.updateIndex();
-                      },
-                      child: Container(
-                        width: 50, // 원하는 너비
-                        height: 50, // 원하는 높이
-                        child: Image(
-                          image: AssetImage("assets/pop_corn.png"),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                        await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-                        await Future.delayed(Duration(seconds: 2));
-
-                        sinarioProvider.updateIndex();
-                      },
-                      child: Container(
-                        width: 50, // 원하는 너비
-                        height: 50, // 원하는 높이
-                        child: Image(
-                          image: AssetImage("assets/pererro.png"),
-                          fit: BoxFit.cover, // 이미지를 부모 크기에 맞게 조절
                         ),
                       ),
                     ),

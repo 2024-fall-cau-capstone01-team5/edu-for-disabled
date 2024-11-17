@@ -73,8 +73,14 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
     _touch?.fire();
     print("Touch TRIGGERED!!!!");
     
-    StepData step_data = StepData(sceneId: "convenience 1", question: "문을 터치하고 편의점에 들어가 보세요", answer: "터치 완료")
-    
+    StepData step_data = StepData(
+        sceneId: "convenience 1",
+        question: "문을 터치하고 편의점에 들어가 보세요",
+        answer: "터치 완료"
+    );
+
+    //step_data.toJson();
+    // json으로 return
 
   }
 
