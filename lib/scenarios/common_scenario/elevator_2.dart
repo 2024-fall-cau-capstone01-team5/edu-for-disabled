@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpractice/scenario.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
@@ -31,7 +32,7 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/common/elevator_inside.png"),
+        image: AssetImage("assets/common/elevator.png"),
         fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
@@ -78,14 +79,22 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: GestureDetector(
-          onTap: _hitBump,
-          child: RiveAnimation.asset(
-            "assets/elevator_door.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
+        child: Stack(children: [
+          GestureDetector(
+            onTap: _hitBump,
+            child: RiveAnimation.asset(
+              "assets/elevator_door.riv",
+              fit: BoxFit.contain,
+              onInit: _onRiveInit,
+            ),
           ),
-        ),
+          ElevatedButton(
+              onPressed: (){
+                Provider.of<Scenario_Manager>(context,listen: false).updateIndex();
+              },
+              child: Text("강제 화면 넘기기")
+          )
+        ]),
       ),
     );
   }

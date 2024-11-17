@@ -27,9 +27,10 @@ class Sinario_c_provider extends Scenario_Manager {
 
   @override
   List<Widget> get leftScreen => [
-    // Go_outside_left(),
-    // Elevator_1_left(),
-    // Elevator_2_right(),
+    Go_outside_left(),
+    Elevator_1_left(),
+    Elevator_2_left(),
+    Elevator_3_left(),
 
     c_1_enterTheStore_left(),
     c_2_enterTheStore_left(),
@@ -42,9 +43,10 @@ class Sinario_c_provider extends Scenario_Manager {
 
   @override
   List<Widget> get rightScreen => [
-    // Go_outside_right(),
-    // Elevator_1_right(),
-    // Elevator_2_right(),
+    Go_outside_right(),
+    Elevator_1_right(),
+    Elevator_2_right(),
+    Elevator_3_right(),
 
     c_1_enterTheStore_right(),
     c_2_enterTheStore_right(),

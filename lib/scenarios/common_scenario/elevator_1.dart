@@ -85,15 +85,23 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: GestureDetector(
-          onTapDown: (_) => _hitBumpDown(),
-          onTapUp: (_) => _hitBumpUp(),
-          child: RiveAnimation.asset(
-            "assets/elevator_button.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
+        child: Stack(children: [
+          GestureDetector(
+            onTapDown: (_) => _hitBumpDown(),
+            onTapUp: (_) => _hitBumpUp(),
+            child: RiveAnimation.asset(
+              "assets/elevator_button.riv",
+              fit: BoxFit.contain,
+              onInit: _onRiveInit,
+            ),
           ),
-        ),
+          ElevatedButton(
+              onPressed: (){
+                Provider.of<Scenario_Manager>(context,listen: false).updateIndex();
+              },
+              child: Text("강제 화면 넘기기")
+          )
+        ]),
       ),
     );
   }
