@@ -64,6 +64,9 @@ class _c_7_congratuations_rightState extends State<c_7_congratuations_right> {
               "나가기",
               style: TextStyle(fontSize: 40),
               textAlign: TextAlign.center,
+              
+              //오디오 멈추는 작업 하기
+              
             ),
         ),
       )
