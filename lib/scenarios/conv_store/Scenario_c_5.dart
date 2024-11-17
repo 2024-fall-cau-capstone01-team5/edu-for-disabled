@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpractice/scenarios/StepData.dart';
 import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
 import '../tts.dart';
-import '../stt.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rive/rive.dart' hide Image;
 
@@ -99,13 +99,21 @@ class c_5_display_right extends StatefulWidget {
 class _c_5_display_rightState extends State<c_5_display_right> {
   SMITrigger? _touch;
 
+  String? face_choice;
+
+
   @override
   void initState() {
     super.initState();
-    _playWelcomeTTS();
   }
 
   Future<void> _playWelcomeTTS() async {
+    StepData step_data = StepData(
+        sceneId: "convenience 4",
+        question: "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
+        answer: face_choice!,
+    );
+
     await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
     await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
     await Future.delayed(const Duration(seconds: 1));
@@ -133,16 +141,8 @@ class _c_5_display_rightState extends State<c_5_display_right> {
       "오른쪽 화면의 카드를 터치해 카드 리더기에 카드를 꽂아보세요.",
       "ko-KR-Wavenet-D",
     );
-    Provider.of<Scenario_Manager>(context,listen: false).decrement_flag3();
-
-
-
-
+    Provider.of<Scenario_Manager>(context,listen: false).increment_flag3();
   }
-
-
-
-
 
   void _onRiveInit(Artboard artboard) {
     final controller =
@@ -160,12 +160,12 @@ class _c_5_display_rightState extends State<c_5_display_right> {
   void _hitBump(){
     _touch?.fire();
     print("Touch TRIGGERED!!!!");
-
   }
 
   void _onStateChange(String stateMachineName, String stateName) {
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'exit') {
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag3();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }
@@ -185,6 +185,10 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
                       onPressed: () async {
+                        setState(() {
+                          face_choice = "neutral";
+                        });
+
                         _playWelcomeTTS();
                       },
                       child: const Icon(
@@ -200,6 +204,9 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
                       onPressed: () async{
+                        setState(() {
+                          face_choice = "dissatisfied";
+                        });
                        _playWelcomeTTS();
                       },
                       child: const Icon(
@@ -215,6 +222,9 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
                       onPressed: () async{
+                        setState(() {
+                          face_choice = "satisfied";
+                        });
                        _playWelcomeTTS();
                       },
                       child: const Icon(
@@ -227,7 +237,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: true
+                    child: sinarioProvider.flag3 == 1
                         ? GestureDetector(
                      onTap: _hitBump,
                      child: RiveAnimation.asset(
