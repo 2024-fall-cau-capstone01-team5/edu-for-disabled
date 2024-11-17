@@ -31,7 +31,7 @@ class _Elevator_1_leftState extends State<Elevator_1_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/elevator.png"),
+        image: AssetImage("assets/common/elevator.png"),
         fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
       ),
     );

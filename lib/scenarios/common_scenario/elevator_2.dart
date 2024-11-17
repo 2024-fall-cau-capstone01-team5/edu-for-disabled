@@ -31,7 +31,7 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/elevator.png"),
+        image: AssetImage("assets/common/elevator_inside.png"),
         fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
@@ -63,6 +63,7 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
 
   void _hitBump() {
     _touch?.fire();
+
     print("Touch TRIGGERED!");
   }
 

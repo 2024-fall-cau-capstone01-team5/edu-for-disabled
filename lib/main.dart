@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.gaeguTextTheme(),
       ),
-      home: LoginScreen(),
+      // home: LoginScreen(),
 
-      // home: Scenario('편의점'),
+      home: Scenario('편의점'),
     );
   }
 }

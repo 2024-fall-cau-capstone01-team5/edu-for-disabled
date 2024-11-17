@@ -36,7 +36,7 @@ class _Go_outside_leftState extends State<Go_outside_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/living_room.png"),
+        image: AssetImage("assets/common/living_room.png"),
         fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
