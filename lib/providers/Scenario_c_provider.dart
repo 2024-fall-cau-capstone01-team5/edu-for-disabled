@@ -15,6 +15,8 @@ class Sinario_c_provider extends Scenario_Manager {
   String get title => "편의점을 가보자!";
   String get backGroundMusic => "Pond.mp3";
 
+  //String 살거 물품;
+
   @override
   List<Widget> get leftScreen => [
     c_1_enterTheStore_left(),

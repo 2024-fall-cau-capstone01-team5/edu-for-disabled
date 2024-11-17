@@ -64,11 +64,7 @@ class _Go_outside_rightState extends State<Go_outside_right> {
     );
     artboard.addController(controller!);
 
-
-
-    _touch = controller.findInput<bool>('touch') as SMITrigger;
-
-
+      _touch = controller.findInput<bool>('touch') as SMITrigger;
   }
 
   void _hitBump(){
