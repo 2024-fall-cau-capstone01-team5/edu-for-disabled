@@ -1,19 +1,23 @@
 class StepData {
-  final String sceneId;
+  final String title;
+  final int scene_id;
   final String question;
-  final String answer;
+  final String response;
 
+  // Named parameter를 사용하는 생성자
   StepData({
-    required this.sceneId,
+    required this.title,
+    required this.scene_id,
     required this.question,
-    required this.answer,
+    required this.response,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'scene_num': sceneId,
-      'question': question,
-      'answer': answer,
+      "title": title,
+      "scene_id": scene_id,
+      "question": question,
+      "response": response,
     };
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../scenarios/StepData.dart';
 import '../scenarios/tts.dart';
 
 abstract class Scenario_Manager extends ChangeNotifier {
@@ -9,8 +10,7 @@ abstract class Scenario_Manager extends ChangeNotifier {
   int flag5 = 0;
 
   int index = 0;
-
-
+  List<StepData> stepDatas = [];
   final TTS tts = TTS();
 
   String get title;
@@ -27,14 +27,14 @@ abstract class Scenario_Manager extends ChangeNotifier {
     print("index updated!!!! INDEX: $index");
   }
 
-  // void addStepInfo(String question, String response) {
-  //   stepDatas.add(StepData(
-  //     title: title,
-  //     scene_id: index,
-  //     question: question,
-  //     response: response,
-  //   ));
-  // }
+  void addStepInfo(String question, String response) {
+    stepDatas.add(StepData(
+      title: title,
+      scene_id: index,
+      question: question,
+      response: response,
+    ));
+  }
 
   Future<void> playTTS(String text, String name) async {
     await tts.TextToSpeech(text, name);

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpractice/scenarios/StepData.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
+import '../../providers/Scenario_c_provider.dart';
 import '../tts.dart';
-import '../stt.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
-final STT stt = STT();
 
 
 class c_6_display_left extends StatefulWidget {
@@ -29,8 +28,7 @@ class _c_6_display_leftState extends State<c_6_display_left> {
 
   Future<void> _playWelcomeTTS() async {
 
-    await tts.TextToSpeech("편의점을 나가기 전에 놓고 온 물건이 있나요? 카드는 다시 챙겼나요? "
-        "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 생각해주세요",
+    await tts.TextToSpeech("편의점을 나가기 전에 놓고 온 물건이 있나요? 카드는 다시 챙겼나요? 혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 생각해주세요",
         "ko-KR-Wavenet-D");
 
     await Future.delayed(Duration(seconds: 10));
@@ -42,8 +40,7 @@ class _c_6_display_leftState extends State<c_6_display_left> {
 
     await Future.delayed(Duration(seconds: 2));
 
-    await tts.TextToSpeech("편의점 직원분께서 잘 가라고 인사를 해주시네요 우리도 같이 인사해 볼까요? "
-        "오른쪽 화면의 버튼을 클릭해 소리내어 안녕히가세요라고 인사를 해 보세요",
+    await tts.TextToSpeech("편의점 직원분께서 잘 가라고 인사를 해주시네요 우리도 같이 인사해 볼까요? 오른쪽 화면의 버튼을 클릭해 소리내어 안녕히가세요라고 인사를 해 보세요",
         "ko-KR-Wavenet-D");
 
     await Future.delayed(Duration(seconds: 10));
@@ -76,7 +73,6 @@ class _c_6_display_leftState extends State<c_6_display_left> {
                     )
                         : SizedBox.shrink(),
                   ),
-
                 ],
               ),
             )
@@ -108,15 +104,6 @@ class _c_6_display_rightState extends State<c_6_display_right> {
                 child: sinarioProvider.flag2 == 1 ?
                 ElevatedButton(
                   onPressed: () async {
-                    String answer = await stt.gettext(3);
-
-                    StepData step_data = StepData(
-                        sceneId: "convenience 5",
-                        question: "편의점 직원분께 안녕히 계세요라고 인사해보세요",
-                        answer: answer
-                    );
-                    //step_data.toJson();
-
                     await Future.delayed(Duration(seconds: 3));
                     await tts.TextToSpeech("잘 하셨습니다. 이제 오른쪽 화면의 문을 터치해 편의점을 나가보세요",
                         "ko-KR-Wavenet-D");

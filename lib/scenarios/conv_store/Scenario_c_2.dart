@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
+import '../../providers/Scenario_c_provider.dart';
 import '../tts.dart';
-import '../stt.dart';
 import 'package:audioplayers/audioplayers.dart';
-
-import '../StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -18,7 +17,6 @@ class c_2_enterTheStore_left extends StatefulWidget {
 }
 
 final TTS tts = TTS();
-final STT stt = STT();
 
 class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
   String actors_image = "";
@@ -33,22 +31,22 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
     await tts.TextToSpeech("편의점 안으로 들어왔습니다. 편의점 카운터에 직원분이 보이네요. 직원분께서 어서오세요라고 인사를 합니다",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(const Duration(seconds: 7));
+    await Future.delayed(Duration(seconds: 7));
 
     setState(() {
       actors_image = "assets/actor_sample.png";
     });
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
 
     await tts.TextToSpeech("어서오세요~", "ko-KR-Wavenet-C");
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
 
     await tts.TextToSpeech("편의점 직원분께서 인사를 해주셨네요. 저희도 안녕하세요라고 인사를 해볼까요? 오른쪽 화면의 버튼을 클릭해 안녕하세요라고 소리내어 말해보세요",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(const Duration(seconds: 7));
+    await Future.delayed(Duration(seconds: 7));
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
   }
@@ -63,7 +61,7 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
             child: Stack(
               children: [
                 // 배경 이미지 (아래쪽에 위치)
-                const Positioned.fill(
+                Positioned.fill(
                   child: Image(
                     image: AssetImage("assets/c_inside.PNG"),
                     fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
@@ -73,11 +71,11 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
                 Positioned.fill(
                   child: actors_image != ""
                       ? FadeInImage(
-                    placeholder: const AssetImage("assets/transparent.png"), // 빈 투명 이미지
+                    placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
                     image: AssetImage(actors_image),
-                    fadeInDuration: const Duration(seconds: 1), // 페이드 인 지속 시간
+                    fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
                   )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(),
                 ),
               ],
             ),
@@ -96,23 +94,7 @@ class c_2_enterTheStore_right extends StatefulWidget {
 }
 
 class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
-  String? face_choice;
-
-
-
-  Future<void> good_job() async{
-    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-    await tts.TextToSpeech("잘 하셨습니다.",
-        "ko-KR-Wavenet-D");
-    await Future.delayed(const Duration(seconds: 2));
-
-    StepData step_data = StepData(
-        sceneId: "convenience 2",
-        question: "인사를 했을 때의 나의 기분을 선택해보세요",
-        answer: face_choice!,
-      //수정 필요
-    );
-  }
+  String Facechoice = "";
 
   @override
   Widget build(BuildContext context) {
@@ -127,94 +109,79 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      setState(() {
-                        face_choice = "neutral";
-                      });
-                      await good_job();
-
+                      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                      await tts.TextToSpeech("잘 하셨습니다.",
+                          "ko-KR-Wavenet-D");
+                      await Future.delayed(Duration(seconds: 1));
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.sentiment_neutral, // 중립 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(),
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      setState(() {
-                        face_choice = "dissatisfied";
-                      });
-                      await good_job();
-
+                      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                      await tts.TextToSpeech("잘 하셨습니다.",
+                          "ko-KR-Wavenet-D");
+                      await Future.delayed(Duration(seconds: 1));
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.sentiment_very_dissatisfied, // 화난 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: sinarioProvider.flag == 1
                       ? ElevatedButton(
                     onPressed: () async{
-                      setState(() {
-                        face_choice = "satisfied";
-                      });
-                      await good_job();
-
+                      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                      await tts.TextToSpeech("잘 하셨습니다.",
+                          "ko-KR-Wavenet-D");
+                      await Future.delayed(Duration(seconds: 1));
                       sinarioProvider.decrement_flag();
                       sinarioProvider.updateIndex();
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.sentiment_satisfied_alt_outlined, // 만족 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(),
                 ),
                 Align(
                   alignment: Alignment.center,
                   child: sinarioProvider.flag2 == 1
                       ? ElevatedButton(
                     onPressed: () async{
-
-                      String answer = await stt.gettext(3);
-                      StepData step_data = StepData(
-                          sceneId: "convenience 2",
-                          question: "편의점 직원분께 인사를 해보세요",
-                          answer: answer
-                      );
-
-                      //step_data.toJson();
-                      //Json 리턴
-
-                      await tts.TextToSpeech("잘 하셨습니다. 인사를 하고"
-                          "나니 기분이 어떤가요? 오른쪽 화면에 나와있는 얼굴들 중 하나를 선택해보세요",
+                      await tts.TextToSpeech("잘 하셨습니다. 여기서 퀴즈. 인사를 받은 편의점 직원분의 얼굴은 어떤 표정일까요? 왼쪽 화면에 보이는 여러 얼굴들 중 하나를 선택해 터치해보세요",
                           "ko-KR-Wavenet-D");
-                      await Future.delayed(const Duration(seconds: 7));
+                      await Future.delayed(Duration(seconds: 7));
                       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag2();
                       Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.mic, // 만족 이모티콘
                       size: 90,
                       color: Colors.black,
                     ),
                   )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(),
                 ),
               ],
             );

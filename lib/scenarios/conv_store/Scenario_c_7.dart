@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../providers/Scenario_Manager.dart';
+import '../../providers/Scenario_c_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
 
@@ -57,16 +60,11 @@ class _c_7_congratuations_rightState extends State<c_7_congratuations_right> {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-            onPressed: (){
-              Navigator.pop(context);
-            },
+            onPressed: (){},
             child: Text(
               "나가기",
               style: TextStyle(fontSize: 40),
               textAlign: TextAlign.center,
-              
-              //오디오 멈추는 작업 하기
-              
             ),
         ),
       )

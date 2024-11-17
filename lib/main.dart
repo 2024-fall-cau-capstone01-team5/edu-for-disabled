@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'scenario.dart';
-
 String? get font => GoogleFonts.gaegu().fontFamily;
 
 void main() {
@@ -18,8 +16,6 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.gaeguTextTheme(),
       ),
       home: LoginScreen(),
-
-      // home: Scenario('편의점'),
     );
   }
 }

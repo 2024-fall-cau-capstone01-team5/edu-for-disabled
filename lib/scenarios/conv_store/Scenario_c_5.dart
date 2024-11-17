@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpractice/scenarios/StepData.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
+import '../../providers/Scenario_c_provider.dart';
 import '../tts.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:rive/rive.dart' hide Image;
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -31,7 +31,7 @@ class _c_5_display_leftState extends State<c_5_display_left> {
     await tts.TextToSpeech("그럼, 물건을 다 골랐으니 계산을 해볼까요?",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 4));
 
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -39,12 +39,12 @@ class _c_5_display_leftState extends State<c_5_display_left> {
     await tts.TextToSpeech("이런, 먼저 계산을 하러 온 손님이 있네요. 조금만 기다려볼까요?",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(const Duration(seconds: 7));
+    await Future.delayed(Duration(seconds: 7));
 
     await tts.TextToSpeech("지금 계산 줄을 기다리고 있는 나의 기분은 어떤가요? 화면 오른쪽에 나와있는 여러 얼굴들 중 하나를 선택해보세요",
         "ko-KR-Wavenet-D");
 
-    await Future.delayed(const Duration(seconds: 7));
+    await Future.delayed(Duration(seconds: 7));
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
   }
@@ -58,7 +58,7 @@ class _c_5_display_leftState extends State<c_5_display_left> {
             borderRadius: BorderRadius.circular(20), // 원하는 반경으로 설정
             child: Stack(
               children: [
-                const Positioned.fill(
+                Positioned.fill(
                   child: Image(
                     image: AssetImage("assets/c_counter.png"),
                     fit: BoxFit.cover, // 부모 크기에 맞춰 채우도록 설정
@@ -66,19 +66,19 @@ class _c_5_display_leftState extends State<c_5_display_left> {
                 ),
                 Positioned.fill(
                   child: sinarioProvider.flag == 1
-                      ? const Image(
+                      ? Image(
                     image: AssetImage("assets/silhouette.png"),
                   )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(),
                 ),
                 Positioned.fill(
                   child: sinarioProvider.flag4 == 1
-                      ? const FadeInImage(
+                      ? FadeInImage(
                     placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
                     image: AssetImage("assets/actor_sample.png"),
                     fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
                   )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(),
                 ),
               ],
             ),
@@ -97,80 +97,6 @@ class c_5_display_right extends StatefulWidget {
 }
 
 class _c_5_display_rightState extends State<c_5_display_right> {
-  SMITrigger? _touch;
-
-  String? face_choice;
-
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Future<void> _playWelcomeTTS() async {
-    StepData step_data = StepData(
-        sceneId: "convenience 4",
-        question: "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
-        answer: face_choice!,
-    );
-
-    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-    await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
-    await Future.delayed(const Duration(seconds: 1));
-    Provider.of<Scenario_Manager>(context,listen: false).decrement_flag();
-    Provider.of<Scenario_Manager>(context,listen: false).decrement_flag2();
-    await tts.TextToSpeech(
-      "드디어 차례가 왔네요. 지금부터 계산을 해볼까요?",
-      "ko-KR-Wavenet-D",
-    );
-
-    await Future.delayed(const Duration(seconds: 4));
-
-    Provider.of<Scenario_Manager>(context,listen: false).decrement_flag4();
-
-    await Future.delayed(const Duration(seconds: 1));
-
-    await tts.TextToSpeech(
-      "천 오백원입니다. 결제 도와드릴게요.",
-      "ko-KR-Wavenet-C",
-    );
-
-    await Future.delayed(const Duration(seconds: 4));
-
-    await tts.TextToSpeech(
-      "오른쪽 화면의 카드를 터치해 카드 리더기에 카드를 꽂아보세요.",
-      "ko-KR-Wavenet-D",
-    );
-    Provider.of<Scenario_Manager>(context,listen: false).increment_flag3();
-  }
-
-  void _onRiveInit(Artboard artboard) {
-    final controller =
-    StateMachineController.fromArtboard(
-      artboard,
-      'State Machine 1',
-      onStateChange: _onStateChange,
-
-    );
-    artboard.addController(controller!);
-
-    _touch = controller.findInput<bool>('touch') as SMITrigger;
-  }
-
-  void _hitBump(){
-    _touch?.fire();
-    print("Touch TRIGGERED!!!!");
-  }
-
-  void _onStateChange(String stateMachineName, String stateName) {
-    // 애니메이션이 끝나는 상태를 확인하여 print
-    if (stateName == 'exit') {
-      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag3();
-      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-      print("EXIT");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,68 +111,157 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
                       onPressed: () async {
-                        setState(() {
-                          face_choice = "neutral";
-                        });
+                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                        await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 1));
+                        sinarioProvider.decrement_flag();
+                        sinarioProvider.decrement_flag2();
+                        await tts.TextToSpeech(
+                          "드디어 차례가 왔네요. 지금부터 계산을 해볼까요?",
+                          "ko-KR-Wavenet-D",
+                        );
 
-                        _playWelcomeTTS();
+                        await Future.delayed(Duration(seconds: 4));
+
+                        sinarioProvider.increment_flag4();
+
+                        await Future.delayed(Duration(seconds: 1));
+
+                        await tts.TextToSpeech(
+                          "천 오백원입니다. 결제 도와드릴게요",
+                          "ko-KR-Wavenet-C",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        await tts.TextToSpeech(
+                          "오른쪽 화면의 카드를 터치해 편의점 직원분께 카드를 넘겨주세요.",
+                          "ko-KR-Wavenet-D",
+                        );
+                        sinarioProvider.increment_flag3();
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.sentiment_neutral,
                         size: 90,
                         color: Colors.black,
                       ),
                     )
-                        : const SizedBox.shrink(),
+                        : SizedBox.shrink(),
                   ),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
                       onPressed: () async{
-                        setState(() {
-                          face_choice = "dissatisfied";
-                        });
-                       _playWelcomeTTS();
+                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                        await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 1));
+                        sinarioProvider.decrement_flag();
+                        sinarioProvider.decrement_flag2();
+                        await tts.TextToSpeech(
+                          "드디어 차례가 왔네요. 지금부터 계산을 해볼까요?",
+                          "ko-KR-Wavenet-D",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        sinarioProvider.increment_flag4();
+
+                        await Future.delayed(Duration(seconds: 1));
+
+                        await tts.TextToSpeech(
+                          "천 오백원입니다. 결제 도와드릴게요",
+                          "ko-KR-Wavenet-C",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        await tts.TextToSpeech(
+                          "오른쪽 화면의 카드를 터치해 편의점 직원분께 카드를 넘겨주세요.",
+                          "ko-KR-Wavenet-D",
+                        );
+                        sinarioProvider.increment_flag3();
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.sentiment_very_dissatisfied,
                         size: 90,
                         color: Colors.black,
                       ),
                     )
-                        : const SizedBox.shrink(),
+                        : SizedBox.shrink(),
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: sinarioProvider.flag2 == 1
                         ? ElevatedButton(
                       onPressed: () async{
-                        setState(() {
-                          face_choice = "satisfied";
-                        });
-                       _playWelcomeTTS();
+                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                        await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
+                        await Future.delayed(Duration(seconds: 1));
+                        sinarioProvider.decrement_flag();
+                        sinarioProvider.decrement_flag2();
+                        await tts.TextToSpeech(
+                          "드디어 차례가 왔네요. 지금부터 계산을 해볼까요?",
+                          "ko-KR-Wavenet-D",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        sinarioProvider.increment_flag4();
+
+                        await Future.delayed(Duration(seconds: 1));
+
+                        await tts.TextToSpeech(
+                          "천 오백원입니다. 결제 도와드릴게요",
+                          "ko-KR-Wavenet-C",
+                        );
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        await tts.TextToSpeech(
+                          "오른쪽 화면의 카드를 터치해 편의점 직원분께 카드를 넘겨주세요.",
+                          "ko-KR-Wavenet-D",
+                        );
+                        sinarioProvider.increment_flag3();
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.sentiment_satisfied_alt_outlined,
                         size: 90,
                         color: Colors.black,
                       ),
                     )
-                        : const SizedBox.shrink(),
+                        : SizedBox.shrink(),
                   ),
                   Align(
                     alignment: Alignment.center,
                     child: sinarioProvider.flag3 == 1
-                        ? GestureDetector(
-                     onTap: _hitBump,
-                     child: RiveAnimation.asset(
-                       "assets/pos_animation.riv",
-                       fit: BoxFit.contain,
-                       onInit: _onRiveInit,
-                     ),
+                        ? ElevatedButton(
+                      onPressed: () async {
+                        await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                        await tts.TextToSpeech("네 카드 받았습니다. 잠시만 기다려주세요", "ko-KR-Wavenet-C");
+
+                        await Future.delayed(Duration(seconds: 4));
+
+                        await _audioPlayer.play(AssetSource("effect_beep.mp3"));
+
+                        await Future.delayed(Duration(seconds: 1));
+
+                        await tts.TextToSpeech("결제 완료되셨습니다", "ko-KR-Wavenet-C");
+
+                        await Future.delayed(Duration(seconds: 3));
+
+                        sinarioProvider.decrement_flag4();
+                        sinarioProvider.decrement_flag3();
+
+                        sinarioProvider.updateIndex();
+                      },
+                      child: Icon(
+                        Icons.credit_card,
+                        size: 100,
+                        color: Colors.black,
+                      ),
                     )
-                        : const SizedBox.shrink(),
+                        : SizedBox.shrink(),
                   ),
                 ],
               ),
