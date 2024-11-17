@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
 
 import 'package:rive/rive.dart' hide Image;
+import '../StepData.dart';
 
 final tts = TTS();
 
@@ -15,6 +16,7 @@ class Elevator_1_left extends StatefulWidget {
 }
 
 class _Elevator_1_leftState extends State<Elevator_1_left> {
+
   @override
   void initState() {
     super.initState();
@@ -22,7 +24,9 @@ class _Elevator_1_leftState extends State<Elevator_1_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("오른쪽 화면에 나오는 엘리베이터 호출 버튼을 눌러보세요", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech("우리는 지금 아래로 내려가야 할까요? 아니면 "
+        "위로 내려가야 할까요? 오른쪽 화면에 나오는 올바른"
+        "엘리베이터 호출 버튼을 눌러보세요", "ko-KR-Wavenet-D");
   }
 
   @override
@@ -66,12 +70,24 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
 
   void _hitBumpDown() {
     _touch_down?.fire();
-    print("Touch Down TRIGGERED!");
+    StepData step_data = StepData(
+        sceneId: "외출 common_scenario 2",
+        question: "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
+        answer: "호출: 위 방향"
+    );
+    //step_data.toJson();
+    //Json 변환
+
   }
 
   void _hitBumpUp() {
     _touch_up?.fire();
-    print("Touch Up TRIGGERED!");
+    StepData step_data = StepData(
+        sceneId: "외출 common_scenario 2",
+        question: "(위층으로 올라가야 하는 상황)엘리베이터 호출 버튼을 눌러보세요",
+        answer: "호출: 아래 방향"
+    );
+    //step_data.toJson();
   }
 
   void _onStateChange(String stateMachineName, String stateName) {

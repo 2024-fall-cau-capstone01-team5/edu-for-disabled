@@ -23,7 +23,8 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("문을 터치해보세요!", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech("오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요"
+        "!", "ko-KR-Wavenet-D");
   }
 
   @override
@@ -63,6 +64,7 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
   }
 
   void _hitBump() {
+
     _touch?.fire();
 
     print("Touch TRIGGERED!");
