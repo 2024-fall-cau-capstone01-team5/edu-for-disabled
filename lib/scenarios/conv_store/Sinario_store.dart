@@ -7,38 +7,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 String? get font => GoogleFonts.gaegu().fontFamily;
-
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft,
-  ]);
-
-  runApp(
-    ChangeNotifierProvider<Scenario_Manager>(
-      create: (context) => Sinario_c_provider(),
-      child: const MyApp(),
-    ),
-  );
-}
-
 AudioPlayer _audioPlayer = AudioPlayer();
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: GoogleFonts.gaeguTextTheme(),
-      ),
-      home: Scenario_Canvas(),
-    );
-  }
-}
 
 class Scenario_Canvas extends StatefulWidget {
   const Scenario_Canvas({super.key});

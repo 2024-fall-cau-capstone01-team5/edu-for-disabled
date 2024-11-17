@@ -44,7 +44,7 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
-    _playBackgroundMusic();
+    // _playBackgroundMusic();
   }
 
   Future<void> _playBackgroundMusic() async {
