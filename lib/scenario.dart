@@ -4,29 +4,75 @@ import 'providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
 import 'providers/Scenario_Manager.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 AudioPlayer _audioPlayer = AudioPlayer();
 
 class Scenario extends StatelessWidget {
   final String label;
+  final String user_id;
+  final String profile_name;
 
-  Scenario(this.label);
+  Scenario({required this.label, required this.user_id, required this.profile_name});
+
+  Future<String> _learnstart(String scenario_id) async {
+    final url = Uri.parse("http://20.9.151.223:8080/learn/start");
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "scenario_id": scenario_id,
+        "user_id": user_id,
+        "profile_name": profile_name,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+      return data["learning_log_id"].toString(); // 정정: JSON 키 값 "learning_log_id" 확인
+    } else {
+      throw Exception("Failed to start learning");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     if (label == '편의점') {
-      return ChangeNotifierProvider<Scenario_Manager>(
-        create: (context) => Sinario_c_provider(),
-        child: const Scenario_Canvas(),
+      return FutureBuilder<String>(
+        future: _learnstart('1'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // 로딩 중 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('로딩 중...')),
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // 에러 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('접속 장애 페이지')),
+              body: Center(
+                child: Text(
+                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            // 정상 상태
+            final learning_log_id = snapshot.data!;
+            return ChangeNotifierProvider<Scenario_Manager>(
+              create: (context) => Sinario_c_provider(learningLogId: learning_log_id),
+              child: const Scenario_Canvas(),
+            );
+          }
+        },
       );
     } else {
       return Scaffold(
-        appBar: AppBar(
-          title: Text('$label 시나리오'),
-        ),
-        body: Center(
-          child: Text('Welcome to the $label Scenario page!'),
-        ),
+        appBar: AppBar(title: Text('$label 시나리오')),
+        body: Center(child: Text('Welcome to the $label Scenario page!')),
       );
     }
   }

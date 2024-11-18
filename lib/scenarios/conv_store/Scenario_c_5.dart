@@ -90,7 +90,8 @@ class _c_5_display_leftState extends State<c_5_display_left> {
 }
 
 class c_5_display_right extends StatefulWidget {
-  const c_5_display_right({super.key});
+  final StepData step_data;
+  const c_5_display_right({super.key, required this.step_data});
 
   @override
   State<c_5_display_right> createState() => _c_5_display_rightState();
@@ -108,10 +109,10 @@ class _c_5_display_rightState extends State<c_5_display_right> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    StepData step_data = StepData(
-        sceneId: "convenience 4",
-        question: "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
-        answer: face_choice!,
+    widget.step_data.sendStepData(
+        "convenience 4",
+        "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
+        face_choice!,
     );
 
     await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
