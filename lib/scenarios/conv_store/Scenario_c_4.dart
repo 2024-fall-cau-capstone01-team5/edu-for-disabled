@@ -8,7 +8,8 @@ import '../StepData.dart';
 final AudioPlayer _audioPlayer = AudioPlayer();
 
 class c_4_display_left extends StatefulWidget {
-  const c_4_display_left({super.key});
+  final StepData step_data;
+  const c_4_display_left({super.key, required this.step_data});
 
   @override
   State<c_4_display_left> createState() => _c_4_display_leftState();
@@ -37,10 +38,10 @@ class _c_4_display_leftState extends State<c_4_display_left> {
     await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
     await Future.delayed(Duration(seconds: 2));
 
-    StepData step_data = StepData(
-        sceneId: "convenience 3",
-        question: "찾는 물건은 어디있나요? 올바른 물건을 선택해보세요",
-        answer: stuff_choice!,
+    widget.step_data.sendStepData(
+        "convenience 3",
+        "찾는 물건은 어디있나요? 올바른 물건을 선택해보세요",
+        stuff_choice!,
     );
     //step_data.toJson();
     //Json 변환

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Scenario_Manager.dart';
+import '../scenarios/StepData.dart';
 
 import '../scenarios/conv_store/Scenario_c_0.dart';
 import '../scenarios/conv_store/Scenario_c_1.dart';
@@ -18,6 +19,13 @@ import '../scenarios/common_scenario/traffic.dart';
 
 class Sinario_c_provider extends Scenario_Manager {
 
+  final String learningLogId;
+  late final StepData step_data;
+
+  Sinario_c_provider({required this.learningLogId}) {
+    step_data = StepData(learningLogId: learningLogId);
+  }
+
   @override
   String get title => "편의점을 가보자!";
   String get backGroundMusic => "Pond.mp3";
@@ -34,7 +42,7 @@ class Sinario_c_provider extends Scenario_Manager {
     c_1_enterTheStore_left(),
     c_2_enterTheStore_left(),
     // c_3_display_left(),
-    c_4_display_left(),
+    c_4_display_left(step_data: step_data),
     c_5_display_left(),
     c_6_display_left(),
     c_7_congratuations_left(),
@@ -43,16 +51,16 @@ class Sinario_c_provider extends Scenario_Manager {
   @override
   List<Widget> get rightScreen => [
     Go_outside_right(),
-    Elevator_1_right(),
+    Elevator_1_right(step_data: step_data),
     Elevator_2_right(),
-    Elevator_3_right(),
+    Elevator_3_right(step_data: step_data),
 
-    c_1_enterTheStore_right(),
-    c_2_enterTheStore_right(),
+    c_1_enterTheStore_right(step_data: step_data),
+    c_2_enterTheStore_right(step_data: step_data),
     // c_3_display_right(),
     c_4_display_right(),
-    c_5_display_right(),
-    c_6_display_right(),
+    c_5_display_right(step_data: step_data),
+    c_6_display_right(step_data: step_data),
     c_7_congratuations_right()
   ];
 

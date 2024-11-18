@@ -46,7 +46,8 @@ class _c_1_enterTheStore_leftState extends State<c_1_enterTheStore_left> {
 }
 
 class c_1_enterTheStore_right extends StatefulWidget {
-  const c_1_enterTheStore_right({super.key});
+  final StepData step_data;
+  const c_1_enterTheStore_right({super.key, required this.step_data});
 
   @override
   State<c_1_enterTheStore_right> createState() =>
@@ -73,10 +74,10 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
     _touch?.fire();
     print("Touch TRIGGERED!!!!");
     
-    StepData step_data = StepData(
-        sceneId: "convenience 1",
-        question: "문을 터치하고 편의점에 들어가 보세요",
-        answer: "터치 완료"
+    widget.step_data.sendStepData(
+        "convenience 1",
+        "문을 터치하고 편의점에 들어가 보세요",
+        "터치 완료"
     );
 
     //step_data.toJson();
