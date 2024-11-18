@@ -89,7 +89,8 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
 }
 
 class c_2_enterTheStore_right extends StatefulWidget {
-  const c_2_enterTheStore_right({super.key});
+  final StepData step_data;
+  const c_2_enterTheStore_right({super.key, required this.step_data});
 
   @override
   State<c_2_enterTheStore_right> createState() => _c_2_enterTheStore_rightState();
@@ -106,10 +107,10 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
         "ko-KR-Wavenet-D");
     await Future.delayed(const Duration(seconds: 2));
 
-    StepData step_data = StepData(
-        sceneId: "convenience 2",
-        question: "인사를 했을 때의 나의 기분을 선택해보세요",
-        answer: face_choice!,
+    widget.step_data.sendStepData(
+        "convenience 2",
+        "인사를 했을 때의 나의 기분을 선택해보세요",
+        face_choice!,
       //수정 필요
     );
   }
@@ -192,10 +193,10 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                     onPressed: () async{
 
                       String answer = await stt.gettext(3);
-                      StepData step_data = StepData(
-                          sceneId: "convenience 2",
-                          question: "편의점 직원분께 인사를 해보세요",
-                          answer: answer
+                      widget.step_data.sendStepData(
+                          "convenience 2",
+                          "편의점 직원분께 인사를 해보세요",
+                          answer
                       );
 
                       //step_data.toJson();

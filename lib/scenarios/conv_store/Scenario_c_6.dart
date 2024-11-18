@@ -88,7 +88,8 @@ class _c_6_display_leftState extends State<c_6_display_left> {
 }
 
 class c_6_display_right extends StatefulWidget {
-  const c_6_display_right({super.key});
+  final StepData step_data;
+  const c_6_display_right({super.key, required this.step_data});
 
   @override
   State<c_6_display_right> createState() => _c_6_display_rightState();
@@ -110,10 +111,10 @@ class _c_6_display_rightState extends State<c_6_display_right> {
                   onPressed: () async {
                     String answer = await stt.gettext(3);
 
-                    StepData step_data = StepData(
-                        sceneId: "convenience 5",
-                        question: "편의점 직원분께 안녕히 계세요라고 인사해보세요",
-                        answer: answer
+                    widget.step_data.sendStepData(
+                        "convenience 5",
+                        "편의점 직원분께 안녕히 계세요라고 인사해보세요",
+                        answer
                     );
                     //step_data.toJson();
 

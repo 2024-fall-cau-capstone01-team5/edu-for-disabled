@@ -43,7 +43,9 @@ class _Elevator_1_leftState extends State<Elevator_1_left> {
 }
 
 class Elevator_1_right extends StatefulWidget {
-  const Elevator_1_right({super.key});
+  final StepData step_data;
+
+  const Elevator_1_right({super.key, required this.step_data});
 
   @override
   State<Elevator_1_right> createState() => _Elevator_1_rightState();
@@ -70,10 +72,10 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
 
   void _hitBumpDown() {
     _touch_down?.fire();
-    StepData step_data = StepData(
-        sceneId: "외출 common_scenario 2",
-        question: "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
-        answer: "호출: 위 방향"
+    widget.step_data.sendStepData(
+        "외출 common_scenario 2",
+        "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
+        "호출: 위 방향"
     );
     //step_data.toJson();
     //Json 변환
@@ -82,10 +84,10 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
 
   void _hitBumpUp() {
     _touch_up?.fire();
-    StepData step_data = StepData(
-        sceneId: "외출 common_scenario 2",
-        question: "(위층으로 올라가야 하는 상황)엘리베이터 호출 버튼을 눌러보세요",
-        answer: "호출: 아래 방향"
+    widget.step_data.sendStepData(
+        "외출 common_scenario 2",
+        "(위층으로 올라가야 하는 상황)엘리베이터 호출 버튼을 눌러보세요",
+        "호출: 아래 방향"
     );
     //step_data.toJson();
   }

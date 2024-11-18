@@ -58,7 +58,7 @@ class _ContentsBarState extends State<ContentsBar> {
             children: List.generate(3, (index) => _iconButton(index)),
           ),
           Expanded(
-              child: MainScroll(selectedIndex)
+              child: MainScroll(selectedIndex: selectedIndex, userId: widget.userId, profile: widget.profile)
           ),
         ],
       ),
@@ -85,7 +85,9 @@ class _ContentsBarState extends State<ContentsBar> {
 
 class MainScroll extends StatelessWidget {
   int selectedIndex = 0;
-  MainScroll(this.selectedIndex);
+  final String userId;
+  final String profile;
+  MainScroll({required this.selectedIndex, required this.userId, required this.profile});
 
   final List<List<String>> images = [
     ['assets/thumbnails/store.webp', 'assets/thumbnails/park.webp', 'assets/thumbnails/disability_center.webp'],
@@ -106,7 +108,7 @@ class MainScroll extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Scenario(labels[selectedIndex][index])), // Assuming 'Scenario' is defined elsewhere
+                  MaterialPageRoute(builder: (context) => Scenario(label: labels[selectedIndex][index], user_id: userId, profile_name: profile)), // Assuming 'Scenario' is defined elsewhere
                 );
               },
               child: Container(
