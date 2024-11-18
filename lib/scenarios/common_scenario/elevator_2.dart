@@ -22,7 +22,8 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("문을 터치해보세요!", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech("오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요"
+        "!", "ko-KR-Wavenet-D");
   }
 
   @override
@@ -31,7 +32,7 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/common/elevator_inside.png"),
+        image: AssetImage("assets/common/elevator.png"),
         fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
@@ -62,6 +63,7 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
   }
 
   void _hitBump() {
+
     _touch?.fire();
 
     print("Touch TRIGGERED!");
@@ -78,14 +80,22 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: GestureDetector(
-          onTap: _hitBump,
-          child: RiveAnimation.asset(
-            "assets/elevator_door.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
+        child: Stack(children: [
+          GestureDetector(
+            onTap: _hitBump,
+            child: RiveAnimation.asset(
+              "assets/elevator_door.riv",
+              fit: BoxFit.contain,
+              onInit: _onRiveInit,
+            ),
           ),
-        ),
+          ElevatedButton(
+              onPressed: (){
+                Provider.of<Scenario_Manager>(context,listen: false).updateIndex();
+              },
+              child: Text("강제 화면 넘기기")
+          )
+        ]),
       ),
     );
   }

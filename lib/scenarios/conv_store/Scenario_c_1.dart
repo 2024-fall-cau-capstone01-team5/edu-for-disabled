@@ -96,13 +96,12 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: GestureDetector(
-        onTap: _hitBump,
-        child: RiveAnimation.asset(
-          "assets/door_open.riv",
-          fit: BoxFit.contain,
-          onInit: _onRiveInit,
-        ),
+      child: RiveAnimation.asset(
+        "assets/door_open.riv",
+        fit: BoxFit.contain,
+
+        onInit: _onRiveInit,
+        stateMachines: const["State Machine 1"],
       ),
     ));
   }
