@@ -59,7 +59,7 @@ class _Traffic_rightState extends State<Traffic_right> {
 
     if (controller != null) {
       artboard.addController(controller);
-      _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
+      _touch = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
     }
   }
 

@@ -76,7 +76,7 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) {
-    if (stateName == 'exit') {
+    if (stateName == 'ExitState') {
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }
@@ -95,12 +95,7 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
               onInit: _onRiveInit,
             ),
           ),
-          ElevatedButton(
-              onPressed: (){
-                Provider.of<Scenario_Manager>(context,listen: false).updateIndex();
-              },
-              child: Text("강제 화면 넘기기")
-          )
+
         ]),
       ),
     );

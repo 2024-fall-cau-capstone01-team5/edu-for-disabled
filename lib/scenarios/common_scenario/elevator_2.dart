@@ -89,12 +89,6 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
               onInit: _onRiveInit,
             ),
           ),
-          ElevatedButton(
-              onPressed: (){
-                Provider.of<Scenario_Manager>(context,listen: false).updateIndex();
-              },
-              child: Text("강제 화면 넘기기")
-          )
         ]),
       ),
     );

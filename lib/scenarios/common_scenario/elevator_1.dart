@@ -68,6 +68,11 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
           controller.findInput<SMITrigger>('touch_down') as SMITrigger?;
       _touch_up = controller.findInput<SMITrigger>('touch_up') as SMITrigger?;
     }
+
+
+
+
+
   }
 
   void _hitBumpDown() {
@@ -75,8 +80,9 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 2",
         "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
-        "호출: 위 방향"
+        "호출: 아래 방향"
     );
+    print('BUMPDOWN!');
     //step_data.toJson();
     //Json 변환
 
@@ -87,13 +93,14 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 2",
         "(위층으로 올라가야 하는 상황)엘리베이터 호출 버튼을 눌러보세요",
-        "호출: 아래 방향"
+        "호출: 위 방향"
     );
     //step_data.toJson();
   }
 
   void _onStateChange(String stateMachineName, String stateName) {
-    if (stateName == 'Exit') {
+    print("STATE CHANGED: $stateName");
+    if (stateName == 'ExitState') {
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }
@@ -113,12 +120,6 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
               onInit: _onRiveInit,
             ),
           ),
-          ElevatedButton(
-              onPressed: (){
-                Provider.of<Scenario_Manager>(context,listen: false).updateIndex();
-              },
-              child: Text("강제 화면 넘기기")
-          )
         ]),
       ),
     );
