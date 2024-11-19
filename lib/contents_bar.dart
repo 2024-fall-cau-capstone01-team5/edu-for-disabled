@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'preference.dart';   // 개인설정 페이지
+import 'character_customizing.dart';   // 캐릭터 커스터마이징 페이지
 import 'scenario.dart';     // 시나리오 컨텐츠 페이지
 import 'multiProfiles.dart';
 
@@ -30,7 +30,7 @@ class _ContentsBarState extends State<ContentsBar> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Preference()),
+                MaterialPageRoute(builder: (context) => CharacterCustom(userId: widget.userId, profile: widget.profile)),
               );
             },
           ),
