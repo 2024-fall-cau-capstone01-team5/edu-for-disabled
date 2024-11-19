@@ -5,6 +5,8 @@ import '../tts.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../StepData.dart';
 
+import 'package:rive/rive.dart' hide Image;
+
 final AudioPlayer _audioPlayer = AudioPlayer();
 
 class c_4_display_left extends StatefulWidget {
@@ -48,6 +50,13 @@ class _c_4_display_leftState extends State<c_4_display_left> {
 
   }
 
+  void _onRiveInit(Artboard artboard) {
+    final controller = StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Scenario_Manager>(
@@ -55,36 +64,10 @@ class _c_4_display_leftState extends State<c_4_display_left> {
         return Center(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Image(
-                    image: AssetImage("assets/c_display_empty.png"),
-                    fit: BoxFit.cover, // 배경 이미지가 꽉 차도록 설정
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        setState(() {
-                          stuff_choice = "과자";
-                        });
-                        _goodChoiceTTS();
-                        sinarioProvider.updateIndex();
-                      },
-                      child: Container(
-                        width: 50, // 원하는 너비
-                        height: 50, // 원하는 높이
-                        child: Image(
-                          image: AssetImage("assets/cookie.png"),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            child: RiveAnimation.asset(
+              "assets/common/elevator_button.riv",
+              fit: BoxFit.contain,
+              onInit: _onRiveInit,
             ),
           ),
         );
