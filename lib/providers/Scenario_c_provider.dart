@@ -45,8 +45,8 @@ class Sinario_c_provider extends Scenario_Manager {
     c_2_enterTheStore_left(acter: acter),
     // c_3_display_left(),
     c_4_display_left(step_data: step_data),
-    c_5_display_left(),
-    c_6_display_left(),
+    c_5_display_left(actor: acter),
+    c_6_display_left(actor: acter),
     c_7_congratuations_left(),
   ];
 
