@@ -169,7 +169,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag3();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
-    }else if (stateName == "Timeline 2"){
+    }else if (stateName == "Timeline 1"){
       await tts.TextToSpeech(
         "잘 하셨습니다. 이제 카드를 한 번 더 터치해 카드를 뽑아주세요",
         "ko-KR-Wavenet-D",
