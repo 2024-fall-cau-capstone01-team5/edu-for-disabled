@@ -11,7 +11,8 @@ final AudioPlayer _audioPlayer = AudioPlayer();
 
 
 class c_2_enterTheStore_left extends StatefulWidget {
-  const c_2_enterTheStore_left({super.key});
+  final StatefulWidget acter;
+  const c_2_enterTheStore_left({super.key, required this.acter});
 
   @override
   State<c_2_enterTheStore_left> createState() => _c_2_enterTheStore_leftState();
@@ -71,13 +72,7 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
                 ),
                 // 배우 이미지 (위쪽에 위치)
                 Positioned.fill(
-                  child: actors_image != ""
-                      ? FadeInImage(
-                    placeholder: const AssetImage("assets/transparent.png"), // 빈 투명 이미지
-                    image: AssetImage(actors_image),
-                    fadeInDuration: const Duration(seconds: 1), // 페이드 인 지속 시간
-                  )
-                      : const SizedBox.shrink(),
+                  child: widget.acter
                 ),
               ],
             ),
