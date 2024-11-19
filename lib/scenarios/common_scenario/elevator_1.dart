@@ -68,11 +68,6 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
           controller.findInput<SMITrigger>('touch_down') as SMITrigger?;
       _touch_up = controller.findInput<SMITrigger>('touch_up') as SMITrigger?;
     }
-
-
-
-
-
   }
 
   void _hitBumpDown() {
