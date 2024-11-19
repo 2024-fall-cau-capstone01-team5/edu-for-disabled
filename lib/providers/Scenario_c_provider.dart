@@ -20,9 +20,10 @@ import '../scenarios/common_scenario/traffic.dart';
 class Sinario_c_provider extends Scenario_Manager {
 
   final String learningLogId;
+  final StatefulWidget acter;
   late final StepData step_data;
 
-  Sinario_c_provider({required this.learningLogId}) {
+  Sinario_c_provider({required this.learningLogId, required this.acter}) {
     step_data = StepData(learningLogId: learningLogId);
   }
 
@@ -40,7 +41,7 @@ class Sinario_c_provider extends Scenario_Manager {
     Elevator_3_left(),
 
     c_1_enterTheStore_left(),
-    c_2_enterTheStore_left(),
+    c_2_enterTheStore_left(acter: acter),
     // c_3_display_left(),
     c_4_display_left(step_data: step_data),
     c_5_display_left(),
