@@ -25,7 +25,7 @@ class _Elevator_1_leftState extends State<Elevator_1_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech("우리는 지금 아래로 내려가야 할까요? 아니면 "
-        "위로 내려가야 할까요? 오른쪽 화면에 나오는 올바른"
+        "위로 올라가야 할까요? 오른쪽 화면에 나오는 올바른"
         "엘리베이터 호출 버튼을 눌러보세요", "ko-KR-Wavenet-D");
   }
 
