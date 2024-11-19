@@ -76,7 +76,6 @@ class _c_6_display_leftState extends State<c_6_display_left> {
                     )
                         : SizedBox.shrink(),
                   ),
-
                 ],
               ),
             )

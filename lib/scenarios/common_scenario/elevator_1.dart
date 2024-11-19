@@ -98,9 +98,13 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     //step_data.toJson();
   }
 
-  void _onStateChange(String stateMachineName, String stateName) {
+  void _onStateChange(String stateMachineName, String stateName) async{
     print("STATE CHANGED: $stateName");
     if (stateName == 'ExitState') {
+      await tts.TextToSpeech(
+          "참 잘했어요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }

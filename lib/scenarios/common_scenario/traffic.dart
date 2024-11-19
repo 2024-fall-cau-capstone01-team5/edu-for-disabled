@@ -17,14 +17,22 @@ class Traffic_left extends StatefulWidget {
 class _Traffic_leftState extends State<Traffic_left> {
   @override
   void initState() {
+
+    
+
+
     super.initState();
     _playWelcomeTTS();
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("신호등이 초록불이네요. 하지만, 이렇게 신호등이 깜빡거릴 땐 "
+    await tts.TextToSpeech("신호등이 초록불이네요. 하지만, 이렇게 신호등이 깜빡거릴 땐"
         "차분히 다음 초록불 신호를 기다려 보도록 해요."
         "!", "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context,listen: false).increment_flag();
+
   }
 
   @override
@@ -85,7 +93,9 @@ class _Traffic_rightState extends State<Traffic_right> {
           GestureDetector(
             onTap: _hitBump,
             child: RiveAnimation.asset(
-              "assets/common/crossing.riv",
+              Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+                  ? "assets/common/crossing.riv"
+                  : "assets/common/traffic_light.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),

@@ -23,7 +23,7 @@ class _Elevator_3_leftState extends State<Elevator_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("우리는 지금 몇 층으로 가야 하나요?"
+    await tts.TextToSpeech("밖으로 나가려면 몇 층으로 가야 하나요?"
         "올바른 층의 버튼을 터치해 보세요!", "ko-KR-Wavenet-D");
   }
 
@@ -75,8 +75,12 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
     print("Touch TRIGGERED!");
   }
 
-  void _onStateChange(String stateMachineName, String stateName) {
+  void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'ExitState') {
+      await tts.TextToSpeech(
+          "참 잘했어요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }

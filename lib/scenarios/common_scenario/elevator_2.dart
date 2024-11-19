@@ -69,8 +69,12 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
     print("Touch TRIGGERED!");
   }
 
-  void _onStateChange(String stateMachineName, String stateName) {
+  void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'exit') {
+      await tts.TextToSpeech(
+          "참 잘했어요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }
