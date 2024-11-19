@@ -93,7 +93,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) {
-    if (stateName == 'exit') {
+    if (stateName == 'Exit') {
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }
@@ -108,7 +108,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
             onTapDown: (_) => _hitBumpDown(),
             onTapUp: (_) => _hitBumpUp(),
             child: RiveAnimation.asset(
-              "assets/elevator_button.riv",
+              "assets/common/elevator_button.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),

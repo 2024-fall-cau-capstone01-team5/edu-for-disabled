@@ -22,7 +22,8 @@ class _Traffic_leftState extends State<Traffic_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요"
+    await tts.TextToSpeech("신호등이 초록불이네요. 하지만, 이렇게 신호등이 깜빡거릴 땐 "
+        "차분히 다음 초록불 신호를 기다려 보도록 해요."
         "!", "ko-KR-Wavenet-D");
   }
 
@@ -84,7 +85,7 @@ class _Traffic_rightState extends State<Traffic_right> {
           GestureDetector(
             onTap: _hitBump,
             child: RiveAnimation.asset(
-              "assets/elevator_door.riv",
+              "assets/common/crossing.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),

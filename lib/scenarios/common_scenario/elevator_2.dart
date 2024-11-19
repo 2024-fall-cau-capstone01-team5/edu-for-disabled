@@ -84,7 +84,7 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
           GestureDetector(
             onTap: _hitBump,
             child: RiveAnimation.asset(
-              "assets/elevator_door.riv",
+              "assets/common/elevator_door.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),
