@@ -90,6 +90,7 @@ class _CharacterCustomState extends State<CharacterCustom> {
     )!;
     artboard.addController(_stateMachineController);
 
+
     _fetchCharacterState();
   }
 

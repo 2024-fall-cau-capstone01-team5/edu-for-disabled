@@ -26,7 +26,8 @@ class _Go_outside_leftState extends State<Go_outside_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-        "자 그럼 출발해볼까요? 오른쪽 화면에 나와있는 문을 터치해서 밖으로 나가보세요!",
+        "반가워요! 이번 이야기에서 우리는 편의점을 가보겠습니다. "
+            "자 그럼 출발해볼까요? 오른쪽 화면에 나와있는 문을 터치해서 밖으로 나가보세요!",
         "ko-KR-Wavenet-D");
   }
 
@@ -73,9 +74,14 @@ class _Go_outside_rightState extends State<Go_outside_right> {
 
   }
 
-  void _onStateChange(String stateMachineName, String stateName) {
+  void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'exit') {
+      await tts.TextToSpeech(
+          "참 잘했어요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }

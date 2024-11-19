@@ -163,12 +163,18 @@ class _c_5_display_rightState extends State<c_5_display_right> {
     print("Touch TRIGGERED!!!!");
   }
 
-  void _onStateChange(String stateMachineName, String stateName) {
+  void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
-    if (stateName == 'exit') {
+    if (stateName == 'ExitState') {
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag3();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
+    }else if (stateName == "Timeline 1"){
+      await tts.TextToSpeech(
+        "잘 하셨습니다. 이제 카드를 한 번 더 터치해 카드를 뽑아주세요",
+        "ko-KR-Wavenet-D",
+      );
+      await tts.player.onPlayerComplete.first;
     }
   }
 

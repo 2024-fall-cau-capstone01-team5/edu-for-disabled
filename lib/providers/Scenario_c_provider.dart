@@ -39,6 +39,7 @@ class Sinario_c_provider extends Scenario_Manager {
     Elevator_1_left(),
     Elevator_2_left(),
     Elevator_3_left(),
+    Traffic_left(),
 
     c_1_enterTheStore_left(),
     c_2_enterTheStore_left(acter: acter),
@@ -55,6 +56,7 @@ class Sinario_c_provider extends Scenario_Manager {
     Elevator_1_right(step_data: step_data),
     Elevator_2_right(),
     Elevator_3_right(step_data: step_data),
+    Traffic_right(),
 
     c_1_enterTheStore_right(step_data: step_data),
     c_2_enterTheStore_right(step_data: step_data),
@@ -62,7 +64,7 @@ class Sinario_c_provider extends Scenario_Manager {
     c_4_display_right(),
     c_5_display_right(step_data: step_data),
     c_6_display_right(step_data: step_data),
-    c_7_congratuations_right()
+    c_7_congratuations_right(),
   ];
 
 
