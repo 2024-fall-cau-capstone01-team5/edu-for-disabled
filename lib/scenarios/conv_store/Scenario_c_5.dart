@@ -11,7 +11,8 @@ final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
 
 class c_5_display_left extends StatefulWidget {
-  const c_5_display_left({super.key});
+  final StatefulWidget actor;
+  const c_5_display_left({super.key, required this.actor});
 
   @override
   State<c_5_display_left> createState() => _c_5_display_leftState();
@@ -73,11 +74,7 @@ class _c_5_display_leftState extends State<c_5_display_left> {
                 ),
                 Positioned.fill(
                   child: sinarioProvider.flag4 == 1
-                      ? const FadeInImage(
-                    placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
-                    image: AssetImage("assets/actor_sample.png"),
-                    fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
-                  )
+                      ? widget.actor
                       : const SizedBox.shrink(),
                 ),
               ],

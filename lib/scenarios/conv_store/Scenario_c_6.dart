@@ -12,7 +12,8 @@ final STT stt = STT();
 
 
 class c_6_display_left extends StatefulWidget {
-  const c_6_display_left({super.key});
+  final StatefulWidget actor;
+  const c_6_display_left({super.key, required this.actor});
 
   @override
   State<c_6_display_left> createState() => _c_6_display_leftState();
@@ -69,11 +70,7 @@ class _c_6_display_leftState extends State<c_6_display_left> {
                   ),
                   Positioned.fill(
                     child: sinarioProvider.flag == 1
-                        ? FadeInImage(
-                      placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
-                      image: AssetImage("assets/actor_sample.png"),
-                      fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
-                    )
+                        ? widget.actor
                         : SizedBox.shrink(),
                   ),
                 ],
