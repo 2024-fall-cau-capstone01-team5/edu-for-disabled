@@ -26,7 +26,7 @@ class _Traffic_leftState extends State<Traffic_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    _is_green_on_and_off?.value = true;
+    _is_green_on_and_off?.change(true);
 
     await tts.TextToSpeech(
         "신호등이 초록불이네요. 하지만, 이렇게 신호등이 깜빡거릴 땐"
