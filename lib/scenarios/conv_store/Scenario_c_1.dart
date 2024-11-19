@@ -85,9 +85,14 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
 
   }
 
-  void _onStateChange(String stateMachineName, String stateName) {
+  void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'exit') {
+      await tts.TextToSpeech(
+          "참 잘했어요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }
