@@ -32,7 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
   SMINumber? _bodyShape;
   SMINumber? _bodyColor;
 
-
   void _onRiveInit(Artboard artboard) {
     _stateMachineController = StateMachineController.fromArtboard(
         artboard,
@@ -45,24 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _eyeShape = _stateMachineController.findInput("eyeShape") as SMINumber?;
     _bodyShape = _stateMachineController.findInput("bodyShape") as SMINumber?;
     _bodyColor = _stateMachineController.findInput("bodyColor") as SMINumber?;
+
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Center(
           child: RiveAnimation.asset(
-            "assets/character_creator.riv",
+            "assets/character_creator.riv"    
             fit: BoxFit.contain,
             artboard: "MacBook Air - 6",
             onInit: _onRiveInit,
