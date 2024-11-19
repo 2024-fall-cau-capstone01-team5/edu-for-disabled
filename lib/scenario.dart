@@ -10,6 +10,7 @@ import 'character.dart';
 
 AudioPlayer _audioPlayer = AudioPlayer();
 
+
 class Scenario extends StatelessWidget {
   final String label;
   final String user_id;
@@ -104,6 +105,11 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth_for_left = MediaQuery.of(context).size.width;
+    double screenHeight_for_left = MediaQuery.of(context).size.height;
+
+    double screenWidth_for_right = MediaQuery.of(context).size.width;
+    double screenHeight_for_right = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
@@ -114,15 +120,19 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
               fit: BoxFit.cover, // 화면에 꽉 차도록 설정
             ),
           ),
+          Positioned.fill(
+            child: Text(
+              Provider.of<Scenario_Manager>(context, listen: false).title,
+              style: TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          ),
 
           // 위의 ListView 콘텐츠 추가
-          ListView(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                Provider.of<Scenario_Manager>(context, listen: false).title,
-                style: TextStyle(fontSize: 22),
-                textAlign: TextAlign.center,
-              ),
+
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -131,8 +141,9 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
                     Consumer<Scenario_Manager>(
                       builder: (context, sinarioProvider, child) {
                         return Container(
-                          width: 400,
-                          height: 275,
+                          width: screenWidth_for_left * 0.45,
+                          height: screenHeight_for_left * 0.57,
+                          //16:11
                           decoration: BoxDecoration(
                             color: Color(0xfff0dff2),
                             borderRadius: BorderRadius.circular(20),
@@ -148,8 +159,8 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
                     Consumer<Scenario_Manager>(
                       builder: (context, sinarioProvider, child) {
                         return Container(
-                          width: 300,
-                          height: 200,
+                          width: screenWidth_for_right * 0.4,
+                          height: screenHeight_for_right * 0.5,
                           decoration: BoxDecoration(
                             color: Color(0xfff0dff2),
                             border: Border.all(

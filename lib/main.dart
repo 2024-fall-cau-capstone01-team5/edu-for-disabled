@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _playBackgroundMusic() async {
     await _audioPlayer.setReleaseMode(ReleaseMode.loop); // 음악 반복 재생 설정
-    await _audioPlayer.setVolume(0.6); // 볼륨을 30%로 설정 (0.0 ~ 1.0)
+    await _audioPlayer.setVolume(0.3); // 볼륨을 30%로 설정 (0.0 ~ 1.0)
     await _audioPlayer.play(AssetSource("BackgroundMusic.mp3"));
   }
 
