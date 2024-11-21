@@ -22,9 +22,11 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("그럼 출발해볼까요? "
-        "오른쪽 화면의 자동차를 손가락으로 직접 눌러보세요"
-        "!", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech(
+        "그럼 출발해볼까요? "
+            "오른쪽 화면의 자동차를 손가락으로 직접 눌러보세요"
+            "!",
+        "ko-KR-Wavenet-D");
   }
 
   @override
@@ -48,7 +50,8 @@ class Scenario_park_3_right extends StatefulWidget {
 }
 
 class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
-  SMITrigger? _touch;
+  SMITrigger? _trigger;
+  SMIBool? _bool;
 
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
@@ -59,25 +62,18 @@ class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
 
     if (controller != null) {
       artboard.addController(controller);
-      _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
+      _trigger = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
     }
   }
 
-  void _hitBump() {
-
-    _touch?.fire();
-
-    print("Touch TRIGGERED!");
-  }
-
-  void _onStateChange(String stateMachineName, String stateName) async{
+  void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
-      await tts.TextToSpeech(
-          "참 잘했어요. ",
-          "ko-KR-Wavenet-D");
+      await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-      print("EXIT");
+    } else if (stateName == "Timer exit") {
+      _bool?.value = true;
     }
   }
 
@@ -86,13 +82,10 @@ class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          GestureDetector(
-            onTap: _hitBump,
-            child: RiveAnimation.asset(
-              "assets/park/car_moving.riv",
-              fit: BoxFit.contain,
-              onInit: _onRiveInit,
-            ),
+          RiveAnimation.asset(
+            "assets/park/car_moving.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
           ),
         ]),
       ),

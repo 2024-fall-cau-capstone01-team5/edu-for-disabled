@@ -23,7 +23,7 @@ class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech("공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요. "
-        "한번 주워볼까요? 나뭇잎들을 손가락으로 직접 터치해보세요"
+        "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요"
         "!", "ko-KR-Wavenet-D");
   }
 
@@ -33,7 +33,7 @@ class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/park/park.webp"),
+        image: AssetImage("assets/park/tree.webp"),
         fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
@@ -48,7 +48,11 @@ class Scenario_park_4_right extends StatefulWidget {
 }
 
 class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
-  SMITrigger? _touch;
+  SMITrigger? _touch1;
+  SMITrigger? _touch2;
+  SMITrigger? _touch3;
+  SMITrigger? _touch4;
+  SMIBool? _bool;
 
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
@@ -59,25 +63,30 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
 
     if (controller != null) {
       artboard.addController(controller);
-      _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
+
+      _touch1 = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
+      _touch2 = controller.findInput<SMITrigger>('Trigger 2') as SMITrigger?;
+      _touch3 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
+      _touch4 = controller.findInput<SMITrigger>('Trigger 4') as SMITrigger?;
+
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
+
+
     }
   }
 
-  void _hitBump() {
+  void _onStateChange(String stateMachineName, String stateName) async {
 
-    _touch?.fire();
+    if(stateName == "disapper 1" || stateName == "disapper 2" ||
+        stateName == "disapper 3" || stateName == "disapper 4" ){
+    }
 
-    print("Touch TRIGGERED!");
-  }
-
-  void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'ExitState') {
-      await tts.TextToSpeech(
-          "참 잘했어요. ",
-          "ko-KR-Wavenet-D");
+      await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-      print("EXIT");
+    } else if (stateName == "Timer exit") {
+      _bool?.value = true;
     }
   }
 
@@ -86,13 +95,10 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          GestureDetector(
-            onTap: _hitBump,
-            child: RiveAnimation.asset(
-              "assets/park/leaves.riv",
-              fit: BoxFit.contain,
-              onInit: _onRiveInit,
-            ),
+          RiveAnimation.asset(
+            "assets/park/leaves.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
           ),
         ]),
       ),
