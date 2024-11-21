@@ -1,101 +1,83 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutterpractice/scenarios/tts.dart';
-// import 'package:provider/provider.dart';
-// import '../../providers/Scenario_Manager.dart';
-//
-// import 'package:rive/rive.dart' hide Image;
-//
-// final tts = TTS();
-//
-// class Scenario_park_8_left' extends StatefulWidget {
-//   const Scenario_park_8_left'({super.key});
-//
-//   @override
-//   State<Scenario_park_8_left'> createState() => _Scenario_park_8_left'State();
-// }
-//
-// class _Scenario_park_8_left'State extends State<Scenario_park_8_left'> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     _playWelcomeTTS();
-//   }
-//
-//   Future<void> _playWelcomeTTS() async {
-//     await tts.TextToSpeech("이야기를 잘 끝내셨네요. 참 잘했어요."
-//         "앞으로는 나갈 때 부모님과 선생님의 말씀을 잘 듣는 착한 사람이 되보도록 해요 "
-//         "!", "ko-KR-Wavenet-D");
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return ClipRRect(
-//       borderRadius: BorderRadius.circular(20),
-//       // Container의 borderRadius와 동일하게 설정
-//       child: const Image(
-//         image: AssetImage("assets/park/car_inside.webp"),
-//         fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
-//       ),
-//     );
-//   }
-// }
-//
-// class Scenario_park_8_right' extends StatefulWidget {
-//   const Scenario_park_8_right'({super.key});
-//
-//   @override
-//   State<Scenario_park_8_right'> createState() => _Scenario_park_8_right'State();
-// }
-//
-// class _Scenario_park_8_right'State extends State<Scenario_park_8_right'> {
-//   SMITrigger? _touch;
-//
-//   void _onRiveInit(Artboard artboard) {
-//     final controller = StateMachineController.fromArtboard(
-//       artboard,
-//       'State Machine 1',
-//       onStateChange: _onStateChange,
-//     );
-//
-//     if (controller != null) {
-//       artboard.addController(controller);
-//       _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
-//     }
-//   }
-//
-//   void _hitBump() {
-//
-//     _touch?.fire();
-//
-//     print("Touch TRIGGERED!");
-//   }
-//
-//   void _onStateChange(String stateMachineName, String stateName) async{
-//     if (stateName == 'ExitState') {
-//       await tts.TextToSpeech(
-//           "참 잘했어요. ",
-//           "ko-KR-Wavenet-D");
-//       await tts.player.onPlayerComplete.first;
-//       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-//       print("EXIT");
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: Stack(children: [
-//           GestureDetector(
-//             onTap: _hitBump,
-//             child: RiveAnimation.asset(
-//               "assets/park/security_belt.riv",
-//               fit: BoxFit.contain,
-//               onInit: _onRiveInit,
-//             ),
-//           ),
-//         ]),
-//       ),
-//     );
-//   }
-// }
+import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import '../tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
+
+AudioPlayer _audioPlayer = AudioPlayer();
+TTS tts = TTS();
+
+class Scenario_park_8_left extends StatefulWidget {
+  const Scenario_park_8_left({super.key});
+
+  @override
+  State<Scenario_park_8_left> createState() => _Scenario_park_8_leftState();
+}
+
+class _Scenario_park_8_leftState extends State<Scenario_park_8_left> {
+
+  void initState() {
+    super.initState();
+    _playWelcomeTTS();
+  }
+
+  Future<void> _playWelcomeTTS() async {
+
+
+    await tts.TextToSpeech("즐겁게 놀았나요? "
+        "앞으론 산책을 나가거나 공원에 나갈 때"
+    "선생님과 부모님의 곁에서 떨어지지 말고"
+    "말씀을 잘 듣는 착한 사람이 돼보도록 해요"
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    await tts.TextToSpeech("축하합니다. "
+        "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
+        "실제로 편의점에 갔을 때 어떻게 행동해야 할지 "
+        "잘 생각해보시기 바랍니다.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20), // Container의 borderRadius와 동일하게 설정
+      child: Text(
+        "CLEAR!",
+        style: TextStyle(fontSize: 40),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+class Scenario_park_8_right extends StatefulWidget {
+  const Scenario_park_8_right({super.key});
+
+  @override
+  State<Scenario_park_8_right> createState() => _Scenario_park_8_rightState();
+}
+
+class _Scenario_park_8_rightState extends State<Scenario_park_8_right> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+          child: ElevatedButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            child: Text(
+              "나가기",
+              style: TextStyle(fontSize: 40),
+              textAlign: TextAlign.center,
+
+              //오디오 멈추는 작업 하기
+
+            ),
+          ),
+        )
+    );
+  }
+}
