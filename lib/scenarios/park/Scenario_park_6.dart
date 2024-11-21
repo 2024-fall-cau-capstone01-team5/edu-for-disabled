@@ -23,9 +23,9 @@ class _Scenario_park_6_leftState extends State<Scenario_park_6_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech("집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요. "
-        "화면을 손가락으로 눌러보세요. "
+        "오른쪽 화면을 손가락으로 눌러보세요. "
         "그리고 아래로 떨어지는 쓰레기들을 눌러보세요. "
-        "!", "ko-KR-Wavenet-D");
+        , "ko-KR-Wavenet-D");
   }
 
   @override
@@ -64,13 +64,6 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
     }
   }
 
-  void _hitBump() {
-
-    _touch?.fire();
-
-    print("Touch TRIGGERED!");
-  }
-
   void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'ExitState') {
       await tts.TextToSpeech(
@@ -87,13 +80,10 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          GestureDetector(
-            onTap: _hitBump,
-            child: RiveAnimation.asset(
-              "assets/park/picking_garbage.riv",
-              fit: BoxFit.contain,
-              onInit: _onRiveInit,
-            ),
+          RiveAnimation.asset(
+            "assets/park/Garbage_collecting.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
           ),
         ]),
       ),

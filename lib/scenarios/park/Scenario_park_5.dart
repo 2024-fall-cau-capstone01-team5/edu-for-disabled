@@ -66,7 +66,7 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
 
     await tts.TextToSpeech(
         "재밌게 놀다보니 배가 고프네요. 밥을 먹어볼까요? "
-            "잘 먹겠습니다. 라고 직접 소리내어 말해보세요. ",
+            "그 전에 잘 먹겠습니다. 라고 직접 소리내어 말해보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -79,7 +79,7 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
 
     if (stateName == 'ExitState') {
       await tts.TextToSpeech("참 잘했어요."
-          "앞으로는 밥 먹기 전에 인사를 먼저 해보도록 해요", "ko-KR-Wavenet-D");
+          "앞으로는 밥 먹기 전에 먼저 인사를 씩씩하게 해보도록 해요", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
