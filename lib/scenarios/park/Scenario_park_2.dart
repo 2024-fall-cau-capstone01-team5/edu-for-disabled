@@ -22,7 +22,7 @@ class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("자동차에 타고난 후엔 출발하기 전에 꼭 안전벨트를 매주세요. "
+    await tts.TextToSpeech("자동차를 타고 출발하기 전에 먼저 안전벨트를 매보도록 해요. "
         "안전벨트를 손가락으로 직접 눌러보세요"
         "!", "ko-KR-Wavenet-D");
   }

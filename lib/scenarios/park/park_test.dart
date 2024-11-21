@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'Scenario_park_1.dart';
+import 'Scenario_park_2.dart';
+import 'Scenario_park_3.dart';
+import 'Scenario_park_4.dart';
+import 'Scenario_park_5.dart';
+import 'Scenario_park_6.dart';
+import 'Scenario_park_7.dart';
+import 'Scenario_park_8.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scenario_park_1_left(),
+      home: Scenario_park_2_left(),
 
       // home: Scenario('편의점'),
     );
