@@ -6,6 +6,7 @@ import 'addProfile.dart';
 import 'removeProfile.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'parants/dashboard.dart';
 
 class MultiProfilesScreen extends StatefulWidget {
   final String userId;
@@ -118,6 +119,20 @@ class _MultiProfilesScreenState extends State<MultiProfilesScreen> {
       appBar: AppBar(
         title: Text("${widget.username}님의 프로필"),
         actions: [
+          IconButton(
+            icon: Icon(Icons.dashboard_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Dashboard(
+                    userId: widget.userId,
+                    token: widget.token,
+                  ),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: Icon(Icons.delete_forever_outlined),
             onPressed: () {
