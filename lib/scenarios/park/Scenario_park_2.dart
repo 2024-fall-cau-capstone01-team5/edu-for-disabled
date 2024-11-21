@@ -23,7 +23,7 @@ class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech("자동차를 타고 출발하기 전에 먼저 안전벨트를 매보도록 해요. "
-        "안전벨트를 손가락으로 직접 눌러보세요"
+        "오른쪽 화면의 안전벨트를 손가락으로 직접 눌러보세요"
         "!", "ko-KR-Wavenet-D");
   }
 
@@ -48,7 +48,9 @@ class Scenario_park_2_right extends StatefulWidget {
 }
 
 class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
-  SMITrigger? _touch;
+  SMITrigger? _trigger;
+  SMIBool? _bool;
+
 
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
@@ -59,25 +61,33 @@ class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
 
     if (controller != null) {
       artboard.addController(controller);
-      _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
+      _trigger = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
+
     }
   }
 
   void _hitBump() {
 
-    _touch?.fire();
+    _trigger?.fire();
 
     print("Touch TRIGGERED!");
   }
 
   void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'ExitState') {
-      await tts.TextToSpeech(
-          "참 잘했어요. ",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-      print("EXIT");
+
+      if(_bool?.value == false){
+        _bool?.value = true;
+      }
+
+      else if(_bool?.value == true){
+        await tts.TextToSpeech(
+            "참 잘했어요. ",
+            "ko-KR-Wavenet-D");
+        await tts.player.onPlayerComplete.first;
+        Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+      }
     }
   }
 
@@ -89,7 +99,7 @@ class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
           GestureDetector(
             onTap: _hitBump,
             child: RiveAnimation.asset(
-              "assets/park/security_belt.riv",
+              "assets/park/car_belt.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),

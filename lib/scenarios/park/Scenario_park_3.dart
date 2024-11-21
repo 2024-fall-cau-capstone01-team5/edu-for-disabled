@@ -22,7 +22,8 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("그럼 출발해볼까요? 자동차를 손가락으로 직접 눌러보세요"
+    await tts.TextToSpeech("그럼 출발해볼까요? "
+        "오른쪽 화면의 자동차를 손가락으로 직접 눌러보세요"
         "!", "ko-KR-Wavenet-D");
   }
 
