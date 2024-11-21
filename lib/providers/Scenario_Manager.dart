@@ -16,7 +16,6 @@ abstract class Scenario_Manager extends ChangeNotifier {
   String get title;
   List<Widget> get leftScreen;
   List<Widget> get rightScreen;
-  String get backGroundMusic;
 
 
   //abstract으로 정의, 자식 Provider에서 구현하게 됨

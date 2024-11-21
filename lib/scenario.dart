@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterpractice/providers/Scenario_park_provider.dart';
 import 'providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
 import 'providers/Scenario_Manager.dart';
@@ -73,9 +74,35 @@ class Scenario extends StatelessWidget {
         },
       );
     } else {
-      return Scaffold(
-        appBar: AppBar(title: Text('$label 시나리오')),
-        body: Center(child: Text('Welcome to the $label Scenario page!')),
+      return FutureBuilder<String>(
+        future: _learnstart('1'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // 로딩 중 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('로딩 중...')),
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // 에러 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('접속 장애 페이지')),
+              body: Center(
+                child: Text(
+                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            // 정상 상태
+            final learning_log_id = snapshot.data!;
+            return ChangeNotifierProvider<Scenario_Manager>(
+              create: (context) => Scenario_park_provider(learningLogId: learning_log_id, acter: acterWidget),
+              child: const Scenario_Canvas(),
+            );
+          }
+        },
       );
     }
   }
@@ -93,16 +120,8 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
-    // _playBackgroundMusic();
   }
-
-  Future<void> _playBackgroundMusic() async {
-    await _audioPlayer.setReleaseMode(ReleaseMode.loop); // 음악 반복 재생 설정
-    await _audioPlayer.play(
-      AssetSource(Provider.of<Scenario_Manager>(context, listen: false).backGroundMusic),
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     double screenWidth_for_left = MediaQuery.of(context).size.width;

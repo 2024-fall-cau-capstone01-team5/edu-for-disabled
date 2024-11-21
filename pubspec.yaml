@@ -72,6 +72,7 @@ flutter:
     - assets/
     - assets/profile_icons/
     - assets/common/
+    - assets/park/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

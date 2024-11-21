@@ -29,7 +29,6 @@ class Sinario_c_provider extends Scenario_Manager {
 
   @override
   String get title => "편의점을 가보자!";
-  String get backGroundMusic => "Pond.mp3";
 
   //String 살거 물품;
 
