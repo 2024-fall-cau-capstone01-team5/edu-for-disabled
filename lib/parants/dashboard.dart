@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'learningReport.dart';
+import '../tool/kst.dart';
 
 class Dashboard extends StatefulWidget {
   final String userId;
@@ -17,6 +18,7 @@ class _DashboardState extends State<Dashboard> {
   List<Map<String, String>> profiles = [];
   List<Map<String, dynamic>> learningLogs = [];
   String selectedProfile = "";
+  String selectedProfileImg = "assets/profile_icons/default_profile.webp";
   bool isLoading = true;
 
   @override
@@ -41,6 +43,8 @@ class _DashboardState extends State<Dashboard> {
               }),
             );
             selectedProfile = profiles.isNotEmpty ? profiles[0]["profile_name"]! : "";
+            selectedProfileImg = profiles.isNotEmpty ? profiles[0]["icon_url"]! : "assets/profile_icons/default_profile.webp";
+
             if (selectedProfile.isNotEmpty) {
               _fetchLearningLogs();
             }
@@ -118,6 +122,7 @@ class _DashboardState extends State<Dashboard> {
                   onTap: () {
                     setState(() {
                       selectedProfile = profile["profile_name"]!;
+                      selectedProfileImg = profile["icon_url"]!;
                       _fetchLearningLogs();
                     });
                   },
@@ -138,12 +143,12 @@ class _DashboardState extends State<Dashboard> {
                 final log = learningLogs[index];
                 return GestureDetector(
                   onTap: () {
-                    // Navigate to Learning Report Page with learning_log_id
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => LearningReportPage(
                           learningLogId: log["learning_log_id"],
+                          profileImgUrl: selectedProfileImg,
                         ),
                       ),
                     );
@@ -159,7 +164,7 @@ class _DashboardState extends State<Dashboard> {
                             "시나리오: ${log["scenario_title"]}",
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text("학습 시각: ${log["learning_time"]}"),
+                          Text("학습 시각: ${KST(isoTime: log["learning_time"])}"),
                           Text("답변 수: ${log["num_of_answer_records"]}"),
                         ],
                       ),
@@ -176,7 +181,8 @@ class _DashboardState extends State<Dashboard> {
             color: Colors.green[50],
             child: Center(
               child: Text(
-                "학습 목록",
+                "보호자 지정\n학습 목록\n(13주차)",
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
