@@ -68,7 +68,7 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async {
 
-    if (stateName == 'LimitTime') {
+    if (stateName == 'ExitState') {
       await tts.TextToSpeech("참 잘했어요. "
           "앞으로는 집에 가기 전에 자기가 남긴 쓰레기는 스스로 치우는"
           "착한 사람이 되보도록 해요", "ko-KR-Wavenet-D");
