@@ -7,14 +7,14 @@ import 'package:rive/rive.dart' hide Image;
 
 final tts = TTS();
 
-class Scenario_park_3_left extends StatefulWidget {
-  const Scenario_park_3_left({super.key});
+class Scenario_park_2_left extends StatefulWidget {
+  const Scenario_park_2_left({super.key});
 
   @override
-  State<Scenario_park_3_left> createState() => _Scenario_park_3_leftState();
+  State<Scenario_park_2_left> createState() => _Scenario_park_2_leftState();
 }
 
-class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
+class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
   @override
   void initState() {
     super.initState();
@@ -22,7 +22,8 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("그럼 출발해볼까요? 자동차를 손가락으로 직접 눌러보세요"
+    await tts.TextToSpeech("집으로 다시 돌아왔어요. 이제 모두와 헤어질 시간이네요 "
+        "안녕히 가세요. 라고 직접 소리내어 말해보세요"
         "!", "ko-KR-Wavenet-D");
   }
 
@@ -32,21 +33,21 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/park/car.webp"),
+        image: AssetImage("assets/park/car_inside.webp"),
         fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
   }
 }
 
-class Scenario_park_3_right extends StatefulWidget {
-  const Scenario_park_3_right({super.key});
+class Scenario_park_2_right extends StatefulWidget {
+  const Scenario_park_2_right({super.key});
 
   @override
-  State<Scenario_park_3_right> createState() => _Scenario_park_3_rightState();
+  State<Scenario_park_2_right> createState() => _Scenario_park_2_rightState();
 }
 
-class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
+class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
   SMITrigger? _touch;
 
   void _onRiveInit(Artboard artboard) {
@@ -88,7 +89,7 @@ class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
           GestureDetector(
             onTap: _hitBump,
             child: RiveAnimation.asset(
-              "assets/park/car_moving.riv",
+              "assets/park/security_belt.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),

@@ -7,14 +7,14 @@ import 'package:rive/rive.dart' hide Image;
 
 final tts = TTS();
 
-class Scenario_park_3_left extends StatefulWidget {
-  const Scenario_park_3_left({super.key});
+class Scenario_park_5_left extends StatefulWidget {
+  const Scenario_park_5_left({super.key});
 
   @override
-  State<Scenario_park_3_left> createState() => _Scenario_park_3_leftState();
+  State<Scenario_park_5_left> createState() => _Scenario_park_5_leftState();
 }
 
-class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
+class _Scenario_park_5_leftState extends State<Scenario_park_5_left> {
   @override
   void initState() {
     super.initState();
@@ -22,7 +22,8 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("그럼 출발해볼까요? 자동차를 손가락으로 직접 눌러보세요"
+    await tts.TextToSpeech("놀다보니 배가 고프네요. 밥을 먹어볼까요? "
+        "잘 먹겠습니다. 라고 직접 소리내어 말해보세요. "
         "!", "ko-KR-Wavenet-D");
   }
 
@@ -32,21 +33,21 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/park/car.webp"),
+        image: AssetImage("assets/park/park_meal.webp"),
         fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
   }
 }
 
-class Scenario_park_3_right extends StatefulWidget {
-  const Scenario_park_3_right({super.key});
+class Scenario_park_5_right extends StatefulWidget {
+  const Scenario_park_5_right({super.key});
 
   @override
-  State<Scenario_park_3_right> createState() => _Scenario_park_3_rightState();
+  State<Scenario_park_5_right> createState() => _Scenario_park_5_rightState();
 }
 
-class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
+class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
   SMITrigger? _touch;
 
   void _onRiveInit(Artboard artboard) {

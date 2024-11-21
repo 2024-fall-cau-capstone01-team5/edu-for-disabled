@@ -22,7 +22,8 @@ class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요"
+    await tts.TextToSpeech("자동차에 타고난 후엔 출발하기 전에 꼭 안전벨트를 매주세요. "
+        "안전벨트를 손가락으로 직접 눌러보세요"
         "!", "ko-KR-Wavenet-D");
   }
 
@@ -32,7 +33,7 @@ class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
       child: const Image(
-        image: AssetImage("assets/common/elevator.png"),
+        image: AssetImage("assets/park/car_inside.webp"),
         fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
       ),
     );
@@ -70,7 +71,7 @@ class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) async{
-    if (stateName == 'exit') {
+    if (stateName == 'ExitState') {
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");
@@ -88,7 +89,7 @@ class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
           GestureDetector(
             onTap: _hitBump,
             child: RiveAnimation.asset(
-              "assets/common/elevator_door.riv",
+              "assets/park/security_belt.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),
