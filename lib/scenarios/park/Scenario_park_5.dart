@@ -48,7 +48,16 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
   SMIBool? _bool1;
   SMIBool? _bool2;
 
+  Future<void> _playWelcomeTTS() async {
+    await tts.TextToSpeech(
+        "재밌게 놀다보니 배가 고프네요. 밥을 먹어볼까요? "
+            "그 전에 잘 먹겠습니다. 라고 직접 소리내어 말해보세요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+  }
+
   void _onRiveInit(Artboard artboard) async{
+    await _playWelcomeTTS();
 
     final controller = StateMachineController.fromArtboard(
       artboard,
@@ -64,11 +73,7 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
 
     }
 
-    await tts.TextToSpeech(
-        "재밌게 놀다보니 배가 고프네요. 밥을 먹어볼까요? "
-            "그 전에 잘 먹겠습니다. 라고 직접 소리내어 말해보세요. ",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
+
 
     // Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 

@@ -15,16 +15,22 @@ class Scenario_park_4_left extends StatefulWidget {
 }
 
 class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
+
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     _playWelcomeTTS();
   }
 
+
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요. "
-        "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요"
-        "!", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech(
+        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요. "
+            "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요"
+            "!",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
   }
 
   @override
@@ -54,7 +60,10 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
   SMITrigger? _touch4;
   SMIBool? _bool;
 
-  void _onRiveInit(Artboard artboard) {
+
+
+  void _onRiveInit(Artboard artboard) async {
+
     final controller = StateMachineController.fromArtboard(
       artboard,
       'State Machine 1',
@@ -70,20 +79,21 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
       _touch4 = controller.findInput<SMITrigger>('Trigger 4') as SMITrigger?;
 
       _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
-
-
     }
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-
-    if(stateName == "disapper 1" || stateName == "disapper 2" ||
-        stateName == "disapper 3" || stateName == "disapper 4" ){
-    }
+    if (stateName == "disapper 1" ||
+        stateName == "disapper 2" ||
+        stateName == "disapper 3" ||
+        stateName == "disapper 4") {}
 
     if (stateName == 'ExitState') {
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
+      tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
@@ -95,11 +105,13 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
-            "assets/park/leaves.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
-          ),
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+                  "assets/park/leaves.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
+              : const SizedBox.shrink(),
         ]),
       ),
     );

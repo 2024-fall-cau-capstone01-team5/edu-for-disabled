@@ -17,16 +17,24 @@ class Scenario_park_2_left extends StatefulWidget {
 class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _playWelcomeTTS();
+
+     _playWelcomeTTS();
+
   }
 
-  Future<void> _playWelcomeTTS() async {
+  Future<void> _playWelcomeTTS()  async{
     await tts.TextToSpeech(
         "자동차를 타고 출발하기 전에 먼저 안전벨트를 매보도록 해요. "
             "오른쪽 화면의 안전벨트를 손가락으로 직접 눌러보세요"
             "!",
         "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
+
   }
 
   @override
@@ -71,6 +79,8 @@ class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
     if (stateName == 'ExitState') {
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
+      tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
@@ -82,11 +92,13 @@ class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
-            "assets/park/car_belt.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
-          ),
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+                  "assets/park/car_belt.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
+              : const SizedBox.shrink(),
         ]),
       ),
     );

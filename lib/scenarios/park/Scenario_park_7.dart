@@ -44,11 +44,25 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
   SMIBool? _bool1;
   SMIBool? _bool2;
 
+  Future<void> _playWelcomeTTS() async {
+    await tts.TextToSpeech(
+        "이제 모두와 헤어질 시간이네요."
+            "모두와 헤어지기 전에 인사를 해볼까요? "
+            "안녕히 가세요. 라고 직접 소리내어 말해보세요",
+        "ko-KR-Wavenet-D");
+
+    await tts.player.onPlayerComplete.first;
+
+  }
+
   void _onRiveInit(Artboard artboard) async {
+    await _playWelcomeTTS();
+
     final controller = StateMachineController.fromArtboard(
       artboard,
       'State Machine 1',
       onStateChange: _onStateChange,
+
     );
 
     if (controller != null) {
@@ -58,13 +72,7 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
       _bool2 = controller.findInput<bool>('Boolean 2') as SMIBool?;
     }
 
-    await tts.TextToSpeech(
-        "이제 모두와 헤어질 시간이네요."
-            "모두와 헤어지기 전에 인사를 해볼까요? "
-            "안녕히 가세요. 라고 직접 소리내어 말해보세요",
-        "ko-KR-Wavenet-D");
 
-    await tts.player.onPlayerComplete.first;
 
     // Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
@@ -79,7 +87,9 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
               "잘 가라고 인사를 해 보도록 해요",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
+
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+      tts.dispose();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool2?.value = true;

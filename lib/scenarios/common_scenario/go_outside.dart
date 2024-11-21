@@ -26,8 +26,8 @@ class _Go_outside_leftState extends State<Go_outside_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-        "반가워요! 이번 이야기에서 우리는 외출을 해보도록 해요"
-            "자 그럼 출발해볼까요? 오른쪽 화면에 나와있는 문을 터치해서 밖으로 나가보세요!",
+        "반가워요! 이번 이야기에서 우리는 외출을 해보도록 해요. "
+            " 자 그럼 출발해볼까요? 오른쪽 화면에 나와있는 문을 터치해서 밖으로 나가보세요!",
         "ko-KR-Wavenet-D");
   }
 

@@ -33,10 +33,10 @@ class Scenario_park_provider extends Scenario_Manager {
 
   @override
   List<Widget> get leftScreen => [
-    Go_outside_left(),
-    Elevator_1_left(),
-    Elevator_2_left(),
-    Elevator_3_left(),
+    // Go_outside_left(),
+    // Elevator_1_left(),
+    // Elevator_2_left(),
+    // Elevator_3_left(),
     Scenario_park_1_left(),
     Scenario_park_2_left(),
     Scenario_park_3_left(),
@@ -49,10 +49,10 @@ class Scenario_park_provider extends Scenario_Manager {
 
   @override
   List<Widget> get rightScreen => [
-    Go_outside_right(),
-    Elevator_1_right(step_data: step_data),
-    Elevator_2_right(),
-    Elevator_3_right(step_data: step_data),
+    // Go_outside_right(),
+    // Elevator_1_right(step_data: step_data),
+    // Elevator_2_right(),
+    // Elevator_3_right(step_data: step_data),
     Scenario_park_1_right(),
     Scenario_park_2_right(),
     Scenario_park_3_right(),

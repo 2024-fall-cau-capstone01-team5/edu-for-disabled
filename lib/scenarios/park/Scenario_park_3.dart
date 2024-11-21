@@ -16,9 +16,9 @@ class Scenario_park_3_left extends StatefulWidget {
 
 class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
   @override
-  void initState() {
+  void initState()  {
     super.initState();
-    _playWelcomeTTS();
+     _playWelcomeTTS();
   }
 
   Future<void> _playWelcomeTTS() async {
@@ -27,6 +27,9 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
             "오른쪽 화면의 자동차를 손가락으로 직접 눌러보세요"
             "!",
         "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
@@ -53,7 +56,7 @@ class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
   SMITrigger? _trigger;
   SMIBool? _bool;
 
-  void _onRiveInit(Artboard artboard) {
+  void _onRiveInit(Artboard artboard) async {
     final controller = StateMachineController.fromArtboard(
       artboard,
       'State Machine 1',
@@ -71,6 +74,9 @@ class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
     if (stateName == 'ExitState') {
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
+      tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
@@ -82,11 +88,13 @@ class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
-            "assets/park/car_moving.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
-          ),
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+                  "assets/park/car_moving.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
+              : const SizedBox.shrink(),
         ]),
       ),
     );

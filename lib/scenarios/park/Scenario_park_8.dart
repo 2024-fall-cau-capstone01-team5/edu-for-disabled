@@ -44,6 +44,7 @@ class _Scenario_park_8_leftState extends State<Scenario_park_8_left> {
             "잘 생각해보시기 바랍니다.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    tts.dispose();
   }
 
   @override
