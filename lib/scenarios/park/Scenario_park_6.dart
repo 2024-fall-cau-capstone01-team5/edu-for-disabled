@@ -49,29 +49,27 @@ class Scenario_park_6_right extends StatefulWidget {
 }
 
 class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
-  SMITrigger? _touch;
 
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
       artboard,
-      'State Machine 1',
-      onStateChange: _onStateChange,
+      'oceanStateMachine',
+      onStateChange: _onStateChange
     );
 
     if (controller != null) {
       artboard.addController(controller);
-      _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
     }
   }
 
-  void _onStateChange(String stateMachineName, String stateName) async{
-    if (stateName == 'ExitState') {
-      await tts.TextToSpeech(
-          "참 잘했어요. 앞으로 집에 돌아가기 전에는 자기 쓰레기는 직접 스스로 치워도보록 해요. ",
-          "ko-KR-Wavenet-D");
+  void _onStateChange(String stateMachineName, String stateName) async {
+
+    if (stateName == 'LimitTime') {
+      await tts.TextToSpeech("참 잘했어요. "
+          "앞으로는 집에 가기 전에 자기가 남긴 쓰레기는 스스로 치우는"
+          "착한 사람이 되보도록 해요", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-      print("EXIT");
     }
   }
 
@@ -81,7 +79,7 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
       body: Center(
         child: Stack(children: [
           RiveAnimation.asset(
-            "assets/park/Garbage_collecting.riv",
+            "assets/park/garbage_collecting.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           ),

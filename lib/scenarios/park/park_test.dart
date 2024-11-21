@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scenario_park_6_right(),
+      home: Scenario_park_7_right(),
 
       // home: Scenario('편의점'),
     );
