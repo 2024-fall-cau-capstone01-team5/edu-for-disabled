@@ -31,6 +31,9 @@ class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
             "!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
+
   }
 
   @override
