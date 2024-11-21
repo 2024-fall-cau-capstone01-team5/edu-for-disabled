@@ -93,16 +93,8 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
-    // _playBackgroundMusic();
   }
-
-  Future<void> _playBackgroundMusic() async {
-    await _audioPlayer.setReleaseMode(ReleaseMode.loop); // 음악 반복 재생 설정
-    await _audioPlayer.play(
-      AssetSource(Provider.of<Scenario_Manager>(context, listen: false).backGroundMusic),
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     double screenWidth_for_left = MediaQuery.of(context).size.width;
