@@ -26,7 +26,7 @@ class _ContentsBarState extends State<ContentsBar> {
         automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.person),
             onPressed: () {
               Navigator.push(
                 context,
@@ -66,19 +66,34 @@ class _ContentsBarState extends State<ContentsBar> {
   }
 
   Widget _iconButton(int index) {
-    IconData iconData;
-    if (index == 0) iconData = Icons.business;
-    else if (index == 1) iconData = Icons.home;
-    else iconData = Icons.handshake;
+    String assetPath;
 
-    return IconButton(
-      icon: Icon(iconData),
-      color: selectedIndex == index ? Colors.blue : Colors.grey,
-      onPressed: () {
+    // 아이콘 경로 설정
+    if (index == 0) {
+      assetPath = selectedIndex == index
+          ? "assets/category_icons/outside_on.png"
+          : "assets/category_icons/outside_off.png";
+    } else if (index == 1) {
+      assetPath = selectedIndex == index
+          ? "assets/category_icons/home_on.png"
+          : "assets/category_icons/home_off.png";
+    } else {
+      assetPath = selectedIndex == index
+          ? "assets/category_icons/help_on.png"
+          : "assets/category_icons/help_off.png";
+    }
+
+    return GestureDetector(
+      onTap: () {
         setState(() {
           selectedIndex = index;
         });
       },
+      child: Image.asset(
+        assetPath,
+        width: 120,
+        height: 50,
+      ),
     );
   }
 }
