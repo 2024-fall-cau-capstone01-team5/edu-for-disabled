@@ -8,7 +8,9 @@ import 'package:rive/rive.dart' hide Image;
 final tts = TTS();
 
 class Scenario_park_2_left extends StatefulWidget {
-  const Scenario_park_2_left({super.key});
+  final StatefulWidget acter;
+
+  const Scenario_park_2_left({super.key, required this.acter});
 
   @override
   State<Scenario_park_2_left> createState() => _Scenario_park_2_leftState();
@@ -42,9 +44,22 @@ class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
-      child: const Image(
-        image: AssetImage("assets/park/car_inside.webp"),
-        fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
+      // child: const Image(
+      //   image: AssetImage("assets/park/car_inside.webp"),
+      //   fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
+      // ),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Image(
+              image: AssetImage("assets/park/car_inside.webp"),
+              fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
+            ),
+          ),
+          Positioned.fill(
+              child: widget.acter
+          ),
+        ],
       ),
     );
   }
