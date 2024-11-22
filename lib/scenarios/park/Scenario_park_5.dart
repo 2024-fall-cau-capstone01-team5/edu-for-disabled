@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
+import 'package:flutterpractice/scenarios/stt.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
 final tts = TTS();
+final stt = STT();
 
 
 class Scenario_park_5_left extends StatefulWidget {
-  const Scenario_park_5_left({super.key});
+  final StatefulWidget acter;
+
+  const Scenario_park_5_left({super.key, required this.acter});
 
   @override
   State<Scenario_park_5_left> createState() => _Scenario_park_5_leftState();
@@ -27,9 +31,22 @@ class _Scenario_park_5_leftState extends State<Scenario_park_5_left> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       // Container의 borderRadius와 동일하게 설정
-      child: const Image(
-        image: AssetImage("assets/park/park_meal.webp"),
-        fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
+      // child: const Image(
+      //   image: AssetImage("assets/park/park_meal.webp"),
+      //   fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
+      // ),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Image(
+              image: AssetImage("assets/park/park_meal.webp"),
+              fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
+            ),
+          ),
+          Positioned.fill(
+              child: widget.acter
+          ),
+        ],
       ),
     );
   }
@@ -78,6 +95,9 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
     // Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
     _bool1?.value = true;
+
+    String answer = await stt.gettext(6);
+
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
