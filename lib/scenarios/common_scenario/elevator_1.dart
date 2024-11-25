@@ -75,7 +75,8 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 2",
         "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
-        "호출: 아래 방향"
+        "정답: 아래 방향",
+        "응답: 아래 방향"
     );
     print('BUMPDOWN!');
     //step_data.toJson();
@@ -88,7 +89,8 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 2",
         "(위층으로 올라가야 하는 상황)엘리베이터 호출 버튼을 눌러보세요",
-        "호출: 위 방향"
+        "정답: 위 방향",
+        "응답: 위 방향"
     );
     //step_data.toJson();
   }

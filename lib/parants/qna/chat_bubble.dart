@@ -40,6 +40,25 @@ class ChatBubbles extends StatelessWidget{
             )
           ],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ChatBubble(
+              clipper: ChatBubbleClipper8(type: BubbleType.receiverBubble),
+              backGroundColor: Colors.blue,
+              margin: EdgeInsets.only(top: 20),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
+                child: Text(
+                  message['answer'],
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            )
+          ],
+        ),
         // 이하, 답변 버블
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -54,7 +73,7 @@ class ChatBubbles extends StatelessWidget{
                   maxWidth: MediaQuery.of(context).size.width * 0.7,
                 ),
                 child: Text(
-                message['answer'],
+                message['response'],
                 style: TextStyle(color: Colors.black),
                 ),
               ),
