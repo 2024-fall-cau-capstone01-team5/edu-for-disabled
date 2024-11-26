@@ -78,7 +78,8 @@ class _c_0_enterTheStore_rightState extends State<c_0_enterTheStore_right> {
     widget.step_data.sendStepData(
         "convenience 1",
         "문을 터치하고 편의점에 들어가 보세요",
-        "터치 완료"
+        "정답: 터치 완료",
+        "응답: 터치 완료"
     );
 
     //step_data.toJson();
