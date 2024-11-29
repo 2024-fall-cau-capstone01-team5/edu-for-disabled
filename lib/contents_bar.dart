@@ -4,6 +4,7 @@ import 'scenario.dart';     // 시나리오 컨텐츠 페이지
 import 'multiProfiles.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'metadata.dart';   // 현재 준비된 시나리오들의 정보
 
 class ContentsBar extends StatefulWidget {
   final String token;
@@ -108,31 +109,11 @@ class MainScroll extends StatelessWidget {
   int selectedIndex = 0;
   final String userId;
   final String profile;
+
+  List<List<String>> copiedImages = List.from(images.map((e) => List<String>.from(e)));
+  List<List<String>> copiedLabels = List.from(labels.map((e) => List<String>.from(e)));
+
   MainScroll({required this.selectedIndex, required this.userId, required this.profile});
-
-  final Map<String, String> imageUrl = {
-    '편의점': 'assets/thumbnails/store.webp',
-    '공원': 'assets/thumbnails/park.webp',
-    '복지관': 'assets/thumbnails/disability_center.webp',
-    '화장실': 'assets/thumbnails/toilet.webp',
-    '베란다': 'assets/thumbnails/terras.webp',
-    '주방': 'assets/thumbnails/kitchen.webp',
-    '낯선 사람': 'assets/thumbnails/bad_attraction.webp',
-    '길을 잃었을 때': 'assets/thumbnails/missing.webp',
-    '땅이 흔들릴 때': 'assets/thumbnails/earthquake.webp',
-  };
-
-  List<List<String>> images = [
-    ['assets/thumbnails/store.webp', 'assets/thumbnails/park.webp', 'assets/thumbnails/disability_center.webp'],
-    ['assets/thumbnails/toilet.webp', 'assets/thumbnails/terras.webp', 'assets/thumbnails/kitchen.webp'],
-    ['assets/thumbnails/bad_attraction.webp', 'assets/thumbnails/missing.webp', 'assets/thumbnails/earthquake.webp']
-  ];
-
-  List<List<String>> labels = [
-    ['편의점', '공원', '복지관'],
-    ['화장실', '베란다', '주방'],
-    ['낯선 사람', '길을 잃었을 때', '땅이 흔들릴 때']
-  ];
 
   Future<void> fetch() async {
     try {
@@ -147,16 +128,16 @@ class MainScroll extends StatelessWidget {
 
       if (response.statusCode == 200) {
         final List<String> titles = List<String>.from(
-          (json.decode(utf8.decode(response.bodyBytes))['titles'] as List<dynamic>),
+          json.decode(utf8.decode(response.bodyBytes))['titles'] as List<dynamic>,
         );
 
         final List<String> newImages = titles.map((title) => imageUrl[title] ?? 'assets/thumbnails/default.png').toList();
 
-        images.add(newImages);
-        labels.add(titles);
+        copiedImages.add(newImages);
+        copiedLabels.add(titles);
 
-        print("Updated Images: $images");
-        print("Updated Labels: $labels");
+        print("Updated Copied Images: $copiedImages");
+        print("Updated Copied Labels: $copiedLabels");
       } else {
         throw Exception('Failed to fetch scenarios: ${response.statusCode}');
       }
@@ -179,14 +160,14 @@ class MainScroll extends StatelessWidget {
             body: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: List.generate(images[selectedIndex].length, (index) {
+                children: List.generate(copiedImages[selectedIndex].length, (index) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Scenario(
-                            label: labels[selectedIndex][index],
+                            label: copiedLabels[selectedIndex][index],
                             user_id: userId,
                             profile_name: profile,
                           ),
@@ -202,7 +183,7 @@ class MainScroll extends StatelessWidget {
                           alignment: Alignment.bottomCenter,
                           children: <Widget>[
                             Image.asset(
-                              images[selectedIndex][index],
+                              copiedImages[selectedIndex][index],
                               fit: BoxFit.cover,
                               width: 500.0,
                             ),
@@ -219,7 +200,7 @@ class MainScroll extends StatelessWidget {
                               ),
                               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                               child: Text(
-                                labels[selectedIndex][index],
+                                copiedLabels[selectedIndex][index],
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0,

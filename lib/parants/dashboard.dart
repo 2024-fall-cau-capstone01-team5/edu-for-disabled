@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'learningReport.dart';
 import '../tool/kst.dart';
+import 'learningList.dart';
 
 class Dashboard extends StatefulWidget {
   final String userId;
@@ -175,16 +176,40 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
           // Right Container: Learning Tasks
-          Container(
-            width: screenWidth * 0.4,
-            height: screenHeight,
-            color: Colors.green[50],
-            child: Center(
-              child: Text(
-                "보호자 지정\n학습 목록\n(13주차)",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  color: Colors.yellow[100], // 제목 배경색 설정
+                  padding: const EdgeInsets.symmetric(vertical: 16.0), // 상하 여백 추가
+                  child: Center( // 중앙 정렬
+                    child: Text(
+                      "학습 목록 지정",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    //color: Colors.green[50],
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: CheckboxList(
+                      userId: widget.userId,
+                      profile: selectedProfile,
+                      onProfileChange: (newProfile) {
+                        setState(() {
+                          selectedProfile = newProfile;
+                        });
+                      },
+                    ),
+                  )
+
+                ),
+              ],
             ),
           ),
         ],
