@@ -62,6 +62,12 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
   SMIBool? _bool2;
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "이제 모두와 헤어질 시간이네요."
+            "모두와 헤어지기 전에 인사를 해볼까요? "
+            "\"안녕히 가세요.\" 라고 직접 소리내어 말해보세요."
+    );
     await tts.TextToSpeech(
         "이제 모두와 헤어질 시간이네요."
             "모두와 헤어지기 전에 인사를 해볼까요? "
@@ -101,6 +107,9 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. 앞으로는 모두와 헤어지기 전에 잘 가라고 인사를 해 보도록 해요"
+      );
       await tts.TextToSpeech(
           "참 잘했어요."
               "앞으로는 모두와 헤어지기 전에 "

@@ -23,6 +23,10 @@ class _Elevator_3_leftState extends State<Elevator_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "밖으로 나가려면 몇 층으로 가야 하나요? 올바른 층의 버튼을 터치해 보세요!"
+    );
     await tts.TextToSpeech("밖으로 나가려면 몇 층으로 가야 하나요?"
         "올바른 층의 버튼을 터치해 보세요!", "ko-KR-Wavenet-D");
   }
@@ -69,8 +73,7 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 4",
         "(1층으로 가야 하는 상황) 가야 하는 층의 엘리베이터 버튼을 눌러보세요",
-        "정답: 1층",
-        "응답: 1층"
+        "버튼 호출: 1층"
     );
     // step_data.toJson();
     print("Touch TRIGGERED!");
@@ -78,6 +81,7 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'ExitState') {
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");

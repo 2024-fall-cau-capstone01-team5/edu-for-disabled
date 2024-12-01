@@ -27,6 +27,11 @@ class _Scenario_park_2_leftState extends State<Scenario_park_2_left> {
   }
 
   Future<void> _playWelcomeTTS()  async{
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "자동차를 타고 출발하기 전에 먼저 안전벨트를 매보도록 해요. "
+            "오른쪽 화면의 안전벨트를 손가락으로 직접 눌러보세요!"
+    );
     await tts.TextToSpeech(
         "자동차를 타고 출발하기 전에 먼저 안전벨트를 매보도록 해요. "
             "오른쪽 화면의 안전벨트를 손가락으로 직접 눌러보세요"
@@ -92,6 +97,7 @@ class _Scenario_park_2_rightState extends State<Scenario_park_2_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

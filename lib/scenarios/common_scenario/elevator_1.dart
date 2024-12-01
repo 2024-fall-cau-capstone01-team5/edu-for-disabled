@@ -24,6 +24,12 @@ class _Elevator_1_leftState extends State<Elevator_1_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "우리는 지금 아래로 내려가야 할까요? 아니면 "
+            "위로 올라가야 할까요? 오른쪽 화면에 나오는 올바른 "
+            "엘리베이터 호출 버튼을 눌러보세요."
+    );
     await tts.TextToSpeech("우리는 지금 아래로 내려가야 할까요? 아니면 "
         "위로 올라가야 할까요? 오른쪽 화면에 나오는 올바른"
         "엘리베이터 호출 버튼을 눌러보세요", "ko-KR-Wavenet-D");
@@ -75,8 +81,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 2",
         "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
-        "정답: 아래 방향",
-        "응답: 아래 방향"
+        "호출: 아래 방향"
     );
     print('BUMPDOWN!');
     //step_data.toJson();
@@ -89,8 +94,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 2",
         "(위층으로 올라가야 하는 상황)엘리베이터 호출 버튼을 눌러보세요",
-        "정답: 위 방향",
-        "응답: 위 방향"
+        "호출: 위 방향"
     );
     //step_data.toJson();
   }
@@ -98,6 +102,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
   void _onStateChange(String stateMachineName, String stateName) async{
     print("STATE CHANGED: $stateName");
     if (stateName == 'ExitState') {
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요. ");
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");
