@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterpractice/providers/Scenario_park_provider.dart';
+import 'package:flutterpractice/providers/Scenario_ready_provider.dart';
 import 'providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -100,7 +101,7 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_park_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Scenario_ready_provider(learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }

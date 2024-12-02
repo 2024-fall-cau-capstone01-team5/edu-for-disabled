@@ -29,6 +29,7 @@ class _Scenario_ready_9_leftState extends State<Scenario_ready_9_left> {
             "오른쪽 화면의 변기를 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
@@ -80,10 +81,13 @@ class _Scenario_ready_9_rightState extends State<Scenario_ready_9_right> {
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로는 변기를 사용한 후에는 변기물이 튀기지 않도록 꼭 변기 뚜껑을 닫고 "
-              "잊지말고 물도 꼭 내리도록 해요.",
+              "물을 내리도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
@@ -95,11 +99,13 @@ class _Scenario_ready_9_rightState extends State<Scenario_ready_9_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
             "assets/ready/toilet_openedstate.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

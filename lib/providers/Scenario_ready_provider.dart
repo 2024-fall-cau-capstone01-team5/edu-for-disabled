@@ -16,8 +16,7 @@ import '../scenarios/ready_to_go_out/Scenario_ready_10.dart';
 import '../scenarios/ready_to_go_out/Scenario_ready_11.dart';
 import '../scenarios/ready_to_go_out/Scenario_ready_12.dart';
 import '../scenarios/ready_to_go_out/Scenario_ready_13.dart';
-
-
+import '../scenarios/ready_to_go_out/Scenario_ready_14.dart';
 
 class Scenario_ready_provider extends Scenario_Manager {
 
@@ -48,6 +47,7 @@ class Scenario_ready_provider extends Scenario_Manager {
     Scenario_ready_11_left(acter: acter),
     Scenario_ready_12_left(acter: acter),
     Scenario_ready_13_left(acter: acter),
+    const Scenario_ready_14_left(),
 
   ];
 
@@ -65,6 +65,6 @@ class Scenario_ready_provider extends Scenario_Manager {
     Scenario_ready_10_right(),
     Scenario_ready_11_right(),
     Scenario_ready_12_right(),
-    Scenario_ready_13_right(),
+    Scenario_ready_14_right(),
   ];
 }

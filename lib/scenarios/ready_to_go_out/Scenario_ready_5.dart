@@ -29,6 +29,8 @@ class _Scenario_ready_5_leftState extends State<Scenario_ready_5_left> {
                 "오른쪽 화면의 그릇과 수저들을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
   }
 
   @override
@@ -87,6 +89,8 @@ class _Scenario_ready_5_rightState extends State<Scenario_ready_5_right> {
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     }
   }
@@ -96,11 +100,13 @@ class _Scenario_ready_5_rightState extends State<Scenario_ready_5_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
             "assets/ready/sink_clear.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

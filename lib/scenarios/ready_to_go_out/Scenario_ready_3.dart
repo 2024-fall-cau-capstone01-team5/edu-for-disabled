@@ -30,6 +30,9 @@ class _Scenario_ready_3_leftState extends State<Scenario_ready_3_left> {
                 "오른쪽 화면의 접시와 수저들을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
   }
 
   @override
@@ -83,10 +86,12 @@ class _Scenario_ready_3_rightState extends State<Scenario_ready_3_right> {
       _bool?.value = true;
       await tts.TextToSpeech(
           "참 잘했어요. "
-              "앞으로는 밥을 먹기 전에 식탁을 차려 부모님을 도와주는 착한 사람이 되 보도록 해요. ",
+              "앞으로는 밥을 먹기 전에 식탁을 차려 부모님을 도와주는 착한 사람이 돼 보도록 해요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     }
   }
@@ -96,11 +101,13 @@ class _Scenario_ready_3_rightState extends State<Scenario_ready_3_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
             "assets/ready/setting_table.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

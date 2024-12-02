@@ -29,6 +29,7 @@ class _Scenario_ready_8_leftState extends State<Scenario_ready_8_left> {
             "오른쪽 화면의 휴지를 손가락으로 직접 눌러보세요 ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
@@ -80,10 +81,12 @@ class _Scenario_ready_8_rightState extends State<Scenario_ready_8_right> {
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로 화장실을 이용할 때에는 "
-              "휴지는 사용할 만큼만 사용해 보는 습관을 들어도록 해요. ",
+              "휴지는 사용할 만큼만 사용해 보는 습관을 들여보도록 해요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
@@ -95,11 +98,13 @@ class _Scenario_ready_8_rightState extends State<Scenario_ready_8_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
             "assets/ready/tissue.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

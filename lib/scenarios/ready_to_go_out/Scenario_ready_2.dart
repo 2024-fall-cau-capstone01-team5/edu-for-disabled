@@ -87,7 +87,7 @@ class _Scenario_ready_2_rightState extends State<Scenario_ready_2_right> {
 
     _bool1?.value = true;
 
-    String answer = await stt.gettext(6);
+    // String answer = await stt.gettext(6);
 
   }
 

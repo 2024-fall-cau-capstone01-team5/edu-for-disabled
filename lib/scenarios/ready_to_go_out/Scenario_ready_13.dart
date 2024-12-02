@@ -29,6 +29,7 @@ class _Scenario_ready_13_leftState extends State<Scenario_ready_13_left> {
                 "오른쪽 화면을 터치해서 마음에 드는 옷과 장신구를 선택해 캐릭터를 꾸며보세요!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
@@ -79,6 +80,7 @@ class _Scenario_ready_13_rightState extends State<Scenario_ready_13_right> {
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     }
   }
@@ -88,11 +90,13 @@ class _Scenario_ready_13_rightState extends State<Scenario_ready_13_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
             "assets/ready/dress_the_cartoon_character.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

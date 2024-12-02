@@ -14,7 +14,7 @@ class TTS{
       "audioConfig": {
         "audioEncoding": "LINEAR16",
         "pitch": 0,
-        "speakingRate": 0.8
+        "speakingRate": 0.9
       },
       "input": {
         "text": text  // 매개변수로 받은 값을 사용

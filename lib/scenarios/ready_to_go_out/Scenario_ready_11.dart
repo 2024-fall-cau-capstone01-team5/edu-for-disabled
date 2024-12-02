@@ -29,6 +29,7 @@ class _Scenario_ready_11_leftState extends State<Scenario_ready_11_left> {
             "오른쪽 화면의 이빨을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
@@ -79,12 +80,14 @@ class _Scenario_ready_11_rightState extends State<Scenario_ready_11_right> {
     if (stateName == 'ExitState') {
       await tts.TextToSpeech(
           "참 잘했어요. "
-              "양치질을 제대로 하지 않으면 입에서 입냄새가 날 수도 있어요. "
+              "양치질을 제대로 하지 않으면 입에서 냄새가 날 수도 있어요. "
               "앞으로는 양치질을 꼼꼼하게 깨끗히 해 보도록 해요. "
               "그리고 양치질이 끝나면 물로 입을 헹구는 것도 잊지 않도록 해요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
@@ -96,11 +99,13 @@ class _Scenario_ready_11_rightState extends State<Scenario_ready_11_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
             "assets/ready/brushing_tooth.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

@@ -74,6 +74,7 @@ flutter:
     - assets/common/
     - assets/park/
     - assets/category_icons/
+    - assets/ready/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
