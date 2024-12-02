@@ -65,6 +65,7 @@ class Scenario_ready_provider extends Scenario_Manager {
     Scenario_ready_10_right(),
     Scenario_ready_11_right(),
     Scenario_ready_12_right(),
+    Scenario_ready_13_right(),
     Scenario_ready_14_right(),
   ];
 }

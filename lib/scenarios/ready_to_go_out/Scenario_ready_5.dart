@@ -41,7 +41,7 @@ class _Scenario_ready_5_leftState extends State<Scenario_ready_5_left> {
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/common/living_room.png"),
+              image: AssetImage("assets/ready/kitchen.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
