@@ -73,7 +73,8 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
     widget.step_data.sendStepData(
         "외출 common_scenario 4",
         "(1층으로 가야 하는 상황) 가야 하는 층의 엘리베이터 버튼을 눌러보세요",
-        "버튼 호출: 1층"
+        "정답: 1층",
+        "응답: 1층"
     );
     // step_data.toJson();
     print("Touch TRIGGERED!");

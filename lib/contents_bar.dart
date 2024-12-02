@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'character_customizing.dart';   // 캐릭터 커스터마이징 페이지
 import 'scenario.dart';     // 시나리오 컨텐츠 페이지
 import 'multiProfiles.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'metadata.dart';   // 현재 준비된 시나리오들의 정보
 
 class ContentsBar extends StatefulWidget {
   final String token;
@@ -55,7 +58,7 @@ class _ContentsBarState extends State<ContentsBar> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(3, (index) => _iconButton(index)),
+            children: List.generate(4, (index) => _iconButton(index)),
           ),
           Expanded(
               child: MainScroll(selectedIndex: selectedIndex, userId: widget.userId, profile: widget.profile)
@@ -77,10 +80,14 @@ class _ContentsBarState extends State<ContentsBar> {
       assetPath = selectedIndex == index
           ? "assets/category_icons/home_on.png"
           : "assets/category_icons/home_off.png";
-    } else {
+    } else if (index == 2){
       assetPath = selectedIndex == index
           ? "assets/category_icons/help_on.png"
           : "assets/category_icons/help_off.png";
+    } else{
+      assetPath = selectedIndex == index
+          ? "assets/category_icons/learning_on.png"
+          : "assets/category_icons/learning_off.png";
     }
 
     return GestureDetector(
@@ -102,68 +109,116 @@ class MainScroll extends StatelessWidget {
   int selectedIndex = 0;
   final String userId;
   final String profile;
+
+  List<List<String>> copiedImages = List.from(images.map((e) => List<String>.from(e)));
+  List<List<String>> copiedLabels = List.from(labels.map((e) => List<String>.from(e)));
+
   MainScroll({required this.selectedIndex, required this.userId, required this.profile});
 
-  final List<List<String>> images = [
-    ['assets/thumbnails/store.webp', 'assets/thumbnails/park.webp', 'assets/thumbnails/disability_center.webp'],
-    ['assets/thumbnails/toilet.webp', 'assets/thumbnails/terras.webp', 'assets/thumbnails/kitchen.webp'],
-    ['assets/thumbnails/bad_attraction.webp', 'assets/thumbnails/missing.webp', 'assets/thumbnails/earthquake.webp']
-  ];
+  Future<void> fetch() async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://20.9.151.223:8080/learning_list/scenarios'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          "user_id": userId,
+          "profile_name": profile,
+        }),
+      );
 
-  final List<List<String>> labels = [['편의점', '공원', '복지관'], ['화장실', '베란다', '주방'], ['낯선 사람', '길을 잃었을 때', '땅이 흔들릴 때']];
+      if (response.statusCode == 200) {
+        final List<String> titles = List<String>.from(
+          json.decode(utf8.decode(response.bodyBytes))['titles'] as List<dynamic>,
+        );
+
+        final List<String> newImages = titles.map((title) => imageUrl[title] ?? 'assets/thumbnails/default.png').toList();
+
+        copiedImages.add(newImages);
+        copiedLabels.add(titles);
+
+        print("Updated Copied Images: $copiedImages");
+        print("Updated Copied Labels: $copiedLabels");
+      } else {
+        throw Exception('Failed to fetch scenarios: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching learning list: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: List.generate(images[selectedIndex].length, (index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Scenario(label: labels[selectedIndex][index], user_id: userId, profile_name: profile)), // Assuming 'Scenario' is defined elsewhere
-                );
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      Image.asset(images[selectedIndex][index], fit: BoxFit.cover, width: 500.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
+    return FutureBuilder<void>(
+      future: fetch(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          return Scaffold(
+            body: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(copiedImages[selectedIndex].length, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scenario(
+                            label: copiedLabels[selectedIndex][index],
+                            user_id: userId,
+                            profile_name: profile,
                           ),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          labels[selectedIndex][index],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      );
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: <Widget>[
+                            Image.asset(
+                              copiedImages[selectedIndex][index],
+                              fit: BoxFit.cover,
+                              width: 500.0,
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(200, 0, 0, 0),
+                                    Color.fromARGB(0, 0, 0, 0),
+                                  ],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                ),
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                              child: Text(
+                                copiedLabels[selectedIndex][index],
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                }),
               ),
-            );
-          }),
-        ),
-      ),
+            ),
+          );
+        }
+      },
     );
   }
 }
