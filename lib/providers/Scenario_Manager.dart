@@ -10,7 +10,6 @@ abstract class Scenario_Manager extends ChangeNotifier {
 
   int index = 0;
 
-
   final TTS tts = TTS();
 
   String get title;
