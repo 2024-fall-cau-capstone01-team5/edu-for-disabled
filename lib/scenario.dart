@@ -45,7 +45,7 @@ class Scenario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Character acterWidget = Character(userId: user_id, profile: profile_name);
-    if (label == '편x의점') {
+    if (label == '편의점') {
       return FutureBuilder<String>(
         future: _learnstart('1'),
         builder: (context, snapshot) {
@@ -101,7 +101,7 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_ready_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Scenario_park_provider(learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }

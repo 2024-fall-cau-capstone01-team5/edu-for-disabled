@@ -13,7 +13,9 @@ final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
 
 class c_1_enterTheStore_left extends StatefulWidget {
-  const c_1_enterTheStore_left({super.key});
+  final StatefulWidget acter;
+
+  const c_1_enterTheStore_left({super.key, required this.acter});
 
   @override
   State<c_1_enterTheStore_left> createState() => _c_1_enterTheStore_leftState();
@@ -34,12 +36,24 @@ class _c_1_enterTheStore_leftState extends State<c_1_enterTheStore_left> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      // Container의 borderRadius와 동일하게 설정
-      child: const Image(
-        image: AssetImage("assets/c_outside.PNG"),
-        fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+        child: Stack(
+          children: [
+            // 배경 이미지 (아래쪽에 위치)
+            const Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/c_outside.PNG"),
+                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
+              ),
+            ),
+            // 배우 이미지 (위쪽에 위치)
+            Positioned.fill(
+                child: widget.acter
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -74,12 +88,7 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
     _touch?.fire();
     print("Touch TRIGGERED!!!!");
     
-    widget.step_data.sendStepData(
-        "convenience 1",
-        "문을 터치하고 편의점에 들어가 보세요",
-        "정답: 터치 완료",
-        "응답: 터치 완료"
-    );
+
 
     //step_data.toJson();
     // json으로 return
@@ -89,6 +98,13 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
   void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'exit') {
+      widget.step_data.sendStepData(
+          "convenience 1",
+          "(편의점에 들어가야 하는 상황)문을 터치하고 편의점에 들어가 보세요",
+          "정답: 터치 완료",
+          "응답(터치하기): 터치 완료"
+      );
+
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");

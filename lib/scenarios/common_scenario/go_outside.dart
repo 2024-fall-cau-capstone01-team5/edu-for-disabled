@@ -6,12 +6,15 @@ import 'package:audioplayers/audioplayers.dart';
 import '../tts.dart';
 
 import 'package:rive/rive.dart' hide Image;
+import '../StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
 
 class Go_outside_left extends StatefulWidget {
-  const Go_outside_left({super.key});
+  final StatefulWidget acter;
+
+  const Go_outside_left({super.key, required this.acter});
 
   @override
   State<Go_outside_left> createState() => _Go_outside_leftState();
@@ -38,19 +41,33 @@ class _Go_outside_leftState extends State<Go_outside_left> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      // Container의 borderRadius와 동일하게 설정
-      child: const Image(
-        image: AssetImage("assets/common/living_room.png"),
-        fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+        child: Stack(
+          children: [
+            // 배경 이미지 (아래쪽에 위치)
+            const Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/common/living_room.png"),
+                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
+              ),
+            ),
+            // 배우 이미지 (위쪽에 위치)
+            Positioned.fill(
+                child: widget.acter
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class Go_outside_right extends StatefulWidget {
-  const Go_outside_right({super.key});
+  final StepData step_data;
+
+  const Go_outside_right({super.key, required this.step_data});
 
   @override
   State<Go_outside_right> createState() =>
@@ -82,6 +99,13 @@ class _Go_outside_rightState extends State<Go_outside_right> {
   void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'exit') {
+      widget.step_data.sendStepData(
+          "외출 common_scenario 1",
+          "문을 터치해 밖으로 나가보세요",
+          "정답: 터치 완료",
+          "응답(터치 하기): 터치 완료"
+      );
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech(
           "참 잘했어요. ",

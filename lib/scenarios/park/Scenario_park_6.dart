@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
 
 import 'package:rive/rive.dart' hide Image;
+import '../StepData.dart';
 
 final tts = TTS();
 
@@ -67,7 +68,9 @@ class _Scenario_park_6_leftState extends State<Scenario_park_6_left> {
 }
 
 class Scenario_park_6_right extends StatefulWidget {
-  const Scenario_park_6_right({super.key});
+  final StepData step_data;
+
+  const Scenario_park_6_right({super.key, required this.step_data});
 
   @override
   State<Scenario_park_6_right> createState() => _Scenario_park_6_rightState();
@@ -90,6 +93,14 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
   void _onStateChange(String stateMachineName, String stateName) async {
 
     if (stateName == 'ExitState') {
+
+      widget.step_data.sendStepData(
+          "park 6",
+          "(공원에서 떠나기 전 자기가 남긴 쓰레기를 줍는 상황)오른쪽 화면의 쓰레기들을 손가락으로 직접 눌러보세요!",
+          "정답: 미니 게임 완료",
+          "응답(터치하기): 미니 게임 완료"
+      );
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
           "참 잘했어요. "
               "앞으로는 집에 가기 전에 자기가 남긴 쓰레기는 스스로 치우는"

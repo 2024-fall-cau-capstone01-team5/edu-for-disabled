@@ -33,10 +33,10 @@ class Scenario_park_provider extends Scenario_Manager {
 
   @override
   List<Widget> get leftScreen => [
-    // Go_outside_left(),
-    // Elevator_1_left(),
-    // Elevator_2_left(),
-    // Elevator_3_left(),
+    Go_outside_left(acter: acter),
+    Elevator_1_left(acter: acter),
+    Elevator_2_left(acter: acter),
+    Elevator_3_left(acter: acter),
     Scenario_park_1_left(acter: acter),
     Scenario_park_2_left(acter: acter),
     Scenario_park_3_left(acter: acter),
@@ -49,18 +49,18 @@ class Scenario_park_provider extends Scenario_Manager {
 
   @override
   List<Widget> get rightScreen => [
-    // Go_outside_right(),
-    // Elevator_1_right(step_data: step_data),
-    // Elevator_2_right(),
-    // Elevator_3_right(step_data: step_data),
-    Scenario_park_1_right(),
-    Scenario_park_2_right(),
-    Scenario_park_3_right(),
-    Scenario_park_4_right(),
-    Scenario_park_5_right(),
-    Scenario_park_6_right(),
-    Scenario_park_7_right(),
-    Scenario_park_8_right(),
+    Go_outside_right(step_data: step_data,),
+    Elevator_1_right(step_data: step_data),
+    Elevator_2_right(step_data: step_data),
+    Elevator_3_right(step_data: step_data),
+    Scenario_park_1_right(step_data: step_data),
+    Scenario_park_2_right(step_data: step_data),
+    Scenario_park_3_right(step_data: step_data),
+    Scenario_park_4_right(step_data: step_data),
+    Scenario_park_5_right(step_data: step_data),
+    Scenario_park_6_right(step_data: step_data),
+    Scenario_park_7_right(step_data: step_data),
+    Scenario_park_8_right(step_data: step_data),
   ];
 
 

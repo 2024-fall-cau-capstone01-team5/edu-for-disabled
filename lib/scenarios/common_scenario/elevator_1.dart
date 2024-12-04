@@ -9,7 +9,9 @@ import '../StepData.dart';
 final tts = TTS();
 
 class Elevator_1_left extends StatefulWidget {
-  const Elevator_1_left({super.key});
+  final StatefulWidget acter;
+
+  const Elevator_1_left({super.key, required this.acter});
 
   @override
   State<Elevator_1_left> createState() => _Elevator_1_leftState();
@@ -37,12 +39,24 @@ class _Elevator_1_leftState extends State<Elevator_1_left> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      // Container의 borderRadius와 동일하게 설정
-      child: const Image(
-        image: AssetImage("assets/common/elevator.png"),
-        fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+        child: Stack(
+          children: [
+            // 배경 이미지 (아래쪽에 위치)
+            const Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/common/elevator.png"),
+                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
+              ),
+            ),
+            // 배우 이미지 (위쪽에 위치)
+            Positioned.fill(
+                child: widget.acter
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -76,33 +90,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     }
   }
 
-  void _hitBumpDown() {
-    _touch_down?.fire();
-    widget.step_data.sendStepData(
-        "외출 common_scenario 2",
-        "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
-        "정답: 아래 방향",
-        "응답: 아래 방향"
-    );
-    print('BUMPDOWN!');
-    //step_data.toJson();
-    //Json 변환
-
-  }
-
-  void _hitBumpUp() {
-    _touch_up?.fire();
-    widget.step_data.sendStepData(
-        "외출 common_scenario 2",
-        "(위층으로 올라가야 하는 상황)엘리베이터 호출 버튼을 눌러보세요",
-        "정답: 위 방향",
-        "응답: 위 방향"
-    );
-    //step_data.toJson();
-  }
-
   void _onStateChange(String stateMachineName, String stateName) async{
-    print("STATE CHANGED: $stateName");
     if (stateName == 'ExitState') {
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요. ");
       await tts.TextToSpeech(
@@ -111,7 +99,23 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
       await tts.player.onPlayerComplete.first;
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
-    }
+    } else if(stateName == 'press down'){
+      widget.step_data.sendStepData(
+          "외출 common_scenario 2",
+          "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
+          "정답: 아래 방향",
+          "응답(버튼 선택): 아래 방향"
+      );
+
+    } else if(stateName == 'press up'){
+      widget.step_data.sendStepData(
+          "외출 common_scenario 2",
+          "(아래층으로 내려가야 하는 상황) 엘리베이터 호출 버튼을 눌러보세요",
+          "정답: 아래 방향",
+          "응답(버튼 선택): 위 방향"
+      );
+
+    }else{}
   }
 
   @override
@@ -119,14 +123,10 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          GestureDetector(
-            onTapDown: (_) => _hitBumpDown(),
-            onTapUp: (_) => _hitBumpUp(),
-            child: RiveAnimation.asset(
-              "assets/common/elevator_button.riv",
-              fit: BoxFit.contain,
-              onInit: _onRiveInit,
-            ),
+          RiveAnimation.asset(
+            "assets/common/elevator_button.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
           ),
         ]),
       ),

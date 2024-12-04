@@ -12,8 +12,8 @@ final STT stt = STT();
 
 
 class c_6_display_left extends StatefulWidget {
-  final StatefulWidget actor;
-  const c_6_display_left({super.key, required this.actor});
+  final StatefulWidget acter;
+  const c_6_display_left({super.key, required this.acter});
 
   @override
   State<c_6_display_left> createState() => _c_6_display_leftState();
@@ -70,7 +70,7 @@ class _c_6_display_leftState extends State<c_6_display_left> {
                   ),
                   Positioned.fill(
                     child: sinarioProvider.flag == 1
-                        ? widget.actor
+                        ? widget.acter
                         : SizedBox.shrink(),
                   ),
                 ],
@@ -109,9 +109,9 @@ class _c_6_display_rightState extends State<c_6_display_right> {
 
                     widget.step_data.sendStepData(
                         "convenience 5",
-                        "편의점 직원분께 안녕히 계세요라고 인사해보세요",
+                        "(편의점을 나가는 상황)편의점 직원분께 안녕히 계세요라고 인사해보세요",
                         "정답: \"안녕히 계세요\"",
-                        answer
+                        "응답(소리내어 말하기): $answer",
                     );
                     //step_data.toJson();
 
@@ -135,6 +135,13 @@ class _c_6_display_rightState extends State<c_6_display_right> {
                 child: sinarioProvider.flag3 == 1 ?
                 ElevatedButton(
                   onPressed: () async {
+                    widget.step_data.sendStepData(
+                        "convenience 5",
+                        "(편의점을 나가는 상황)문을 터치하고 편의점 밖으로 나가보세요",
+                        "정답: 터치 완료",
+                        "응답(터치하기): 터치 완료"
+                    );
+
                     await _audioPlayer.play(AssetSource("effect_door.mp3"));
                     setState(() {
                       door_image = "assets/door_open.png";

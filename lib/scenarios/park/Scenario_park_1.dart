@@ -5,6 +5,8 @@ import '../../providers/Scenario_Manager.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
+import '../StepData.dart';
+
 final tts = TTS();
 
 class Scenario_park_1_left extends StatefulWidget {
@@ -35,6 +37,8 @@ class _Scenario_park_1_leftState extends State<Scenario_park_1_left> {
 
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -58,7 +62,9 @@ class _Scenario_park_1_leftState extends State<Scenario_park_1_left> {
 }
 
 class Scenario_park_1_right extends StatefulWidget {
-  const Scenario_park_1_right({super.key});
+  final StepData step_data;
+
+  const Scenario_park_1_right({super.key, required this.step_data});
 
   @override
   State<Scenario_park_1_right> createState() => _Scenario_park_1_rightState();
@@ -89,6 +95,13 @@ class _Scenario_park_1_rightState extends State<Scenario_park_1_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'exit') {
+      widget.step_data.sendStepData(
+          "park 1",
+          "(자동차 문을 열고 타는 상황)오른쪽 화면의 문을 손가락으로 직접 눌러보세요",
+          "정답: 터치 완료",
+          "응답(터치하기): 터치 완료"
+      );
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech(
           "참 잘했어요. ",
