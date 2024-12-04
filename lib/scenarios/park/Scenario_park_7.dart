@@ -64,6 +64,8 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
   SMIBool? _bool1;
   SMIBool? _bool2;
 
+  String answer = '';
+
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
@@ -104,12 +106,23 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
 
     _bool1?.value = true;
 
-    String answer = await stt.gettext(6);
+    setState(() async{
+      answer = await stt.gettext(6);
+    });
 
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
+
+      widget.step_data.sendStepData(
+          "park 7",
+          "(모두와 헤어지는 상황)모두와 헤어지기 전에 \"안녕히 가세요\"라고 소리내어 말해보세요!",
+          "정답: \"안녕히 가세요\"",
+          "응답(소리내어 말하기): $answer"
+      );
+
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
           "참 잘했어요. 앞으로는 모두와 헤어지기 전에 잘 가라고 인사를 해 보도록 해요"
       );

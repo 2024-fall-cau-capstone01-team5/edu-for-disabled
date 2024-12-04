@@ -106,12 +106,29 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-    if (stateName == "disapper 1" ||
-        stateName == "disapper 2" ||
-        stateName == "disapper 3" ||
-        stateName == "disapper 4") {}
 
     if (stateName == 'ExitState') {
+
+      if(_bool?.value == true){
+        widget.step_data.sendStepData(
+            "park 4",
+            "(공원에 도착해 노는 상황)나뭇잎들을 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 눌러보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+
+      }else {
+        widget.step_data.sendStepData(
+            "park 4",
+            "(공원에 도착해 노는 상황)나뭇잎들을 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 눌러보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+
+      }
+
+
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;

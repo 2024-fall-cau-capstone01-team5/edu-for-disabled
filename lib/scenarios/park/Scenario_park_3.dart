@@ -40,6 +40,8 @@ class _Scenario_park_3_leftState extends State<Scenario_park_3_left> {
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -95,6 +97,27 @@ class _Scenario_park_3_rightState extends State<Scenario_park_3_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
+
+      if(_bool?.value == true){
+        widget.step_data.sendStepData(
+            "park 3",
+            "(자동차가 출발하는 상황)오른쪽 화면의 자동차를 손가락으로 직접 눌러보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+
+      }else {
+        widget.step_data.sendStepData(
+            "park 3",
+            "(자동차가 출발하는 상황)오른쪽 화면의 자동차를 손가락으로 직접 눌러보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+
+      }
+
+
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;

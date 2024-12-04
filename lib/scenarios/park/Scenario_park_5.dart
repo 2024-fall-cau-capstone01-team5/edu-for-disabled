@@ -68,6 +68,8 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
   SMIBool? _bool1;
   SMIBool? _bool2;
 
+  String answer = '';
+
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
@@ -97,21 +99,25 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
       _bool2 = controller.findInput<bool>('Boolean 2') as SMIBool?;
 
     }
-
-
-
-    // Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
-
     _bool1?.value = true;
 
-    String answer = await stt.gettext(6);
-
+    setState(() async{
+      answer = await stt.gettext(6);
+    });
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
 
     if (stateName == 'ExitState') {
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요. "
+
+      widget.step_data.sendStepData(
+          "park 5",
+          "(밥을 먹는 상황)밥을 먹기 전 \"잘 먹겠습니다.\" 라고 소리내어 말해보세요",
+          "정답: \"잘 먹겠습니다\" ",
+          "응답(소리내어 말하기): $answer",
+      );
+
+        await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요. "
           "앞으로는 밥 먹기 전에 먼저 인사를 씩씩하게 해보도록 해요.");
       await tts.TextToSpeech("참 잘했어요."
           "앞으로는 밥 먹기 전에 먼저 인사를 씩씩하게 해보도록 해요", "ko-KR-Wavenet-D");

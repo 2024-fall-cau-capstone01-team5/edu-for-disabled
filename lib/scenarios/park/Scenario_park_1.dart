@@ -37,6 +37,8 @@ class _Scenario_park_1_leftState extends State<Scenario_park_1_left> {
 
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -93,6 +95,13 @@ class _Scenario_park_1_rightState extends State<Scenario_park_1_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'exit') {
+      widget.step_data.sendStepData(
+          "park 1",
+          "(자동차 문을 열고 타는 상황)오른쪽 화면의 문을 손가락으로 직접 눌러보세요",
+          "정답: 터치 완료",
+          "응답(터치하기): 터치 완료"
+      );
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech(
           "참 잘했어요. ",
