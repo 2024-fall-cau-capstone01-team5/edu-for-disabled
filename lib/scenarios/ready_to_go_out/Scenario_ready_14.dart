@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
 import '../tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
+import '../StepData.dart';
 
 import '../../providers/Scenario_Manager.dart';
 import 'package:rive/rive.dart' hide Image;
@@ -56,7 +57,9 @@ class _Scenario_ready_14_leftState extends State<Scenario_ready_14_left> {
 }
 
 class Scenario_ready_14_right extends StatefulWidget {
-  const Scenario_ready_14_right({super.key});
+  final StepData step_data;
+
+  const Scenario_ready_14_right({super.key, required this.step_data});
 
   @override
   State<Scenario_ready_14_right> createState() =>
