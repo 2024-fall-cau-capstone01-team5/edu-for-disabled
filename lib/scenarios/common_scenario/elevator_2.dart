@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpractice/scenarios/StepData.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
@@ -58,7 +59,8 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
 }
 
 class Elevator_2_right extends StatefulWidget {
-  const Elevator_2_right({super.key});
+  final StepData step_data;
+  const Elevator_2_right({super.key, required this.step_data});
 
   @override
   State<Elevator_2_right> createState() => _Elevator_2_rightState();
@@ -89,6 +91,13 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'exit') {
+      widget.step_data.sendStepData(
+          "외출 common_scenario 3",
+          "엘리베이터 문을 터치해 엘리베이터 안으로 들어가 보세요",
+          "정답: 터치 완료",
+          "응답(터치 하기): 터치 완료"
+      );
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요. ");
       await tts.TextToSpeech(
           "참 잘했어요. ",

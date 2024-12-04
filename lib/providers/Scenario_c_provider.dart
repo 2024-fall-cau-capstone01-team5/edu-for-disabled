@@ -52,9 +52,9 @@ class Sinario_c_provider extends Scenario_Manager {
 
   @override
   List<Widget> get rightScreen => [
-    Go_outside_right(),
+    Go_outside_right(step_data: step_data,),
     Elevator_1_right(step_data: step_data),
-    Elevator_2_right(),
+    Elevator_2_right(step_data: step_data),
     Elevator_3_right(step_data: step_data),
     Traffic_right(),
 

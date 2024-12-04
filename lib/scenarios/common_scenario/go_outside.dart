@@ -6,6 +6,7 @@ import 'package:audioplayers/audioplayers.dart';
 import '../tts.dart';
 
 import 'package:rive/rive.dart' hide Image;
+import '../StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
@@ -64,7 +65,9 @@ class _Go_outside_leftState extends State<Go_outside_left> {
 }
 
 class Go_outside_right extends StatefulWidget {
-  const Go_outside_right({super.key});
+  final StepData step_data;
+
+  const Go_outside_right({super.key, required this.step_data});
 
   @override
   State<Go_outside_right> createState() =>
@@ -96,6 +99,13 @@ class _Go_outside_rightState extends State<Go_outside_right> {
   void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'exit') {
+      widget.step_data.sendStepData(
+          "외출 common_scenario 1",
+          "문을 터치해 밖으로 나가보세요",
+          "정답: 터치 완료",
+          "응답(터치 하기): 터치 완료"
+      );
+
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech(
           "참 잘했어요. ",

@@ -88,12 +88,7 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
     _touch?.fire();
     print("Touch TRIGGERED!!!!");
     
-    widget.step_data.sendStepData(
-        "convenience 1",
-        "문을 터치하고 편의점에 들어가 보세요",
-        "정답: 터치 완료",
-        "응답(터치하기): 터치 완료"
-    );
+
 
     //step_data.toJson();
     // json으로 return
@@ -103,6 +98,13 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
   void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'exit') {
+      widget.step_data.sendStepData(
+          "convenience 1",
+          "(편의점에 들어가야 하는 상황)문을 터치하고 편의점에 들어가 보세요",
+          "정답: 터치 완료",
+          "응답(터치하기): 터치 완료"
+      );
+
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");

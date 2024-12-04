@@ -102,7 +102,7 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
 
     widget.step_data.sendStepData(
         "convenience 2",
-        "인사를 했을 때의 나의 기분을 선택해보세요",
+        "(직원에게 인사를 하는 상황)인사를 했을 때의 나의 기분을 선택해보세요",
         "정답: (예시)satisfied",
         "응답(감정표현 선택): $face_choice!",
       //수정 필요
@@ -189,7 +189,7 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                       String answer = await stt.gettext(3);
                       widget.step_data.sendStepData(
                           "convenience 2",
-                          "편의점 직원분께 인사를 해보세요",
+                          "(편의점 직원분께 안녕하세요?라고 인사를 하는 상황)편의점 직원분께 인사를 해보세요",
                           "정답: \"안녕하세요\"",
                           "응답(소리내어 말하기): $answer",
                       );

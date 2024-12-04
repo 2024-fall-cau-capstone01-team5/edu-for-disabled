@@ -108,7 +108,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
   Future<void> _playWelcomeTTS() async {
     widget.step_data.sendStepData(
         "convenience 4",
-        "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
+        "(편의점 계산 줄을 기다리고 있는 상황)편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
         "정답: (예시)dissatisfied",
         "응답(감정표현 선택): $face_choice!",
     );
@@ -164,6 +164,13 @@ class _c_5_display_rightState extends State<c_5_display_right> {
   void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'ExitState') {
+      widget.step_data.sendStepData(
+          "convenience 4",
+          "(결제를 하는 상황)카드를 터치해 카드 리더기에 카드를 꽂아보세요",
+          "정답: 터치 완료",
+          "응답(터치하기): 터치 완료"
+      );
+
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag3();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
