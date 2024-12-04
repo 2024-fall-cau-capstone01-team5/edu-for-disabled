@@ -8,7 +8,9 @@ import 'package:rive/rive.dart' hide Image;
 final tts = TTS();
 
 class Elevator_2_left extends StatefulWidget {
-  const Elevator_2_left({super.key});
+  final StatefulWidget acter;
+
+  const Elevator_2_left({super.key, required this.acter});
 
   @override
   State<Elevator_2_left> createState() => _Elevator_2_leftState();
@@ -32,12 +34,24 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      // Container의 borderRadius와 동일하게 설정
-      child: const Image(
-        image: AssetImage("assets/common/elevator.png"),
-        fit: BoxFit.contain, // 이미지가 Container에 꽉 차도록 설정
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+        child: Stack(
+          children: [
+            // 배경 이미지 (아래쪽에 위치)
+            const Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/common/elevator.png"),
+                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
+              ),
+            ),
+            // 배우 이미지 (위쪽에 위치)
+            Positioned.fill(
+                child: widget.acter
+            ),
+          ],
+        ),
       ),
     );
   }

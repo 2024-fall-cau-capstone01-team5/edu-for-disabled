@@ -11,8 +11,8 @@ final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
 
 class c_5_display_left extends StatefulWidget {
-  final StatefulWidget actor;
-  const c_5_display_left({super.key, required this.actor});
+  final StatefulWidget acter;
+  const c_5_display_left({super.key, required this.acter});
 
   @override
   State<c_5_display_left> createState() => _c_5_display_leftState();
@@ -74,7 +74,7 @@ class _c_5_display_leftState extends State<c_5_display_left> {
                 ),
                 Positioned.fill(
                   child: sinarioProvider.flag4 == 1
-                      ? widget.actor
+                      ? widget.acter
                       : const SizedBox.shrink(),
                 ),
               ],
@@ -110,7 +110,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
         "convenience 4",
         "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
         "정답: (예시)dissatisfied",
-        "응답(감정표현: $face_choice!",
+        "응답(감정표현 선택): $face_choice!",
     );
 
     await _audioPlayer.play(AssetSource("effect_coorect.mp3"));

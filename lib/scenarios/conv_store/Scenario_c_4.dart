@@ -10,9 +10,10 @@ import 'package:rive/rive.dart' hide Image;
 final AudioPlayer _audioPlayer = AudioPlayer();
 
 class c_4_display_left extends StatefulWidget {
-  final StepData step_data;
+  final StatefulWidget acter;
 
-  const c_4_display_left({super.key, required this.step_data});
+
+  const c_4_display_left({super.key, required this.acter});
 
   @override
   State<c_4_display_left> createState() => _c_4_display_leftState();
@@ -36,15 +37,6 @@ class _c_4_display_leftState extends State<c_4_display_left> {
     await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
     await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
     await Future.delayed(Duration(seconds: 2));
-
-    widget.step_data.sendStepData(
-      "convenience 3",
-      "찾는 물건은 어디있나요? 올바른 물건을 선택해보세요",
-      "정답: (예시)과자",
-      "응답(선택): $stuff_choice!",
-    );
-    //step_data.toJson();
-    //Json 변환
   }
 
   @override
@@ -53,8 +45,22 @@ class _c_4_display_leftState extends State<c_4_display_left> {
       builder: (context, sinarioProvider, child) {
         return Center(
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image(image: AssetImage("assets/c_display.PNG"))),
+            borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+            child: Stack(
+              children: [
+                // 배경 이미지 (아래쪽에 위치)
+                const Positioned.fill(
+                  child: Image(
+                    image: AssetImage("assets/c_display.PNG"),
+
+                    fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
+                  ),
+                ),
+                // 배우 이미지 (위쪽에 위치)
+                Positioned.fill(child: widget.acter),
+              ],
+            ),
+          ),
         );
       },
     );

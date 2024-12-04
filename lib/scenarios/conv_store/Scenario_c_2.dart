@@ -105,6 +105,7 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
         "인사를 했을 때의 나의 기분을 선택해보세요",
         "정답: (예시)satisfied",
         "응답(감정표현 선택): $face_choice!",
+      //수정 필요
     );
   }
 

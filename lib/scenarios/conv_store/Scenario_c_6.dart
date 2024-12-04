@@ -12,8 +12,8 @@ final STT stt = STT();
 
 
 class c_6_display_left extends StatefulWidget {
-  final StatefulWidget actor;
-  const c_6_display_left({super.key, required this.actor});
+  final StatefulWidget acter;
+  const c_6_display_left({super.key, required this.acter});
 
   @override
   State<c_6_display_left> createState() => _c_6_display_leftState();
@@ -70,7 +70,7 @@ class _c_6_display_leftState extends State<c_6_display_left> {
                   ),
                   Positioned.fill(
                     child: sinarioProvider.flag == 1
-                        ? widget.actor
+                        ? widget.acter
                         : SizedBox.shrink(),
                   ),
                 ],
