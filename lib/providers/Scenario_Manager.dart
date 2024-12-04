@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../scenarios/tts.dart';
 
@@ -16,6 +18,13 @@ abstract class Scenario_Manager extends ChangeNotifier {
   String get title;
   List<Widget> get leftScreen;
   List<Widget> get rightScreen;
+
+
+    Future<void> updateSubtitle (String subtitle) async {
+    this.subtitle = subtitle;
+    notifyListeners();
+    return Future.value();
+  }
 
 
   //abstract으로 정의, 자식 Provider에서 구현하게 됨

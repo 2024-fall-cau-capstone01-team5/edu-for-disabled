@@ -105,6 +105,7 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
     widget.step_data.sendStepData(
         "convenience 2",
         "인사를 했을 때의 나의 기분을 선택해보세요",
+        "정답: (예시)satisfied",
         face_choice!,
       //수정 필요
     );
@@ -191,6 +192,7 @@ class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
                       widget.step_data.sendStepData(
                           "convenience 2",
                           "편의점 직원분께 인사를 해보세요",
+                          "정답: \"안녕하세요\"",
                           answer
                       );
 

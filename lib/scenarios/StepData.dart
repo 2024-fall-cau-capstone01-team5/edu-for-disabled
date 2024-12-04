@@ -9,18 +9,20 @@ class StepData {
   });
 
   // HTTP 요청을 보내는 메서드
-  Future<void> sendStepData(String sceneId, String question, String answer) async {
+  Future<void> sendStepData(String sceneId, String question, String answer, String response) async {
     /*
       parameter
         -sceneId: 시나리오 장면
         -question: 질문
-        -answer: 답변
+        -answer: 정답
+        -response: 응답 (*12주차 피드백 반영 결과)
      */
     Map<String, dynamic> body = {
       'learning_log_id': learningLogId,
       'sceneId': sceneId,
       'question': question,
-      'answer': answer
+      'answer': answer,
+      'response': response
     };
 
     final url = Uri.parse("http://20.9.151.223:8080/learn/step");

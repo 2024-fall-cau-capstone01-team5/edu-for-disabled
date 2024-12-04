@@ -22,6 +22,10 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요!"
+    );
     await tts.TextToSpeech("오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요"
         "!", "ko-KR-Wavenet-D");
   }
@@ -71,6 +75,7 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async{
     if (stateName == 'exit') {
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요. ");
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");

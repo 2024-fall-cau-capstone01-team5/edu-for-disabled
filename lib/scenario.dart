@@ -200,6 +200,34 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
               ),
             ],
           ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: screenHeight_for_right * 0.8),
+              Center(
+                child: Consumer<Scenario_Manager>(
+                    builder: (context, sinarioProvider, child) {
+                      return Container(
+                        width: screenWidth_for_right * 0.9,
+                        height: screenHeight_for_right * 0.18,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Colors.lightGreenAccent,
+                            borderRadius: BorderRadius.circular(8)
+                        ),
+                        child: Text(
+                          sinarioProvider.subtitle, // Scenario_Manager에서 제공하는 텍스트
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        ),
+                      );
+                    }
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

@@ -109,6 +109,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
     widget.step_data.sendStepData(
         "convenience 4",
         "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
+        "정답: (예시)dissatisfied",
         face_choice!,
     );
 
