@@ -45,7 +45,7 @@ class Scenario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Character acterWidget = Character(userId: user_id, profile: profile_name);
-    if (label == '편x의점') {
+    if (label == '편의점') {
       return FutureBuilder<String>(
         future: _learnstart('1'),
         builder: (context, snapshot) {
