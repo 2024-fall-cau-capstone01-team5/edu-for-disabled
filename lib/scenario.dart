@@ -76,9 +76,40 @@ class Scenario extends StatelessWidget {
           }
         },
       );
-    } else {
+    }else if (label == '공원'){
       return FutureBuilder<String>(
-        future: _learnstart('1'),
+        future: _learnstart('2'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // 로딩 중 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('로딩 중...')),
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // 에러 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('접속 장애 페이지')),
+              body: Center(
+                child: Text(
+                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            // 정상 상태
+            final learning_log_id = snapshot.data!;
+            return ChangeNotifierProvider<Scenario_Manager>(
+              create: (context) => Scenario_park_provider(learningLogId: learning_log_id, acter: acterWidget),
+              child: const Scenario_Canvas(),
+            );
+          }
+        },
+      );
+    }else if (label == '외출 준비'){
+      return FutureBuilder<String>(
+        future: _learnstart('3'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // 로딩 중 상태
@@ -107,6 +138,38 @@ class Scenario extends StatelessWidget {
           }
         },
       );
+    }else{
+      return FutureBuilder<String>(
+        future: _learnstart('3'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // 로딩 중 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('로딩 중...')),
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // 에러 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('접속 장애 페이지')),
+              body: Center(
+                child: Text(
+                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            // 정상 상태
+            final learning_log_id = snapshot.data!;
+            return ChangeNotifierProvider<Scenario_Manager>(
+              create: (context) => Scenario_ready_provider(learningLogId: learning_log_id, acter: acterWidget),
+              child: const Scenario_Canvas(),
+            );
+          }
+        },
+      );
+
     }
   }
 }
