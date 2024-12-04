@@ -53,14 +53,14 @@ class Scenario_park_provider extends Scenario_Manager {
     // Elevator_1_right(step_data: step_data),
     // Elevator_2_right(),
     // Elevator_3_right(step_data: step_data),
-    Scenario_park_1_right(),
-    Scenario_park_2_right(),
-    Scenario_park_3_right(),
-    Scenario_park_4_right(),
-    Scenario_park_5_right(),
-    Scenario_park_6_right(),
-    Scenario_park_7_right(),
-    Scenario_park_8_right(),
+    Scenario_park_1_right(step_data: step_data),
+    Scenario_park_2_right(step_data: step_data),
+    Scenario_park_3_right(step_data: step_data),
+    Scenario_park_4_right(step_data: step_data),
+    Scenario_park_5_right(step_data: step_data),
+    Scenario_park_6_right(step_data: step_data),
+    Scenario_park_7_right(step_data: step_data),
+    Scenario_park_8_right(step_data: step_data),
   ];
 
 

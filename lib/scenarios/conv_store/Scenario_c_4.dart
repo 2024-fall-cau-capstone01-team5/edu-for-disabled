@@ -41,7 +41,7 @@ class _c_4_display_leftState extends State<c_4_display_left> {
       "convenience 3",
       "찾는 물건은 어디있나요? 올바른 물건을 선택해보세요",
       "정답: (예시)과자",
-      stuff_choice!,
+      "응답(선택): $stuff_choice!",
     );
     //step_data.toJson();
     //Json 변환

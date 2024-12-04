@@ -110,7 +110,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
         "convenience 4",
         "편의점 계산 줄을 기다리고 있는 나의 표정은 어떤가요?",
         "정답: (예시)dissatisfied",
-        face_choice!,
+        "응답(감정표현: $face_choice!",
     );
 
     await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
@@ -191,7 +191,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                         ? ElevatedButton(
                       onPressed: () async {
                         setState(() {
-                          face_choice = "neutral";
+                          face_choice = "무표정";
                         });
 
                         _playWelcomeTTS();
@@ -210,7 +210,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                         ? ElevatedButton(
                       onPressed: () async{
                         setState(() {
-                          face_choice = "dissatisfied";
+                          face_choice = "화난 표정";
                         });
                        _playWelcomeTTS();
                       },
@@ -228,7 +228,7 @@ class _c_5_display_rightState extends State<c_5_display_right> {
                         ? ElevatedButton(
                       onPressed: () async{
                         setState(() {
-                          face_choice = "satisfied";
+                          face_choice = "웃는 표정";
                         });
                        _playWelcomeTTS();
                       },

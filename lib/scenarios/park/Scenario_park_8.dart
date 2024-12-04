@@ -5,6 +5,7 @@ import '../tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
 
 import '../../providers/Scenario_Manager.dart';
 import 'package:rive/rive.dart' hide Image;
+import '../StepData.dart';
 
 AudioPlayer _audioPlayer = AudioPlayer();
 TTS tts = TTS();
@@ -72,7 +73,9 @@ class _Scenario_park_8_leftState extends State<Scenario_park_8_left> {
 }
 
 class Scenario_park_8_right extends StatefulWidget {
-  const Scenario_park_8_right({super.key});
+  final StepData step_data;
+
+  const Scenario_park_8_right({super.key, required this.step_data});
 
   @override
   State<Scenario_park_8_right> createState() => _Scenario_park_8_rightState();

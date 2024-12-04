@@ -111,7 +111,7 @@ class _c_6_display_rightState extends State<c_6_display_right> {
                         "convenience 5",
                         "편의점 직원분께 안녕히 계세요라고 인사해보세요",
                         "정답: \"안녕히 계세요\"",
-                        answer
+                        "응답(소리내어 말하기): $answer",
                     );
                     //step_data.toJson();
 

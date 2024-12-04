@@ -78,7 +78,7 @@ class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
         "convenience 1",
         "문을 터치하고 편의점에 들어가 보세요",
         "정답: 터치 완료",
-        "응답: 터치 완료"
+        "응답(터치하기): 터치 완료"
     );
 
     //step_data.toJson();

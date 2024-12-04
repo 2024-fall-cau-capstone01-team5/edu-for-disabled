@@ -5,6 +5,8 @@ import '../../providers/Scenario_Manager.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
+import '../StepData.dart';
+
 final tts = TTS();
 
 class Scenario_park_1_left extends StatefulWidget {
@@ -58,7 +60,9 @@ class _Scenario_park_1_leftState extends State<Scenario_park_1_left> {
 }
 
 class Scenario_park_1_right extends StatefulWidget {
-  const Scenario_park_1_right({super.key});
+  final StepData step_data;
+
+  const Scenario_park_1_right({super.key, required this.step_data});
 
   @override
   State<Scenario_park_1_right> createState() => _Scenario_park_1_rightState();
