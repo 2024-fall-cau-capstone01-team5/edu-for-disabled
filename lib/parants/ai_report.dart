@@ -138,6 +138,7 @@ class ReportDetail extends StatelessWidget {
 
         return Card(
           margin: EdgeInsets.symmetric(vertical: 8.0),
+          color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -145,12 +146,12 @@ class ReportDetail extends StatelessWidget {
               children: [
                 Text(
                   descriptions[key] ?? key,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black87),
                 ),
                 SizedBox(height: 10),
                 Text(
                   reportData[key] ?? "데이터 없음",
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 15, color: Colors.black87),
                 ),
               ],
             ),
