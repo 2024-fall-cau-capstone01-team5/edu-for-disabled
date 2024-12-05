@@ -120,7 +120,7 @@ class _MultiProfilesScreenState extends State<MultiProfilesScreen> {
         title: Text("${widget.username}님의 프로필"),
         actions: [
           IconButton(
-            icon: Icon(Icons.dashboard_outlined),
+            icon: Icon(Icons.accessibility_new),
             onPressed: () {
               Navigator.push(
                 context,

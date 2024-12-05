@@ -78,7 +78,10 @@ class _DashboardState extends State<Dashboard> {
       if (response.statusCode == 200) {
         final data = json.decode(utf8.decode(response.bodyBytes));
         setState(() {
-          learningLogs = List<Map<String, dynamic>>.from(data);
+          // num_of_answer_records > 0인 항목만 필터링
+          learningLogs = List<Map<String, dynamic>>.from(data)
+              .where((log) => log["num_of_answer_records"] > 0)
+              .toList();
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
