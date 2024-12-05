@@ -53,19 +53,19 @@ class Scenario_ready_provider extends Scenario_Manager {
 
   @override
   List<Widget> get rightScreen => [
-    Scenario_ready_1_right(),
-    Scenario_ready_2_right(),
-    Scenario_ready_3_right(),
-    Scenario_ready_4_right(),
-    Scenario_ready_5_right(),
-    Scenario_ready_6_right(),
-    Scenario_ready_7_right(),
-    Scenario_ready_8_right(),
-    Scenario_ready_9_right(),
-    Scenario_ready_10_right(),
-    Scenario_ready_11_right(),
-    Scenario_ready_12_right(),
-    Scenario_ready_13_right(),
-    Scenario_ready_14_right(),
+    Scenario_ready_1_right(step_data: step_data,),
+    Scenario_ready_2_right(step_data: step_data,),
+    Scenario_ready_3_right(step_data: step_data,),
+    Scenario_ready_4_right(step_data: step_data,),
+    Scenario_ready_5_right(step_data: step_data,),
+    Scenario_ready_6_right(step_data: step_data,),
+    Scenario_ready_7_right(step_data: step_data,),
+    Scenario_ready_8_right(step_data: step_data,),
+    Scenario_ready_9_right(step_data: step_data,),
+    Scenario_ready_10_right(step_data: step_data,),
+    Scenario_ready_11_right(step_data: step_data,),
+    Scenario_ready_12_right(step_data: step_data,),
+    Scenario_ready_13_right(step_data: step_data,),
+    Scenario_ready_14_right(step_data: step_data,),
   ];
 }

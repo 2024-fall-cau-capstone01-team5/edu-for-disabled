@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
+import '../StepData.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
@@ -55,7 +56,9 @@ class _Scenario_ready_3_leftState extends State<Scenario_ready_3_left> {
 }
 
 class Scenario_ready_3_right extends StatefulWidget {
-  const Scenario_ready_3_right({super.key});
+  final StepData step_data;
+
+  const Scenario_ready_3_right({super.key, required this.step_data});
 
   @override
   State<Scenario_ready_3_right> createState() => _Scenario_ready_3_rightState();
@@ -77,13 +80,29 @@ class _Scenario_ready_3_rightState extends State<Scenario_ready_3_right> {
       artboard.addController(controller);
       _spoon = controller.findInput<SMITrigger>('spoon') as SMITrigger?;
       _plate = controller.findInput<SMITrigger>('plate') as SMITrigger?;
-      _bool = controller.findInput<bool>('stop_touch') as SMIBool?;
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
     }
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-    if (stateName == 'ExitState' || stateName == "Timer exit") {
-      _bool?.value = true;
+    if (stateName == 'ExitState') {
+      print("EXITSTATE");
+      if(_bool?.value == true){
+        widget.step_data.sendStepData(
+            "ready_to_go 3",
+            "(부모님께서 음식을 만드는 중일 때 식탁을 차리는 상황)오른쪽 화면의 접시와 수저들을 손가락으로 직접 눌러보세요.",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+      }else {
+        widget.step_data.sendStepData(
+            "ready_to_go 3",
+            "(부모님께서 음식을 만드는 중일 때 식탁을 차리는 상황)오른쪽 화면의 접시와 수저들을 손가락으로 직접 눌러보세요.",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+      }
+
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로는 밥을 먹기 전에 식탁을 차려 부모님을 도와주는 착한 사람이 돼 보도록 해요. ",
@@ -93,6 +112,9 @@ class _Scenario_ready_3_rightState extends State<Scenario_ready_3_right> {
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+    }else if (stateName == "Timer exit"){
+      print("TIMER EXIT");
+      _bool?.value = true;
     }
   }
 

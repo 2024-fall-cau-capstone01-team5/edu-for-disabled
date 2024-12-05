@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
+import '../StepData.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
@@ -52,7 +53,9 @@ class _Scenario_ready_10_leftState extends State<Scenario_ready_10_left> {
 }
 
 class Scenario_ready_10_right extends StatefulWidget {
-  const Scenario_ready_10_right({super.key});
+  final StepData step_data;
+
+  const Scenario_ready_10_right({super.key, required this.step_data});
 
   @override
   State<Scenario_ready_10_right> createState() => _Scenario_ready_10_rightState();
@@ -78,6 +81,21 @@ class _Scenario_ready_10_rightState extends State<Scenario_ready_10_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
+      if(_bool?.value == true){
+        widget.step_data.sendStepData(
+            "ready_to_go 10",
+            "(양치질을 하기 위해 치약을 짜는 상황)오른쪽 화면의 치약을 손가락으로 직접 눌러 치약을 짜보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+      }else {
+        widget.step_data.sendStepData(
+            "ready_to_go 10",
+            "(양치질을 하기 위해 치약을 짜는 상황)오른쪽 화면의 치약을 손가락으로 직접 눌러 치약을 짜보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+      }
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로는 치약을 짤 때에는 방금 본 것처럼 같이 필요한 만큼만 짜 보도록 해요. ",

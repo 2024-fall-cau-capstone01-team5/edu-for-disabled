@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
+import '../StepData.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
@@ -52,7 +53,9 @@ class _Scenario_ready_13_leftState extends State<Scenario_ready_13_left> {
 }
 
 class Scenario_ready_13_right extends StatefulWidget {
-  const Scenario_ready_13_right({super.key});
+  final StepData step_data;
+
+  const Scenario_ready_13_right({super.key, required this.step_data});
 
   @override
   State<Scenario_ready_13_right> createState() => _Scenario_ready_13_rightState();
@@ -74,6 +77,12 @@ class _Scenario_ready_13_rightState extends State<Scenario_ready_13_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'Timer exit') {
+      widget.step_data.sendStepData(
+          "ready_to_go 13",
+          "(외출을 하기 위해 옷을 입는 상황)오른쪽 화면을 터치해서 마음에 드는 옷과 장신구를 선택해 캐릭터를 꾸며보세요",
+          "정답: 선택 완료",
+          "응답(선택하기): 선택 완료"
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로 옷을 입을 땐 스스로 입는 습관을 들이는 착한 사람이 돼 보도록 해요. ",
