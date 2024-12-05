@@ -109,7 +109,7 @@ class Scenario extends StatelessWidget {
       );
     }else if (label == '외출 준비'){
       return FutureBuilder<String>(
-        future: _learnstart('3'),
+        future: _learnstart('4'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // 로딩 중 상태
