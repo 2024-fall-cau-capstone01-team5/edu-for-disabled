@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
+import '../StepData.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
@@ -52,7 +53,9 @@ class _Scenario_ready_12_leftState extends State<Scenario_ready_12_left> {
 }
 
 class Scenario_ready_12_right extends StatefulWidget {
-  const Scenario_ready_12_right({super.key});
+  final StepData step_data;
+
+  const Scenario_ready_12_right({super.key, required this.step_data});
 
   @override
   State<Scenario_ready_12_right> createState() => _Scenario_ready_12_rightState();
@@ -78,6 +81,21 @@ class _Scenario_ready_12_rightState extends State<Scenario_ready_12_right> {
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'hand') {
+      if(_bool?.value == true){
+        widget.step_data.sendStepData(
+            "ready_to_go 12",
+            "(세수를 하는 상황)오른쪽 화면의 얼굴을 손가락으로 직접 눌러 세수를 해보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+      }else {
+        widget.step_data.sendStepData(
+            "ready_to_go 12",
+            "(세수를 하는 상황)오른쪽 화면의 얼굴을 손가락으로 직접 눌러 세수를 해보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+      }
       await tts.TextToSpeech(
           "참 잘했어요. "
               "세수를 할 때는 손에 충분히 비눗기를 뭍힌 다음에 얼굴을 문질러서 깨끗히 씻어보도록 해요. "

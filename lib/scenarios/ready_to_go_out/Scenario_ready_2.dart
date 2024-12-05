@@ -3,6 +3,7 @@ import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:flutterpractice/scenarios/stt.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
+import '../StepData.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
@@ -48,7 +49,9 @@ class _Scenario_ready_2_leftState extends State<Scenario_ready_2_left> {
 }
 
 class Scenario_ready_2_right extends StatefulWidget {
-  const Scenario_ready_2_right({super.key});
+  final StepData step_data;
+
+  const Scenario_ready_2_right({super.key, required this.step_data});
 
   @override
   State<Scenario_ready_2_right> createState() => _Scenario_ready_2_rightState();
@@ -59,6 +62,8 @@ class _Scenario_ready_2_rightState extends State<Scenario_ready_2_right> {
 
   SMIBool? _bool1;
   SMIBool? _bool2;
+
+  String answer = '';
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
@@ -87,16 +92,27 @@ class _Scenario_ready_2_rightState extends State<Scenario_ready_2_right> {
 
     _bool1?.value = true;
 
-    // String answer = await stt.gettext(6);
+    setState(() async{
+      answer = await stt.gettext(6);
+    });
 
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
 
     if (stateName == 'ExitState') {
+      widget.step_data.sendStepData(
+          "ready_to_go 2",
+          "(부모님께 아침 인사를 하는 상황)부모님께 \"안녕히 주무셨어요?\" 라고 소리내어 말해보세요",
+          "정답: \"안녕히 주무셨어요?\"",
+          "응답(소리내어 말하기): $answer",
+      );
+
       await tts.TextToSpeech("참 잘했어요."
           "앞으로는 아침에 일어난 다음에 부모님께 인사를 씩씩하게 해보도록 해요", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool2?.value = true;
