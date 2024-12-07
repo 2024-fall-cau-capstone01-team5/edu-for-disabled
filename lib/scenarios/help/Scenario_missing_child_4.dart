@@ -30,9 +30,10 @@ class _Scenario_missing_child_4_leftState
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-        "길을 잃어서 어디로 가야할지 모를 때에는 사람들에게 도움을 구해야 해요"
-            "도움을 요청할 때에는 주변의 가게 직원 분께 도움을 요청해야 해요. 낯선 사람에게 말을 거는 건 위험할 수 있어요"
-            "그러면 누구에게 도움을 요청해야 할까요? 오른쪽 화면에서 누구에게 도움을 구할지 손가락으로 직접 눌러보세요",
+        "길을 잃어서 어디로 가야할지 모를 때에는 사람들에게 도움을 구해야 해요. "
+            "도움을 요청할 때에는 주변의 가게 직원 분께 도움을 요청해야 해요. "
+            "낯선 사람에게 말을 거는 건 위험할 수 있어요. "
+            "그러면 누구에게 도움을 요청해야 할 지 오른쪽 화면에서 손가락으로 직접 눌러보세요. ",
             "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -47,7 +48,7 @@ class _Scenario_missing_child_4_leftState
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/missing_child/부모missing.webp"),
+              image: AssetImage("assets/missing_child/시내_부모missing.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
@@ -83,8 +84,8 @@ class _Scenario_missing_child_4_rightState
 
     if (controller != null) {
       artboard.addController(controller);
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 2') as SMITrigger?;
+      _trigger1 = controller.findInput<bool>('Trigger 1') as SMITrigger?;
+      _trigger2 = controller.findInput<bool>('Trigger 2') as SMITrigger?;
       _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
     }
   }
@@ -106,7 +107,7 @@ class _Scenario_missing_child_4_rightState
       }
 
       await tts.TextToSpeech("참 잘했어요. "
-          "앞으로 도움을 요청할 땐 모르는 낯선 사람에겐 함부로 다가가지 말도록 해요.", "ko-KR-Wavenet-D");
+          "앞으로 도움을 요청할 땐 모르는 낯선 사람에겐 함부로 다가가지 말도록 해요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
 
@@ -114,7 +115,7 @@ class _Scenario_missing_child_4_rightState
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
-      _trigger1?.fire();
+      _trigger1?.value = true;
     } else if (stateName == "walker") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
@@ -125,6 +126,7 @@ class _Scenario_missing_child_4_rightState
           "응답(터치하기): 낯선 사람");
     } else if (stateName == "staff") {
       await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+      await Future.delayed(Duration(seconds: 2));
       _audioPlayer.dispose();
     }
   }

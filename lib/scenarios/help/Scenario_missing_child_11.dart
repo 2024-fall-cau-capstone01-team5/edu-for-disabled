@@ -14,19 +14,18 @@ class Scenario_missing_child_11_left extends StatefulWidget {
   const Scenario_missing_child_11_left({super.key});
 
   @override
-  State<Scenario_missing_child_11_left> createState() => _Scenario_missing_child_11_leftState();
+  State<Scenario_missing_child_11_left> createState() =>
+      _Scenario_missing_child_11_leftState();
 }
 
-class _Scenario_missing_child_11_leftState extends State<Scenario_missing_child_11_left> {
+class _Scenario_missing_child_11_leftState
+    extends State<Scenario_missing_child_11_left> {
   void initState() {
     super.initState();
     _playWelcomeTTS();
   }
 
   Future<void> _playWelcomeTTS() async {
-
-    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
-
     await _audioPlayer.play(AssetSource("effect_ascending.mp3"));
 
     await tts.TextToSpeech(
@@ -37,6 +36,8 @@ class _Scenario_missing_child_11_leftState extends State<Scenario_missing_child_
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     tts.dispose();
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
@@ -52,34 +53,35 @@ class _Scenario_missing_child_11_leftState extends State<Scenario_missing_child_
 }
 
 class Scenario_missing_child_11_right extends StatefulWidget {
-  final StepData step_data;
-
-  const Scenario_missing_child_11_right({super.key, required this.step_data});
+  const Scenario_missing_child_11_right({super.key});
 
   @override
   State<Scenario_missing_child_11_right> createState() =>
       _Scenario_missing_child_11_rightState();
 }
 
-class _Scenario_missing_child_11_rightState extends State<Scenario_missing_child_11_right> {
+class _Scenario_missing_child_11_rightState
+    extends State<Scenario_missing_child_11_right> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
             child:
-            Provider.of<Scenario_Manager>(context, listen: false).flag == 1
-                ? ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                "나가기",
-                style: TextStyle(fontSize: 40),
-                textAlign: TextAlign.center,
+                Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+                    ? ElevatedButton(
+                        onPressed: () {
+                          Provider.of<Scenario_Manager>(context, listen: false)
+                              .decrement_flag();
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "나가기",
+                          style: TextStyle(fontSize: 40),
+                          textAlign: TextAlign.center,
 
-                //오디오 멈추는 작업 하기
-              ),
-            )
-                : const SizedBox.shrink()));
+                          //오디오 멈추는 작업 하기
+                        ),
+                      )
+                    : const Text("먼저 설명을 들어보세요!")));
   }
 }

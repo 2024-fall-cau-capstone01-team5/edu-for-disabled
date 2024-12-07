@@ -29,8 +29,8 @@ class _Scenario_missing_child_1_leftState
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
         "여러분 반가워요! 이번 시간에는 길을 잃었을 때 어떻게 해야 하는지 알아볼 거에요. "
-            "여러분은 길을 잃어본 적이 있나요? 어떻게 하셨나요? "
-            "이번 이야기를 바탕으로 어떻게 해야 하는지 알아보도록 해요."
+            "여러분은 길을 잃어본 적이 있나요? 그럴 때 어떻게 행동 하셨나요? "
+            "이번 이야기를 경험삼아 어떻게 해야 하는지 알아보도록 해요."
             "그럼 도움을 구해보러 가볼까요? 오른쪽 화면의 시작하기 버튼을 눌러보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -78,8 +78,13 @@ class _Scenario_missing_child_1_rightState
               ? ElevatedButton(
               onPressed: () async{
                 await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                await Future.delayed(Duration(seconds: 2));
+
                 await tts.TextToSpeech("잘 하셨습니다.",
                     "ko-KR-Wavenet-D");
+                await tts.player.onPlayerComplete.first;
+
+
                 tts.dispose();
                 _audioPlayer.dispose();
 

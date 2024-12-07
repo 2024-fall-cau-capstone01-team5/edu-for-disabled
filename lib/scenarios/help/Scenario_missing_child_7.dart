@@ -35,7 +35,7 @@ class _Scenario_missing_child_7_leftState extends State<Scenario_missing_child_7
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/missing_child/가게 일러스트.png"),
+              image: AssetImage("assets/missing_child/가게 일러스트.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
@@ -77,7 +77,7 @@ class _Scenario_missing_child_7_rightState extends State<Scenario_missing_child_
     await tts.player.onPlayerComplete.first;
 
     await tts.TextToSpeech(
-        "직원 분께서 이름을 물어봤네요 대답해 볼까요? 자기의 이름을 직접 소리내어 말해보세요 ",
+        "직원 분께서 이름을 물어봤네요. 대답해 볼까요? 자기의 이름을 직접 소리내어 말해보세요 ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 

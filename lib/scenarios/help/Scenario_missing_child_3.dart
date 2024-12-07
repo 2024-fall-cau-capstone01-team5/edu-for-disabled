@@ -126,7 +126,7 @@ class _Scenario_missing_child_3_rightState extends State<Scenario_missing_child_
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
-              : const Image(image: AssetImage("assets/common/AAC_멈춰요.png"))
+              : const Image(image: AssetImage("assets/AAC/stop.png"))
         ]),
       ),
     );

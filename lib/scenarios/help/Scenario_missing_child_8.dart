@@ -35,7 +35,7 @@ class _Scenario_missing_child_8_leftState
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/missing_child/가게 경찰아저씨.png"),
+              image: AssetImage("assets/missing_child/가게 경찰아저씨.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
@@ -74,7 +74,7 @@ class _Scenario_missing_child_8_rightState
     await tts.player.onPlayerComplete.first;
 
     await tts.TextToSpeech(
-        "경찰 분께서 부모님의 전화번호를 물어봤네요 "
+        "경찰 분께서 부모님의 전화번호를 물어봤네요. "
             "대답해 볼까요? 부모님의 전화번호를 직접 소리내어 말해보세요 ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }

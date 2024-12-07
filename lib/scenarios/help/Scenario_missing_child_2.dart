@@ -101,9 +101,14 @@ class _Scenario_missing_child_2_rightState
     if (controller != null) {
       artboard.addController(controller);
       _trigger1 = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 2') as SMITrigger?;
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
+      _trigger2 = controller.findInput<bool>('Trigger 2') as SMITrigger?;
+      _trigger3 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
       _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
+      if (_trigger2 == null) {
+        debugPrint("Error: _trigger2 is not initialized. Check Rive input name.");
+      } else {
+        debugPrint("Success: _trigger2 initialized successfully.");
+      }
     }
   }
 
@@ -131,8 +136,12 @@ class _Scenario_missing_child_2_rightState
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
+      print("Timer exit!");
       _bool?.value = true;
-      _trigger2?.fire();
+      print("${_trigger2?.value}");
+      _trigger2?.value = true;
+      print("${_trigger2?.value}");
+
     } else if (stateName == "good") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
@@ -151,6 +160,7 @@ class _Scenario_missing_child_2_rightState
           "응답(감정 표현): 화나요");
     } else if (stateName == "sad") {
       await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+      await Future.delayed(Duration(seconds: 2));
       _audioPlayer.dispose();
     }
   }

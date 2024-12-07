@@ -85,9 +85,9 @@ class _Scenario_missing_child_9_rightState
 
     if (controller != null) {
       artboard.addController(controller);
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 2') as SMITrigger?;
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
+      _trigger1 = controller.findInput<bool>('Trigger 1') as SMITrigger?;
+      _trigger2 = controller.findInput<SMITrigger>('Trigger 2') as SMITrigger?;
+      _trigger3 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
       _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
     }
   }
@@ -116,7 +116,7 @@ class _Scenario_missing_child_9_rightState
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
-      _trigger1?.fire();
+      _trigger1?.value = true;
     } else if (stateName == "sad") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
@@ -135,6 +135,8 @@ class _Scenario_missing_child_9_rightState
           "응답(감정 표현): 화나요");
     } else if (stateName == "good") {
       await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+      await Future.delayed(Duration(seconds: 2));
+
       _audioPlayer.dispose();
     }
   }

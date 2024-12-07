@@ -76,6 +76,7 @@ flutter:
     - assets/category_icons/
     - assets/ready/
     - assets/missing_child/
+    - assets/AAC/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

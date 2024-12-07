@@ -35,7 +35,7 @@ class _Scenario_missing_child_10_leftState
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/missing_child/가게 재회.png"),
+              image: AssetImage("assets/missing_child/가게 재회.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
