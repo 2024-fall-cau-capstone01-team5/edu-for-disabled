@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'learningReport.dart';
 import '../tool/kst.dart';
 import 'learningList.dart';
+import 'learnigStatics.dart';
 
 class Dashboard extends StatefulWidget {
   final String userId;
@@ -103,6 +104,23 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedProfile.isNotEmpty ? "$selectedProfile님의 학습 현황" : "학습 현황"),
+          actions:
+          [
+            IconButton(
+            icon: Icon(Icons.pie_chart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LearningStatisticsPage(
+                    userId: widget.userId,
+                    profileName: selectedProfile,
+                  ),
+                ),
+              );
+            },
+          ),
+        ]
       ),
       body: Row(
         children: [
