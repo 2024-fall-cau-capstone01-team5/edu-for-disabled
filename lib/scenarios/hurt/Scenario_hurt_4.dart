@@ -84,7 +84,7 @@ class _Scenario_hurt_4_rightState extends State<Scenario_hurt_4_right> {
   void _onStateChange(String stateMachineName, String stateName) async {
 
 
-    if (stateName == 'exitState') {
+    if (stateName == 'handwash_covid') {
       if(_bool?.value == true){
         widget.step_data.sendStepData(
             "hurt 4",
