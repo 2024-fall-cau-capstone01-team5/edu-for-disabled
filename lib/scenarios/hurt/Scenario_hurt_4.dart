@@ -103,7 +103,7 @@ class _Scenario_hurt_4_rightState extends State<Scenario_hurt_4_right> {
 
       await tts.TextToSpeech(
           "참 잘했어요. "
-              "앞으로 다쳤을 때는 상처를 흐르는 물로 씻어봐요. ",
+              "앞으로 다쳤을 때는 상처를 흐르는 물로 살살 씻어보도록 해요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

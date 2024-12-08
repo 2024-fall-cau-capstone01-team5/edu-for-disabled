@@ -72,7 +72,7 @@ class _Scenario_hurt_9_rightState extends State<Scenario_hurt_9_right> {
     await tts.player.onPlayerComplete.first;
 
     await tts.TextToSpeech(
-        "119 구급대원분께서 주소를 물어보시네요. "
+        "일일구 구급대원분께서 주소를 물어보시네요. "
             "대답해 볼까요? "
             "여러분의 집 주소를 직접 소리내어 말해보세요! ",
         "ko-KR-Wavenet-D");

@@ -96,7 +96,7 @@ class _Scenario_hurt_6_rightState extends State<Scenario_hurt_6_right> {
   void _onStateChange(String stateMachineName, String stateName) async {
 
 
-    if (stateName == 'exitState') {
+    if (stateName == 'ExitState') {
       if(_bool?.value == true){
         widget.step_data.sendStepData(
             "hurt 6",
@@ -135,11 +135,11 @@ class _Scenario_hurt_6_rightState extends State<Scenario_hurt_6_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/hurt/bandage.riv",
+            "assets/hurt/pressure.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
-              : Image(image: AssetImage("assets/AAC_피나요.png")),
+              : Image(image: AssetImage("assets/AAC/AAC_피나요.png")),
         ]),
       ),
     );

@@ -123,7 +123,7 @@ class _Scenario_hurt_10_rightState extends State<Scenario_hurt_10_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-                  "assets/hurt/call119.riv",
+                  "assets/hurt/breath.riv",
                   fit: BoxFit.contain,
                   onInit: _onRiveInit,
                 )

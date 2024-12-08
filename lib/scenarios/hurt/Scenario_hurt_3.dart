@@ -103,7 +103,7 @@ class _Scenario_hurt_3_rightState extends State<Scenario_hurt_3_right> {
 
       await tts.TextToSpeech(
           "참 잘했어요. "
-              "앞으로는 어떤 상황이 와도 침착하게 심호흡부터 보도록 해요. ",
+              "앞으로는 어떤 상황이 와도 침착하게 심호흡부터 해 보도록 해요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
@@ -122,7 +122,7 @@ class _Scenario_hurt_3_rightState extends State<Scenario_hurt_3_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/missing_child/breath.riv",
+            "assets/hurt/breath.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )

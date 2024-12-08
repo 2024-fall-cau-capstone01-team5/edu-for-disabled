@@ -94,7 +94,7 @@ class _Scenario_hurt_5_rightState extends State<Scenario_hurt_5_right> {
   void _onStateChange(String stateMachineName, String stateName) async {
 
 
-    if (stateName == 'exitState') {
+    if (stateName == 'ExitState') {
       if(_bool?.value == true){
         widget.step_data.sendStepData(
             "hurt 5",
@@ -136,7 +136,7 @@ class _Scenario_hurt_5_rightState extends State<Scenario_hurt_5_right> {
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
-              : const Text("먼저 설명을 들어보세요!"),
+              : Image(image: AssetImage("assets/AAC/AAC_연고.png")),
         ]),
       ),
     );

@@ -41,7 +41,7 @@ class _Scenario_hurt_7_leftState extends State<Scenario_hurt_7_left> {
     await tts.player.onPlayerComplete.first;
 
     await tts.TextToSpeech(
-        "119에 전화를 걸어볼까요? 오른쪽 화면의 버튼을 손가락으로 직접 눌러보세요! ",
+        "그럼 119에 전화를 걸어볼까요? 오른쪽 화면의 버튼을 손가락으로 직접 눌러보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -98,7 +98,7 @@ class _Scenario_hurt_7_rightState extends State<Scenario_hurt_7_right> {
   void _onStateChange(String stateMachineName, String stateName) async {
 
 
-    if (stateName == 'exitState') {
+    if (stateName == 'ExitState') {
       if(_bool?.value == true){
         widget.step_data.sendStepData(
             "hurt 7",
