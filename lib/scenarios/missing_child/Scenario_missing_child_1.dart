@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
-import '../../providers/Scenario_Manager.dart';
-import '../StepData.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutterpractice/providers/Scenario_Manager.dart';
+import 'package:flutterpractice/scenarios/StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 final tts = TTS();

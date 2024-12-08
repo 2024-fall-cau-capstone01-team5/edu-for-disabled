@@ -140,7 +140,8 @@ class Scenario extends StatelessWidget {
           }
         },
       );
-    }else if (label == '낯선 사람'){
+    }
+    else if (label == '낯선 사람'){
       return FutureBuilder<String>(
         future: _learnstart('7'),
         builder: (context, snapshot) {
@@ -171,7 +172,8 @@ class Scenario extends StatelessWidget {
           }
         },
       );
-    }else if (label == '길을 잃었을 때'){
+    }
+    else if (label == '길을 잃었을 때'){
       return FutureBuilder<String>(
         future: _learnstart('8'),
         builder: (context, snapshot) {

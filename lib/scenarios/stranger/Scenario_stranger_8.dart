@@ -34,7 +34,7 @@ class _Scenario_stranger_8_leftState extends State<Scenario_stranger_8_left> {
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/stranger/도와주는사람.webp"),
+              image: AssetImage("assets/stranger/도와주는사람.png"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),

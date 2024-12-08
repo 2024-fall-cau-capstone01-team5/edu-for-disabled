@@ -32,7 +32,7 @@ class _Scenario_stranger_4_leftState extends State<Scenario_stranger_4_left> {
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
 
-    await tts.TextToSpeech("싫어요. 라고 말했는데도 모르는 사람이 손을 잡고 여러분을 끌고 가려고 하고 있어요"
+    await tts.TextToSpeech("싫어요. 라고 말했는데도 모르는 사람이 손을 잡고 여러분을 끌고 가려고 하고 있어요. "
         "이럴 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -96,7 +96,7 @@ class _Scenario_stranger_4_rightState extends State<Scenario_stranger_4_right> {
       if (_bool?.value == true) {
         widget.step_data.sendStepData(
             "stranger 4",
-            "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+            "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면에 자신의 기분을 선택해보세요.",
             "정답: 싫어요",
             "응답(감정 표현): 시간 초과");
       } else {

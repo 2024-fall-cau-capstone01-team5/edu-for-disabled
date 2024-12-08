@@ -42,11 +42,6 @@ class _Scenario_stranger_2_leftState
     await tts.player.onPlayerComplete.first;
 
     await tts.TextToSpeech(
-        "모르는 사람이 여러분에게 말을 겁니다. ",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-
-    await tts.TextToSpeech(
         "안녕하세요? 어디가세요? ",
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
@@ -69,13 +64,13 @@ class _Scenario_stranger_2_leftState
           Provider.of<Scenario_Manager>(context, listen: false).flag2 == 1
               ? Positioned.fill(
             child: Image(
-              image: AssetImage("assets/stranger/길거리.webp"),
+              image: AssetImage("assets/stranger/낯선사람접근.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           )
               : Positioned.fill(
             child: Image(
-              image: AssetImage("assets/stranger/낯선사람접근.webp"),
+              image: AssetImage("assets/stranger/길거리.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),

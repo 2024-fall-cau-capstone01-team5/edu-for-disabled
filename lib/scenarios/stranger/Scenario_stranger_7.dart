@@ -30,8 +30,8 @@ class _Scenario_stranger_7_leftState extends State<Scenario_stranger_7_left> {
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech("여러분을 데리고 가려던 모르는 사람이 떠나네요. "
         "참 잘했어요. "
-        "지나가던 남자분께 도움을 받았네요. "
-        "여러분을 도와주신 남자뿐께 어떤 기분이 드나요? 자기가 느끼는 기분을 오른쪽 화면에서 손가락으로 직접 눌러보세요. ",
+        "지나가던 남자분께 도움을 받았네요! "
+        " 여러분을 도와주신 남자뿐께 어떤 기분이 드나요? 자기가 느끼는 기분을 오른쪽 화면에서 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -46,7 +46,7 @@ class _Scenario_stranger_7_leftState extends State<Scenario_stranger_7_left> {
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/stranger/도와주는사람.webp"),
+              image: AssetImage("assets/stranger/도와주는사람.png"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
@@ -82,7 +82,7 @@ class _Scenario_stranger_7_rightState extends State<Scenario_stranger_7_right> {
 
     if (controller != null) {
       artboard.addController(controller);
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
+      _trigger1 = controller.findInput<bool>('Trigger 1') as SMITrigger?;
       _trigger2 = controller.findInput<bool>('Trigger 2') as SMITrigger?;
       _trigger3 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
       _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
@@ -116,7 +116,7 @@ class _Scenario_stranger_7_rightState extends State<Scenario_stranger_7_right> {
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
-      _trigger2?.value = true;
+      _trigger1?.value = true;
     } else if (stateName == "sad") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
