@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterpractice/providers/Scenario_hurt_provider.dart';
 import 'package:flutterpractice/providers/Scenario_park_provider.dart';
 import 'package:flutterpractice/providers/Scenario_ready_provider.dart';
+import 'providers/Scenario_missing_child_provider.dart';
+import 'providers/Scenario_stranger_provider.dart';
 import 'providers/Scenario_c_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -133,6 +136,101 @@ class Scenario extends StatelessWidget {
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
               create: (context) => Scenario_ready_provider(learningLogId: learning_log_id, acter: acterWidget),
+              child: const Scenario_Canvas(),
+            );
+          }
+        },
+      );
+    }else if (label == '상처가 났을 때'){
+      return FutureBuilder<String>(
+        future: _learnstart('5'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // 로딩 중 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('로딩 중...')),
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // 에러 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('접속 장애 페이지')),
+              body: Center(
+                child: Text(
+                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            // 정상 상태
+            final learning_log_id = snapshot.data!;
+            return ChangeNotifierProvider<Scenario_Manager>(
+              create: (context) => Scenario_hurt_provider(learningLogId: learning_log_id, acter: acterWidget),
+              child: const Scenario_Canvas(),
+            );
+          }
+        },
+      );
+    }
+    else if (label == '낯선 사람'){
+      return FutureBuilder<String>(
+        future: _learnstart('7'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // 로딩 중 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('로딩 중...')),
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // 에러 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('접속 장애 페이지')),
+              body: Center(
+                child: Text(
+                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            // 정상 상태
+            final learning_log_id = snapshot.data!;
+            return ChangeNotifierProvider<Scenario_Manager>(
+              create: (context) => Scenario_stranger_provider(learningLogId: learning_log_id, acter: acterWidget),
+              child: const Scenario_Canvas(),
+            );
+          }
+        },
+      );
+    }
+    else if (label == '길을 잃었을 때'){
+      return FutureBuilder<String>(
+        future: _learnstart('8'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // 로딩 중 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('로딩 중...')),
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // 에러 상태
+            return Scaffold(
+              appBar: AppBar(title: Text('접속 장애 페이지')),
+              body: Center(
+                child: Text(
+                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            // 정상 상태
+            final learning_log_id = snapshot.data!;
+            return ChangeNotifierProvider<Scenario_Manager>(
+              create: (context) => Scenario_missing_child_provider(learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }
