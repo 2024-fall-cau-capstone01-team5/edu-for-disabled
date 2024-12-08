@@ -170,7 +170,7 @@ class _Scenario_hurt_2_rightState
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
-              : Image(image: AssetImage("assets/AAC_손가락피나요.png")),
+              : Image(image: AssetImage("assets/AAC/AAC_손가락피나요.png")),
         ]),
       ),
     );
