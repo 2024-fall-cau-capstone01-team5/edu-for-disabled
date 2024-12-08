@@ -29,9 +29,8 @@ class _Scenario_stranger_9_leftState
 
     await tts.TextToSpeech(
         "축하합니다. "
-            "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
-            "낯선 사람이 다가올 때 어떻게 행동해야 할지 "
-            "잘 생각해보시기 바랍니다.",
+            "모든 이야기를 마치셨습니다. "
+            "앞으로 모르는 사람이 다가올 때, 도와주세요! 모르는 사람이에요! 이 말을 기억하길 바랍니다.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     tts.dispose();
