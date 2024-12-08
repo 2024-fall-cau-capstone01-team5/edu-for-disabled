@@ -74,7 +74,7 @@ class _Scenario_hurt_8_rightState extends State<Scenario_hurt_8_right> {
     await tts.TextToSpeech(
         "일일구 구급대원분께서 무엇을 도와주냐고 물어봤네요. "
             "대답해 볼까요? "
-            "도와주세요! 다쳤어요!라고 직접 소리내어 말해보세요! ",
+            " 도와주세요! 다쳤어요!라고 직접 소리내어 말해보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
