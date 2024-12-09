@@ -44,6 +44,7 @@ dependencies:
   google_speech: ^2.2.0
   flutter_chat_bubble: ^2.0.2
   fl_chart: ^0.69.2
+  flutter_date_range_picker: ^0.1.1
 
 
 
