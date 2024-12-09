@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
-
-import 'package:audioplayers/audioplayers.dart';
-import '../tts.dart';
-
-import 'package:rive/rive.dart' hide Image;
-
 import '../StepData.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
-final TTS tts = TTS();
+final tts = TTS();
 
-class c_1_enterTheStore_left extends StatefulWidget {
+class Scenario_c_1_left extends StatefulWidget {
   final StatefulWidget acter;
 
-  const c_1_enterTheStore_left({super.key, required this.acter});
+  const Scenario_c_1_left({super.key, required this.acter});
 
   @override
-  State<c_1_enterTheStore_left> createState() => _c_1_enterTheStore_leftState();
+  State<Scenario_c_1_left> createState() =>
+      _Scenario_c_1_leftState();
 }
 
-class _c_1_enterTheStore_leftState extends State<c_1_enterTheStore_left> {
+class _Scenario_c_1_leftState
+    extends State<Scenario_c_1_left> {
   @override
   void initState() {
     super.initState();
@@ -30,102 +28,74 @@ class _c_1_enterTheStore_leftState extends State<c_1_enterTheStore_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-        "편의점에 도착했습니다. 저기 편의점 출입구가 보이네요. 오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
+        "여러분 반가워요! 이번 시간에는 편의점에 가보겠습니다. "
+            "여러분은 먹고 싶거나 사고 싶은 물건이 있나요? 그럴 때 어떻게 했나요? "
+            " 이번 이야기를 경험삼아 편의점에 갔을 때 어떻게 해야 하는지 알아보도록 해요. "
+            "그럼 지금부터 이야기를 시작해볼까요? 오른쪽 화면의 시작하기 버튼을 손가락으로 직접 눌러보세요! ",
         "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
-        child: Stack(
-          children: [
-            // 배경 이미지 (아래쪽에 위치)
-            const Positioned.fill(
-              child: Image(
-                image: AssetImage("assets/c_outside.PNG"),
-                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
-              ),
-            ),
-            // 배우 이미지 (위쪽에 위치)
-            Positioned.fill(
-                child: widget.acter
-            ),
-          ],
-        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Stack(
+        children: [
+          Positioned.fill(child: widget.acter),
+        ],
       ),
     );
   }
 }
 
-class c_1_enterTheStore_right extends StatefulWidget {
+class Scenario_c_1_right extends StatefulWidget {
   final StepData step_data;
-  const c_1_enterTheStore_right({super.key, required this.step_data});
+
+  const Scenario_c_1_right({super.key, required this.step_data});
 
   @override
-  State<c_1_enterTheStore_right> createState() =>
-      _c_1_enterTheStore_rightState();
+  State<Scenario_c_1_right> createState() =>
+      _Scenario_c_1_rightState();
 }
 
-class _c_1_enterTheStore_rightState extends State<c_1_enterTheStore_right> {
-  SMITrigger? _touch;
-
-  void _onRiveInit(Artboard artboard) {
-    final controller =
-        StateMachineController.fromArtboard(
-            artboard,
-            'State Machine 1',
-          onStateChange: _onStateChange,
-
-        );
-    artboard.addController(controller!);
-
-    _touch = controller.findInput<bool>('touch') as SMITrigger;
-  }
-
-  void _hitBump(){
-    _touch?.fire();
-    print("Touch TRIGGERED!!!!");
-    
-
-
-    //step_data.toJson();
-    // json으로 return
-
-  }
-
-  void _onStateChange(String stateMachineName, String stateName) async{
-    // 애니메이션이 끝나는 상태를 확인하여 print
-    if (stateName == 'exit') {
-      widget.step_data.sendStepData(
-          "convenience 1",
-          "(편의점에 들어가야 하는 상황)문을 터치하고 편의점에 들어가 보세요",
-          "정답: 터치 완료",
-          "응답(터치하기): 터치 완료"
-      );
-
-      await tts.TextToSpeech(
-          "참 잘했어요. ",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-
-      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-      print("EXIT");
-    }
-  }
-
+class _Scenario_c_1_rightState
+    extends State<Scenario_c_1_right> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: RiveAnimation.asset(
-        "assets/door_open.riv",
-        fit: BoxFit.contain,
+      body: Center(
+        child: Stack(children: [
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? ElevatedButton(
+              onPressed: () async{
+                await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                await Future.delayed(Duration(seconds: 2));
 
-        onInit: _onRiveInit,
-        stateMachines: const["State Machine 1"],
+                await tts.TextToSpeech("잘 하셨습니다.",
+                    "ko-KR-Wavenet-D");
+                await tts.player.onPlayerComplete.first;
+
+
+                tts.dispose();
+                _audioPlayer.dispose();
+
+                widget.step_data.sendStepData(
+                    "convenience 1",
+                    "(편의점에 가는 이야기를 시작하기 위해 버튼을 누르는 상황)시작하기 버튼을 눌러보세요",
+                    "정답: 터치 완료",
+                    "응답(터치하기): 터치 완료"
+                );
+                Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+                Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+              },
+              child: Text("시작하기!")
+          )
+              : const Text("먼저 설명을 들어보세요!"),
+        ]),
       ),
-    ));
+    );
   }
 }

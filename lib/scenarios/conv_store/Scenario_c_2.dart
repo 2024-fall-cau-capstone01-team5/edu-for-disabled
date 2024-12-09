@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
-import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
-import '../tts.dart';
-import '../stt.dart';
+import '../../providers/Scenario_Manager.dart';
+
 import 'package:audioplayers/audioplayers.dart';
+import '../tts.dart';
+
+import 'package:rive/rive.dart' hide Image;
 
 import '../StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
+final TTS tts = TTS();
 
-
-class c_2_enterTheStore_left extends StatefulWidget {
+class Scenario_c_2_left extends StatefulWidget {
   final StatefulWidget acter;
-  const c_2_enterTheStore_left({super.key, required this.acter});
+
+  const Scenario_c_2_left({super.key, required this.acter});
 
   @override
-  State<c_2_enterTheStore_left> createState() => _c_2_enterTheStore_leftState();
+  State<Scenario_c_2_left> createState() => _Scenario_c_2_leftState();
 }
 
-final TTS tts = TTS();
-final STT stt = STT();
-
-class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
-  String actors_image = "";
-
+class _Scenario_c_2_leftState extends State<Scenario_c_2_left> {
   @override
   void initState() {
     super.initState();
@@ -31,191 +29,111 @@ class _c_2_enterTheStore_leftState extends State<c_2_enterTheStore_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("편의점 안으로 들어왔습니다. 편의점 카운터에 직원분이 보이네요. 직원분께서 어서오세요라고 인사를 합니다",
+    await tts.TextToSpeech(
+        "편의점 모습이 보이시나요? 편의점에 도착했습니다. "
+            "그럼 들어가볼까요? 오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요. "
+            "오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
         "ko-KR-Wavenet-D");
-
-    await Future.delayed(const Duration(seconds: 7));
-
-    setState(() {
-      actors_image = "assets/actor_sample.png";
-    });
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    await tts.TextToSpeech("어서오세요~", "ko-KR-Wavenet-C");
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    await tts.TextToSpeech("편의점 직원분께서 인사를 해주셨네요. 저희도 안녕하세요라고 인사를 해볼까요? 오른쪽 화면의 버튼을 클릭해 안녕하세요라고 소리내어 말해보세요",
-        "ko-KR-Wavenet-D");
-
-    await Future.delayed(const Duration(seconds: 7));
-
-    Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
+    await tts.player.onPlayerComplete.first;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Scenario_Manager>(
-      builder: (context, sinarioProvider, child) {
-        return Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
-            child: Stack(
-              children: [
-                // 배경 이미지 (아래쪽에 위치)
-                const Positioned.fill(
-                  child: Image(
-                    image: AssetImage("assets/c_inside.PNG"),
-                    fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
-                  ),
-                ),
-                // 배우 이미지 (위쪽에 위치)
-                Positioned.fill(
-                  child: widget.acter
-                ),
-              ],
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+        child: Stack(
+          children: [
+            // 배경 이미지 (아래쪽에 위치)
+            const Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/convenience/편의점 외부.webp"),
+                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
+              ),
             ),
-          ),
-        );
-      },
+            // 배우 이미지 (위쪽에 위치)
+            Positioned.fill(
+                child: widget.acter
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class c_2_enterTheStore_right extends StatefulWidget {
+class Scenario_c_2_right extends StatefulWidget {
   final StepData step_data;
-  const c_2_enterTheStore_right({super.key, required this.step_data});
+  const Scenario_c_2_right({super.key, required this.step_data});
 
   @override
-  State<c_2_enterTheStore_right> createState() => _c_2_enterTheStore_rightState();
+  State<Scenario_c_2_right> createState() =>
+      _Scenario_c_2_rightState();
 }
 
-class _c_2_enterTheStore_rightState extends State<c_2_enterTheStore_right> {
-  String? face_choice;
+class _Scenario_c_2_rightState extends State<Scenario_c_2_right> {
+  SMITrigger? _touch;
+  SMIBool? _bool;
 
-  Future<void> good_job() async{
-    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-    await tts.TextToSpeech("잘 하셨습니다.",
-        "ko-KR-Wavenet-D");
-    await Future.delayed(const Duration(seconds: 2));
+  void _onRiveInit(Artboard artboard) {
+    final controller =
+    StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1',
+      onStateChange: _onStateChange,
 
-    widget.step_data.sendStepData(
-        "convenience 2",
-        "(직원에게 인사를 하는 상황)인사를 했을 때의 나의 기분을 선택해보세요",
-        "정답: (예시)satisfied",
-        "응답(감정표현 선택): $face_choice!",
-      //수정 필요
     );
+    artboard.addController(controller!);
+
+    _touch = controller.findInput<bool>('touch') as SMITrigger;
+    _bool = controller.findInput<bool>('Boolean 1') as SMIBool;
+  }
+
+  void _onStateChange(String stateMachineName, String stateName) async{
+    // 애니메이션이 끝나는 상태를 확인하여 print
+    if (stateName == 'ExitState') {
+      if (_bool?.value == true) {
+        widget.step_data.sendStepData(
+            "convenience 2",
+            "(편의점에 도착해 문을 열고 들어가는 상황)문을 터치하고 편의점에 들어가 보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+      } else {
+        widget.step_data.sendStepData(
+            "convenience 2",
+            "(편의점에 도착해 문을 열고 들어가는 상황)문을 터치하고 편의점에 들어가 보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+      }
+
+      await tts.TextToSpeech(
+          "잘하셨습니다. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+
+      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
+    }else if (stateName == 'Timer exit'){
+      _bool?.value = true;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Consumer<Scenario_Manager>(
-          builder: (context, sinarioProvider, child) {
-            return Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: sinarioProvider.flag == 1
-                      ? ElevatedButton(
-                    onPressed: () async{
-                      setState(() {
-                        face_choice = "무표정";
-                      });
-                      await good_job();
-
-                      sinarioProvider.decrement_flag();
-                      sinarioProvider.updateIndex();
-                    },
-                    child: const Icon(
-                      Icons.sentiment_neutral, // 중립 이모티콘
-                      size: 90,
-                      color: Colors.black,
-                    ),
-                  )
-                      : const SizedBox.shrink(),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: sinarioProvider.flag == 1
-                      ? ElevatedButton(
-                    onPressed: () async{
-                      setState(() {
-                        face_choice = "화난 얼굴";
-                      });
-                      await good_job();
-
-                      sinarioProvider.decrement_flag();
-                      sinarioProvider.updateIndex();
-                    },
-                    child: const Icon(
-                      Icons.sentiment_very_dissatisfied, // 화난 이모티콘
-                      size: 90,
-                      color: Colors.black,
-                    ),
-                  )
-                      : const SizedBox.shrink(),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: sinarioProvider.flag == 1
-                      ? ElevatedButton(
-                    onPressed: () async{
-                      setState(() {
-                        face_choice = "웃는 얼굴";
-                      });
-                      await good_job();
-
-                      sinarioProvider.decrement_flag();
-                      sinarioProvider.updateIndex();
-                    },
-                    child: const Icon(
-                      Icons.sentiment_satisfied_alt_outlined, // 만족 이모티콘
-                      size: 90,
-                      color: Colors.black,
-                    ),
-                  )
-                      : const SizedBox.shrink(),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: sinarioProvider.flag2 == 1
-                      ? ElevatedButton(
-                    onPressed: () async{
-
-                      String answer = await stt.gettext(3);
-                      widget.step_data.sendStepData(
-                          "convenience 2",
-                          "(편의점 직원분께 안녕하세요?라고 인사를 하는 상황)편의점 직원분께 인사를 해보세요",
-                          "정답: \"안녕하세요\"",
-                          "응답(소리내어 말하기): $answer",
-                      );
-
-                      //step_data.toJson();
-                      //Json 리턴
-
-                      await tts.TextToSpeech("잘 하셨습니다. 인사를 하고"
-                          "나니 기분이 어떤가요? 오른쪽 화면에 나와있는 얼굴들 중 하나를 선택해보세요",
-                          "ko-KR-Wavenet-D");
-                      await Future.delayed(const Duration(seconds: 7));
-                      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag2();
-                      Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
-                    },
-                    child: const Icon(
-                      Icons.mic, // 만족 이모티콘
-                      size: 90,
-                      color: Colors.black,
-                    ),
-                  )
-                      : const SizedBox.shrink(),
-                ),
-              ],
-            );
-          },
-        ),
+        child: Stack(children: [
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+            "assets/common/door_opening_and_closing.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
+              : const Text("먼저 설명을 들어보세요!", style: TextStyle(fontSize: 15),),
+        ]),
       ),
     );
   }

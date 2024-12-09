@@ -12,6 +12,7 @@ abstract class Scenario_Manager extends ChangeNotifier {
 
   int index = 0;
   String subtitle = "";
+  String str = "";
 
   final TTS tts = TTS();
 
@@ -109,6 +110,9 @@ abstract class Scenario_Manager extends ChangeNotifier {
     notifyListeners();
   }
 
-
+  void setString(String str){
+      this.str = str;
+      notifyListeners();
+  }
 
 }

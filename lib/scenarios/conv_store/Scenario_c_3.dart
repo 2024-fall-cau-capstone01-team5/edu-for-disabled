@@ -1,213 +1,158 @@
-// import 'package:flutter/material.dart';
-// import '../../providers/Scenario_Manager.dart';
-// import 'package:provider/provider.dart';
-// import '../tts.dart';
-// import '../stt.dart';
-// import 'package:audioplayers/audioplayers.dart';
-//
-// final AudioPlayer _audioPlayer = AudioPlayer();
-//
-// final TTS tts = TTS();
-//
-// class c_3_display_left extends StatefulWidget {
-//   const c_3_display_left({super.key});
-//
-//   @override
-//   State<c_3_display_left> createState() => _c_3_display_leftState();
-// }
-//
-// class _c_3_display_leftState extends State<c_3_display_left> {
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _playWelcomeTTS();
-//   }
-//
-//   Future<void> _playWelcomeTTS() async {
-//
-//     await tts.TextToSpeech("편의점 진열대가 보이네요. 찾는 물건은 어디에 있을까요? 올바른 진열대를 선택해보세요. 만약 도움이 필요하다면 오른쪽 화면의 도와주세요 버튼을 눌러보세요",
-//         "ko-KR-Wavenet-D");
-//   }
-//
-//   Future<void> _good_job() async {
-//
-//     await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-//     await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-//     await Future.delayed(Duration(seconds: 2));
-//   }
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//
-//     return Consumer<Scenario_Manager>(
-//       builder: (context, sinarioProvider, child) {
-//         return Center(
-//             child: ClipRRect(
-//               borderRadius: BorderRadius.circular(20), // 원하는 경계 반경
-//               child: Stack(
-//                 children: [
-//                   // 배경 이미지 (아래쪽에 위치)
-//                   Positioned.fill(
-//                     child: Image(
-//                       image: AssetImage("assets/c_display.PNG"),
-//                       fit: BoxFit.cover, // 배경 이미지가 꽉 차도록 설정
-//                     ),
-//                   ),
-//                   Positioned.fill(
-//                     child: Align(
-//                       alignment: Alignment.topCenter,
-//                       child: ElevatedButton(
-//                         onPressed: () async {
-//                           await _good_job();
-//
-//
-//                           sinarioProvider.updateIndex();
-//                         },
-//                         child: Text("과자 코너"),
-//                       ),
-//                     ),
-//                   ),
-//                   Positioned.fill(
-//                     child: Align(
-//                       alignment: Alignment.bottomRight,
-//                       child: ElevatedButton(
-//                         onPressed: () async{
-//                           await _good_job();
-//
-//                           sinarioProvider.updateIndex();
-//                         },
-//                         child: Text("젤리코너"),
-//                       ),
-//                     ),
-//                   ),
-//                   Positioned.fill(
-//                     child: Align(
-//                       alignment: Alignment.bottomLeft,
-//                       child: ElevatedButton(
-//                         onPressed: () async {
-//                           await _good_job();
-//
-//                           sinarioProvider.updateIndex();
-//                         },
-//                         child: Text("아이스크림 코너"),
-//                       ),
-//                     ),
-//                   ),
-//                   Positioned.fill(
-//                     child: Align(
-//                       alignment: Alignment.centerRight,
-//                       child: ElevatedButton(
-//                         onPressed: () async {
-//                           await _good_job();
-//
-//                           sinarioProvider.updateIndex();
-//                         },
-//                         child: Text("라면 코너"),
-//                       ),
-//                     ),
-//                   ),
-//                   Positioned.fill(
-//                     child: Align(
-//                       alignment: Alignment.topRight,
-//                       child: ElevatedButton(
-//                         onPressed: () async {
-//                           await _good_job();
-//
-//                           sinarioProvider.updateIndex();
-//                         },
-//                         child: Text("음료수 코너"),
-//                       ),
-//                     ),
-//                   ),
-//                   Positioned.fill(
-//                     child: Align(
-//                       alignment: Alignment.center,
-//                       child: ElevatedButton(
-//                         onPressed: () async {
-//                           await _good_job();
-//
-//                           sinarioProvider.updateIndex();
-//                         },
-//                         child: Text("생필품 코너"),
-//                       ),
-//                     ),
-//                   ),
-//                   Positioned.fill(
-//                     child: sinarioProvider.flag == 1
-//                         ? ClipRRect(
-//                       borderRadius: BorderRadius.circular(20), // 경계 반경 설정
-//                       child: FadeInImage(
-//                         placeholder: AssetImage("assets/transparent.png"), // 빈 투명 이미지
-//                         image: AssetImage("assets/actor_sample.png"),
-//                         fadeInDuration: Duration(seconds: 1), // 페이드 인 지속 시간
-//                       ),
-//                     )
-//                         : SizedBox.shrink(),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         );
-//       },
-//     );
-//   }
-// }
-//
-// class c_3_display_right extends StatefulWidget {
-//   const c_3_display_right({super.key});
-//
-//   @override
-//   State<c_3_display_right> createState() => _c_3_display_rightState();
-// }
-//
-// class _c_3_display_rightState extends State<c_3_display_right> {
-//
-//   Future<void> _helpTTS() async {
-//     await Future.delayed(Duration(seconds: 1));
-//
-//     await tts.TextToSpeech("편의점 직원분께 도움을 구해보도록 해요. 오른쪽의 버튼을 터치하고 도와주세요라고 말해보세요",
-//         "ko-KR-Wavenet-D");
-//
-//     await Future.delayed(Duration(seconds: 9));
-//
-//     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
-//
-//     await tts.TextToSpeech("네. 부르셨나요? 무엇을 도와드릴까요?",
-//         "ko-KR-Wavenet-C");
-//
-//     await Future.delayed(Duration(seconds: 4));
-//
-//     await tts.TextToSpeech("오른쪽의 버튼을 터치하고 과자가 어디에 있나요?라고 말해보세요",
-//         "ko-KR-Wavenet-D");
-//
-//     await Future.delayed(Duration(seconds: 8));
-//
-//     await tts.TextToSpeech("과자를 사고 싶으시군요. 그 물건은 과자 코너에 있습니다.",
-//         "ko-KR-Wavenet-C");
-//
-//     await Future.delayed(Duration(seconds: 5));
-//
-//     await tts.TextToSpeech("도움이 됐나요? 다시 듣고 싶다면 도와주세요 버튼을 한 번 더 눌러보도록 해요",
-//         "ko-KR-Wavenet-D");
-//
-//     await Future.delayed(Duration(seconds: 7));
-//
-//     Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: _helpTTS,
-//           child: Text("도와주세요!"),
-//         ),
-//       ),
-//     );
-//   }
-// }
-//
+import 'package:flutter/material.dart';
+import 'package:flutterpractice/scenarios/tts.dart';
+import 'package:flutterpractice/scenarios/stt.dart';
+import 'package:provider/provider.dart';
+import '../../providers/Scenario_Manager.dart';
+import '../StepData.dart';
+
+import 'package:rive/rive.dart' hide Image;
+
+final tts = TTS();
+final stt = STT();
+
+
+class Scenario_c_3_left extends StatefulWidget {
+  final StatefulWidget acter;
+
+  const Scenario_c_3_left({super.key, required this.acter});
+
+  @override
+  State<Scenario_c_3_left> createState() => _Scenario_c_3_leftState();
+}
+
+class _Scenario_c_3_leftState extends State<Scenario_c_3_left> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Stack(
+        children: [
+          Provider.of<Scenario_Manager>(context, listen: false).flag2 == 1
+              ? Positioned.fill(
+            child: Image(
+              image: AssetImage("assets/convenience/편의점 카운터.webp"),
+              fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
+            ),
+          )
+              : Positioned.fill(
+            child: Image(
+              image: AssetImage("assets/convenience/편의점 내부 1.webp"),
+              fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
+            ),
+          ),
+          Positioned.fill(child: widget.acter),
+        ],
+      ),
+    );
+  }
+}
+
+class Scenario_c_3_right extends StatefulWidget {
+  final StepData step_data;
+
+  const Scenario_c_3_right({super.key, required this.step_data});
+
+  @override
+  State<Scenario_c_3_right> createState() => _Scenario_c_3_rightState();
+}
+
+class _Scenario_c_3_rightState extends State<Scenario_c_3_right> {
+
+
+  SMIBool? _bool1;
+  SMIBool? _bool2;
+
+  String answer = '';
+
+  Future<void> _playWelcomeTTS() async {
+    await tts.TextToSpeech(
+        "편의점 안으로 들어왔어요."
+            "맛있는 음식들도 보이고 시원한 아이스크림도 보이네요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
+
+
+    await tts.TextToSpeech(
+        "어서오세요. ",
+        "ko-KR-Wavenet-A");
+    await tts.player.onPlayerComplete.first;
+
+    await tts.TextToSpeech(
+        "편의점 직원분께서 인사를 해 주시네요."
+            "인사를 받았다면 여러분들도 똑같이 인사를 해야 해요."
+            "안녕하세요!라고 씩씩하게 소리내어 직접 말해보세요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+  }
+
+  void _onRiveInit(Artboard artboard) async{
+    await _playWelcomeTTS();
+
+    final controller = StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1',
+      onStateChange: _onStateChange,
+    );
+
+    if (controller != null) {
+      artboard.addController(controller);
+
+      _bool1 = controller.findInput<bool>('Boolean 1') as SMIBool?;
+      _bool2 = controller.findInput<bool>('Boolean 2') as SMIBool?;
+
+    }
+
+    _bool1?.value = true;
+
+    setState(() async{
+      answer = await stt.gettext(4);
+    });
+
+  }
+
+  void _onStateChange(String stateMachineName, String stateName) async {
+
+    if (stateName == 'ExitState') {
+      widget.step_data.sendStepData(
+        "convenience 3",
+        "(편의점에 들어가 직원에게 인사를 하는 상황)편의점 직원분께 \"안녕하세요\" 라고 말해보세요",
+        "정답: \"안녕하세요\"",
+        "응답(소리내어 말하기): $answer",
+      );
+
+      await tts.TextToSpeech("참 잘했어요."
+          "앞으로 편의점이나 가게에 들어갈 때 꼭 인사를 해보도록 해요.",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
+      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag2();
+
+    } else if (stateName == "Timer exit") {
+      _bool2?.value = true;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Stack(children: [
+          RiveAnimation.asset(
+            "assets/common/icon_recording.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          ),
+        ]),
+      ),
+    );
+  }
+}
