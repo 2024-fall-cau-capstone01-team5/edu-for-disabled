@@ -25,6 +25,11 @@ class _Scenario_ready_13_leftState extends State<Scenario_ready_13_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼, 깔끔하게 씻었으니 이제 밖에 나가기 위해서 옷을 입어볼까요? "
+            "오른쪽 화면을 터치해서 마음에 드는 옷과 장신구를 선택해 캐릭터를 꾸며보세요!"
+    );
     await tts.TextToSpeech(
             "그럼, 깔끔하게 씻었으니 이제 밖에 나가기 위해서 옷을 입어볼까요? "
                 "오른쪽 화면을 터치해서 마음에 드는 옷과 장신구를 선택해 캐릭터를 꾸며보세요!",
@@ -82,6 +87,10 @@ class _Scenario_ready_13_rightState extends State<Scenario_ready_13_right> {
           "(외출을 하기 위해 옷을 입는 상황)오른쪽 화면을 터치해서 마음에 드는 옷과 장신구를 선택해 캐릭터를 꾸며보세요",
           "정답: 선택 완료",
           "응답(선택하기): 선택 완료"
+      );
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로 옷을 입을 땐 스스로 입는 습관을 들이는 착한 사람이 돼 보도록 해요. "
       );
       await tts.TextToSpeech(
           "참 잘했어요. "

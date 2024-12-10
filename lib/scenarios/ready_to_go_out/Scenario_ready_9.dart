@@ -25,6 +25,11 @@ class _Scenario_ready_9_leftState extends State<Scenario_ready_9_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "볼일을 다 봤으니 변기물을 내려볼까요? "
+            "오른쪽 화면의 변기를 손가락으로 직접 눌러보세요. "
+    );
     await tts.TextToSpeech(
         "볼일을 다 봤으니 변기물을 내려볼까요? "
             "오른쪽 화면의 변기를 손가락으로 직접 눌러보세요. ",
@@ -96,6 +101,11 @@ class _Scenario_ready_9_rightState extends State<Scenario_ready_9_right> {
             "응답(터치하기): 터치 완료"
         );
       }
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로는 변기를 사용한 후에는 변기물이 튀기지 않도록 꼭 변기 뚜껑을 닫고 "
+              "물을 내리도록 해요."
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로는 변기를 사용한 후에는 변기물이 튀기지 않도록 꼭 변기 뚜껑을 닫고 "

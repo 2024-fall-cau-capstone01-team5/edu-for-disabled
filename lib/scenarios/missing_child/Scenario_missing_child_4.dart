@@ -29,12 +29,24 @@ class _Scenario_missing_child_4_leftState
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech(
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "길을 잃어서 어디로 가야할지 모를 때에는 사람들에게 도움을 구해야 해요. "
             "도움을 요청할 때에는 주변의 가게 직원 분께 도움을 요청해야 해요. "
+    );
+    await tts.TextToSpeech(
+        "길을 잃어서 어디로 가야할지 모를 때에는 사람들에게 도움을 구해야 해요. "
+            "도움을 요청할 때에는 주변의 가게 직원 분께 도움을 요청해야 해요. ",
+            "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+            "낯선 사람에게 말을 거는 건 위험할 수 있어요. "
+            "그러면 누구에게 도움을 요청해야 할 지 오른쪽 화면에서 손가락으로 직접 눌러보세요. "
+    );
+    await tts.TextToSpeech(
             "낯선 사람에게 말을 거는 건 위험할 수 있어요. "
             "그러면 누구에게 도움을 요청해야 할 지 오른쪽 화면에서 손가락으로 직접 눌러보세요. ",
-            "ko-KR-Wavenet-D");
+        "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -106,6 +118,10 @@ class _Scenario_missing_child_4_rightState
             "응답(터치하기): 가게 점원");
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로 도움을 요청할 땐 모르는 낯선 사람에겐 함부로 다가가지 말도록 해요. "
+      );
       await tts.TextToSpeech("참 잘했어요. "
           "앞으로 도움을 요청할 땐 모르는 낯선 사람에겐 함부로 다가가지 말도록 해요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;

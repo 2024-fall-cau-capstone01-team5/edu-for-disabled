@@ -25,8 +25,13 @@ class _Scenario_ready_11_leftState extends State<Scenario_ready_11_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼 양치질을 해볼까요? "
+            "오른쪽 화면의 이빨을 손가락으로 직접 눌러보세요. "
+    );
     await tts.TextToSpeech(
-        "그럼 이빨을 닦아볼까요? "
+        "그럼 양치질을 해볼까요? "
             "오른쪽 화면의 이빨을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -97,6 +102,12 @@ class _Scenario_ready_11_rightState extends State<Scenario_ready_11_right> {
         );
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "양치질을 제대로 하지 않으면 입에서 냄새가 날 수도 있어요. "
+              "앞으로는 양치질을 꼼꼼하게 깨끗히 해 보도록 해요. "
+              "그리고 양치질이 끝나면 물로 입을 헹구는 것도 잊지 않도록 해요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "양치질을 제대로 하지 않으면 입에서 냄새가 날 수도 있어요. "

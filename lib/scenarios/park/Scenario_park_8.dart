@@ -28,8 +28,8 @@ class _Scenario_park_8_leftState extends State<Scenario_park_8_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "즐겁게 놀았나요? 앞으론 산책을 나가거나 공원에 나갈 때 선생님과 부모님의 곁에서 떨어지지 말고 "
-            "말씀을 잘 듣는 착한 사람이 돼보도록 해요"
+        "즐겁게 놀았나요? 앞으론 산책을 나가거나 공원에 나갈 때, 선생님과 부모님의 곁에서 떨어지지 말고 "
+            "말씀을 잘 듣는 착한 사람이 돼보도록 해요."
     );
     await tts.TextToSpeech("즐겁게 놀았나요? "
         "앞으론 산책을 나가거나 공원에 나갈 때"

@@ -25,6 +25,12 @@ class _Scenario_hurt_4_leftState extends State<Scenario_hurt_4_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "손가락이 다쳤을 땐 먼저 흐르는 물에 손을 깨끗히 씻어야 해요. "
+            "그래야 나쁜 세균들이 몸에 손가락으로 들어가지 못한답니다. "
+            "그럼 손을 씻어볼까요? 오른쪽 화면을 손가락으로 직접 눌러보세요. "
+    );
     await tts.TextToSpeech(
         "손가락이 다쳤을 땐 먼저 흐르는 물에 손을 깨끗히 씻어야 해요. "
             "그래야 나쁜 세균들이 몸에 손가락으로 들어가지 못한답니다. "
@@ -101,6 +107,10 @@ class _Scenario_hurt_4_rightState extends State<Scenario_hurt_4_right> {
         );
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로 다쳤을 때는 상처를 흐르는 물로 살살 씻어보도록 해요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로 다쳤을 때는 상처를 흐르는 물로 살살 씻어보도록 해요. ",

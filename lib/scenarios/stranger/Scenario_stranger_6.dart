@@ -62,14 +62,23 @@ class _Scenario_stranger_6_rightState extends State<Scenario_stranger_6_right> {
   String answer = '';
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "여러분의 목소리를 듣고 길을 걷던 한 남자분이 다가오네요."
+    );
     await tts.TextToSpeech("여러분의 목소리를 듣고 길을 걷던 한 남자분이 다가오네요",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "무슨 일이에요?"
+    );
     await tts.TextToSpeech("무슨 일이에요?",
         "ko-KR-Wavenet-C");
     await tts.player.onPlayerComplete.first;
-
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "남자분이 어떤 상황인지 물어보네요."
+            "\"도와주세요! 모르는 사람이에요!\"라고 다시 한 번 직접 소리내어 말해보세요. "
+    );
     await tts.TextToSpeech("남자분이 어떤 상황인지 물어보네요."
         "도와주세요! 모르는 사람이에요!라고 다시 한 번 직접 소리내어 말해보세요. ",
         "ko-KR-Wavenet-D");
@@ -109,9 +118,13 @@ class _Scenario_stranger_6_rightState extends State<Scenario_stranger_6_right> {
         "응답(소리내어 말하기): $answer",
       );
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요."
+      );
       await tts.TextToSpeech(
           "참 잘했어요."
-              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 쳐해있는지 잘 설명해 보도록 해요.",
+              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

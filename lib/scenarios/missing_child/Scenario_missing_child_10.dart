@@ -64,6 +64,10 @@ class _Scenario_missing_child_10_rightState
   String answer = '';
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "지금까지 여러분을 도와준 모든 분들께 \"감사합니다.\" 라고 직접 소리내어 인사를 해 보세요. "
+    );
     await tts.TextToSpeech("지금까지 여러분을 도와준 모든 분들께 감사합니다 라고 직접 소리내어 인사를 해 보세요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -101,6 +105,10 @@ class _Scenario_missing_child_10_rightState
         "응답(소리내어 말하기): $answer",
       );
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "도움을 받았다면 감사 인사를 꼭 해보도록 해요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "도움을 받았다면 감사 인사를 꼭 해보도록 해요. ",

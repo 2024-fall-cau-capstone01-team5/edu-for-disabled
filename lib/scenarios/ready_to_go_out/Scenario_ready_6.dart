@@ -25,6 +25,11 @@ class _Scenario_ready_6_leftState extends State<Scenario_ready_6_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼 지금부터 씻어보도록 할까요? "
+            "오른쪽 화면의 문을 손가락으로 직접 눌러보세요."
+    );
     await tts.TextToSpeech(
         "그럼 지금부터 씻어보도록 할까요? "
             "오른쪽 화면의 문을 손가락으로 직접 눌러보세요.",
@@ -97,6 +102,9 @@ class _Scenario_ready_6_rightState extends State<Scenario_ready_6_right> {
             "응답(터치하기): 터치 완료"
         );
       }
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");
