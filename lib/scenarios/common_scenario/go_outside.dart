@@ -112,6 +112,7 @@ class _Go_outside_rightState extends State<Go_outside_right> {
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
 
+      tts.dispose();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
     }
@@ -124,7 +125,7 @@ class _Go_outside_rightState extends State<Go_outside_right> {
           child: GestureDetector(
             onTap: _hitBump,
             child: RiveAnimation.asset(
-              "assets/door_open.riv",
+              "assets/common/door_opening_and_closing.riv",
               fit: BoxFit.contain,
               onInit: _onRiveInit,
             ),

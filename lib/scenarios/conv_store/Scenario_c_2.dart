@@ -113,6 +113,8 @@ class _Scenario_c_2_rightState extends State<Scenario_c_2_right> {
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
 
+      tts.dispose();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
 

@@ -125,7 +125,7 @@ class _Elevator_1_rightState extends State<Elevator_1_right> {
         child: Stack(children: [
           RiveAnimation.asset(
             "assets/common/elevator_button.riv",
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
             onInit: _onRiveInit,
           ),
         ]),

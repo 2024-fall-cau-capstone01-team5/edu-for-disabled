@@ -12,16 +12,16 @@ import '../StepData.dart';
 final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
 
-class Scenario_c_5_left extends StatefulWidget {
+class Scenario_c_1_2_left extends StatefulWidget {
   final StatefulWidget acter;
 
-  const Scenario_c_5_left({super.key, required this.acter});
+  const Scenario_c_1_2_left({super.key, required this.acter});
 
   @override
-  State<Scenario_c_5_left> createState() => _Scenario_c_5_leftState();
+  State<Scenario_c_1_2_left> createState() => _Scenario_c_1_2_leftState();
 }
 
-class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
+class _Scenario_c_1_2_leftState extends State<Scenario_c_1_2_left> {
   @override
   void initState() {
     super.initState();
@@ -30,11 +30,8 @@ class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-            "편의점 진열대에 물건들이 엄청 많이 진열되어 있네요. "
-            "여러분들이 처음에 선택했던 물건이 기억이 나시나요?"
-                "그 물건을 진열대에서 직접 손가락으로 눌러보세요."
-                "만약 기억이 나지 않아도 괜찮아요. "
-                "기억이 나지 않는다면 사고 싶은 물건을 눌러보세요. ",
+        "여러분은 지금 편의점에 가서 어떤 물건을 사고 싶나요? "
+            "오른쪽 화면에서 사고 싶은 물건을 손가락으로 직접 눌러보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }
@@ -46,13 +43,6 @@ class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
         borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
         child: Stack(
           children: [
-            // 배경 이미지 (아래쪽에 위치)
-            const Positioned.fill(
-              child: Image(
-                image: AssetImage("assets/convenience/편의점 내부 2.webp"),
-                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
-              ),
-            ),
             // 배우 이미지 (위쪽에 위치)
             Positioned.fill(
                 child: widget.acter
@@ -64,20 +54,20 @@ class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
   }
 }
 
-class Scenario_c_5_right extends StatefulWidget {
+class Scenario_c_1_2_right extends StatefulWidget {
   final StepData step_data;
-  const Scenario_c_5_right({super.key, required this.step_data});
+  const Scenario_c_1_2_right({super.key, required this.step_data});
 
   @override
-  State<Scenario_c_5_right> createState() =>
-      _Scenario_c_5_rightState();
+  State<Scenario_c_1_2_right> createState() =>
+      _Scenario_c_1_2_rightState();
 }
 
-class _Scenario_c_5_rightState extends State<Scenario_c_5_right> {
+class _Scenario_c_1_2_rightState extends State<Scenario_c_1_2_right> {
   SMINumber? _number;
   SMIBool? _bool;
   final List<String> stuffs = ["시간 초과", "라면", "감자칩", "컵라면", "연필", "빵", "비스킷",
-  "쿠키", "물티슈", "초콜릿", "두루마리 휴지", "생수", "커피", "콜라", "오렌지 주스" ];
+    "쿠키", "물티슈", "초콜릿", "두루마리 휴지", "생수", "커피", "콜라", "오렌지 주스" ];
 
   void _onRiveInit(Artboard artboard) {
     final controller =
@@ -108,7 +98,8 @@ class _Scenario_c_5_rightState extends State<Scenario_c_5_right> {
       );
 
       await tts.TextToSpeech(
-          "잘하셨습니다. ",
+          "잘하셨습니다. ${stuffs[_number?.value as int]}을 선택하셨군요."
+              "방금 선택하신 물건을 잘 기억하시길 바랍니다. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

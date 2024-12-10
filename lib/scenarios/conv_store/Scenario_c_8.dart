@@ -12,16 +12,16 @@ import '../StepData.dart';
 final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
 
-class Scenario_c_5_left extends StatefulWidget {
+class Scenario_c_8_left extends StatefulWidget {
   final StatefulWidget acter;
 
-  const Scenario_c_5_left({super.key, required this.acter});
+  const Scenario_c_8_left({super.key, required this.acter});
 
   @override
-  State<Scenario_c_5_left> createState() => _Scenario_c_5_leftState();
+  State<Scenario_c_8_left> createState() => _Scenario_c_8_leftState();
 }
 
-class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
+class _Scenario_c_8_leftState extends State<Scenario_c_8_left> {
   @override
   void initState() {
     super.initState();
@@ -30,11 +30,9 @@ class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-            "편의점 진열대에 물건들이 엄청 많이 진열되어 있네요. "
-            "여러분들이 처음에 선택했던 물건이 기억이 나시나요?"
-                "그 물건을 진열대에서 직접 손가락으로 눌러보세요."
-                "만약 기억이 나지 않아도 괜찮아요. "
-                "기억이 나지 않는다면 사고 싶은 물건을 눌러보세요. ",
+        "이제 볼일을 다 봤으니 편의점에서 나가보도록 할까요? "
+            "편의점에서 나가기 전에 챙기는 것을 잊어버린 물건은 없나요? "
+            "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }
@@ -49,7 +47,7 @@ class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
             // 배경 이미지 (아래쪽에 위치)
             const Positioned.fill(
               child: Image(
-                image: AssetImage("assets/convenience/편의점 내부 2.webp"),
+                image: AssetImage("assets/convenience/편의점 나가기.webp"),
                 fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
               ),
             ),
@@ -64,20 +62,18 @@ class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
   }
 }
 
-class Scenario_c_5_right extends StatefulWidget {
+class Scenario_c_8_right extends StatefulWidget {
   final StepData step_data;
-  const Scenario_c_5_right({super.key, required this.step_data});
+  const Scenario_c_8_right({super.key, required this.step_data});
 
   @override
-  State<Scenario_c_5_right> createState() =>
-      _Scenario_c_5_rightState();
+  State<Scenario_c_8_right> createState() =>
+      _Scenario_c_8_rightState();
 }
 
-class _Scenario_c_5_rightState extends State<Scenario_c_5_right> {
-  SMINumber? _number;
+class _Scenario_c_8_rightState extends State<Scenario_c_8_right> {
+  SMITrigger? _touch;
   SMIBool? _bool;
-  final List<String> stuffs = ["시간 초과", "라면", "감자칩", "컵라면", "연필", "빵", "비스킷",
-  "쿠키", "물티슈", "초콜릿", "두루마리 휴지", "생수", "커피", "콜라", "오렌지 주스" ];
 
   void _onRiveInit(Artboard artboard) {
     final controller =
@@ -89,24 +85,28 @@ class _Scenario_c_5_rightState extends State<Scenario_c_5_right> {
     );
     artboard.addController(controller!);
 
-    _number = controller.findInput<SMINumber>('Number 1') as SMINumber;
-    if(_number == null){
-      debugPrint("NUMBER IS NULL");
-    }
+    _touch = controller.findInput<bool>('touch') as SMITrigger;
     _bool = controller.findInput<bool>('Boolean 1') as SMIBool;
   }
 
   void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'ExitState') {
-
-      widget.step_data.sendStepData(
-        "convenience 5",
-        "(처음에 사려고 선택한 물건을 진열대에서 직접 찾아보는 상황)처음에 사려고 선택한 물건을 진열대에서 직접 찾아보세요",
-        "정답: ${Provider.of<Scenario_Manager>(context,listen: false).str}",
-        "응답(선택하기): ${stuffs[_number?.value as int]}",
-      );
-
+      if (_bool?.value == true) {
+        widget.step_data.sendStepData(
+            "convenience 8",
+            "(편의점을 나가는 상황)문을 터치해보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+      } else {
+        widget.step_data.sendStepData(
+            "convenience 8",
+            "(편의점을 나가는 상황)문을 터치해보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+      }
       await tts.TextToSpeech(
           "잘하셨습니다. ",
           "ko-KR-Wavenet-D");
@@ -128,7 +128,7 @@ class _Scenario_c_5_rightState extends State<Scenario_c_5_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/convenience/stuff_choice.riv",
+            "assets/common/door_opening_and_closing.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )

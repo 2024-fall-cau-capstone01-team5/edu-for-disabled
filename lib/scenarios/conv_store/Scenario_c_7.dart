@@ -1,75 +1,153 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/Scenario_Manager.dart';
+
 import 'package:audioplayers/audioplayers.dart';
-import '../tts.dart'; // TTS 클래스를 정의한 파일을 import하세요.
+import '../tts.dart';
 
-AudioPlayer _audioPlayer = AudioPlayer();
-TTS tts = TTS();
+import 'package:rive/rive.dart' hide Image;
 
-class c_7_congratuations_left extends StatefulWidget {
-  const c_7_congratuations_left({super.key});
+import '../StepData.dart';
+
+final AudioPlayer _audioPlayer = AudioPlayer();
+final TTS tts = TTS();
+
+class Scenario_c_7_left extends StatefulWidget {
+  final StatefulWidget acter;
+
+  const Scenario_c_7_left({super.key, required this.acter});
 
   @override
-  State<c_7_congratuations_left> createState() => _c_7_congratuations_leftState();
+  State<Scenario_c_7_left> createState() => _Scenario_c_7_leftState();
 }
 
-class _c_7_congratuations_leftState extends State<c_7_congratuations_left> {
-
+class _Scenario_c_7_leftState extends State<Scenario_c_7_left> {
+  @override
   void initState() {
     super.initState();
     _playWelcomeTTS();
   }
 
   Future<void> _playWelcomeTTS() async {
-    await _audioPlayer.play(AssetSource("effect_ascending.mp3"));
-
-    await tts.TextToSpeech("축하합니다. 모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 실제로 편의점에 갔을 때 어떻게 행동해야 할지 잘 생각해보시기 바랍니다.",
+    await tts.TextToSpeech(
+        "다른 사람들이 계산을 다 마치고 드디어 여러분들의 차례가 왔네요."
+            "계산을 해보도록 할까요? ",
         "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
 
-    await Future.delayed(Duration(seconds: 7));
+    await _audioPlayer.play(AssetSource("effect_beep.mp3"));
+    _audioPlayer.dispose();
 
+    await tts.TextToSpeech(
+        "천오백원입니다. 계산 도와드릴게요.",
+        "ko-KR-Wavenet-A");
+    await tts.player.onPlayerComplete.first;
+
+    await tts.TextToSpeech(
+            "오른쪽 화면의 카드를 손가락으로 직접 눌러 카드를 꽂아보세요! ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20), // Container의 borderRadius와 동일하게 설정
-      child: Text(
-        "CLEAR!",
-        style: TextStyle(fontSize: 40),
-        textAlign: TextAlign.center,
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+        child: Stack(
+          children: [
+            // 배경 이미지 (아래쪽에 위치)
+            const Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/convenience/편의점 카운터.webp"),
+                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
+              ),
+            ),
+            // 배우 이미지 (위쪽에 위치)
+            Positioned.fill(
+                child: widget.acter
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class c_7_congratuations_right extends StatefulWidget {
-  const c_7_congratuations_right({super.key});
+class Scenario_c_7_right extends StatefulWidget {
+  final StepData step_data;
+  const Scenario_c_7_right({super.key, required this.step_data});
 
   @override
-  State<c_7_congratuations_right> createState() => _c_7_congratuations_rightState();
+  State<Scenario_c_7_right> createState() =>
+      _Scenario_c_7_rightState();
 }
 
-class _c_7_congratuations_rightState extends State<c_7_congratuations_right> {
-  String door_image = "assets/door_closed.png";
+class _Scenario_c_7_rightState extends State<Scenario_c_7_right> {
+  SMITrigger? _trigger;
+  SMIBool? _bool;
+
+  void _onRiveInit(Artboard artboard) {
+    final controller =
+    StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1',
+      onStateChange: _onStateChange,
+
+    );
+    artboard.addController(controller!);
+
+    _trigger = controller.findInput<bool>('Trigger 1') as SMITrigger;
+    _bool = controller.findInput<bool>('Boolean 1') as SMIBool;
+  }
+
+  void _onStateChange(String stateMachineName, String stateName) async{
+    // 애니메이션이 끝나는 상태를 확인하여 print
+    if (stateName == 'ExitState') {
+      if (_bool?.value == true) {
+        widget.step_data.sendStepData(
+            "convenience 7",
+            "(계산을 위해 카드를 카드 리더기에 꽂는 상황)카드를 터치해보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+      } else {
+        widget.step_data.sendStepData(
+            "convenience 7",
+            "(계산을 위해 카드를 카드 리더기에 꽂는 상황)카드를 터치해보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+      }
+
+      await tts.TextToSpeech(
+          "잘하셨습니다. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
+      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
+    }else if (stateName == 'Timer exit'){
+      _bool?.value = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-            onPressed: (){
-              Navigator.pop(context);
-            },
-            child: Text(
-              "나가기",
-              style: TextStyle(fontSize: 40),
-              textAlign: TextAlign.center,
-              
-              //오디오 멈추는 작업 하기
-              
-            ),
-        ),
-      )
+        child: Stack(children: [
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+            "assets/convenience/POS Animation.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
+              : const Text("먼저 설명을 들어보세요!", style: TextStyle(fontSize: 15),),
+        ]),
+      ),
     );
   }
 }
