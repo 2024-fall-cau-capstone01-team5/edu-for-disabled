@@ -7,9 +7,9 @@ import '../scenarios/common_scenario/elevator_1.dart';
 import '../scenarios/common_scenario/elevator_2.dart';
 import '../scenarios/common_scenario/elevator_3.dart';
 import '../scenarios/common_scenario/traffic.dart';
+import '../scenarios/common_scenario/traffic_2.dart';
 
 import '../scenarios/conv_store/Scenario_c_1.dart';
-import '../scenarios/conv_store/Scenario_c_1-2.dart';
 import '../scenarios/conv_store/Scenario_c_2.dart';
 import '../scenarios/conv_store/Scenario_c_3.dart';
 import '../scenarios/conv_store/Scenario_c_4.dart';
@@ -36,15 +36,14 @@ class Sinario_c_provider extends Scenario_Manager {
 
   @override
   List<Widget> get leftScreen => [
-    Scenario_c_1_left(acter: acter),
-
     Go_outside_left(acter: acter),
     Elevator_1_left(acter: acter),
     Elevator_2_left(acter: acter),
     Elevator_3_left(acter: acter),
     Traffic_left(acter: acter),
+    Traffic_2_left(acter: acter),
 
-    Scenario_c_2_left(acter: acter),
+    Scenario_c_1_left(acter: acter),
     Scenario_c_2_left(acter: acter),
     Scenario_c_3_left(acter: acter),
     Scenario_c_4_left(acter: acter),
@@ -57,15 +56,14 @@ class Sinario_c_provider extends Scenario_Manager {
 
   @override
   List<Widget> get rightScreen => [
-    Scenario_c_1_right(step_data: step_data),
-
     Go_outside_right(step_data: step_data,),
     Elevator_1_right(step_data: step_data),
     Elevator_2_right(step_data: step_data),
     Elevator_3_right(step_data: step_data),
-    Traffic_right(),
+    Traffic_right(step_data: step_data,),
+    Traffic_2_right(step_data: step_data),
 
-    Scenario_c_1_2_right(step_data: step_data),
+    Scenario_c_1_right(step_data: step_data),
     Scenario_c_2_right(step_data: step_data),
     Scenario_c_3_right(step_data: step_data),
     Scenario_c_4_right(step_data: step_data),

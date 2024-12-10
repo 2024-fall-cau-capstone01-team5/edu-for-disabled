@@ -115,8 +115,8 @@ class _Scenario_c_6_rightState
             "응답(감정 표현): 시간 초과");
       } else {
         widget.step_data.sendStepData(
-            "missing_child 9",
-            "(부모님과 재회했을 때 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+            "convenience 6",
+            "(편의점 계산 줄을 기다릴 때 느끼는 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
             "정답: 지루해요",
             "응답(감정 표현): 지루해요");
       }
@@ -134,16 +134,16 @@ class _Scenario_c_6_rightState
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
       widget.step_data.sendStepData(
-          "missing_child 9",
-          "(부모님과 재회했을 때 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+          "convenience 6",
+          "(편의점 계산 줄을 기다릴 때 느끼는 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
           "정답: 지루해요",
           "응답(감정 표현): 슬퍼요");
     } else if (stateName == "angry") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
       widget.step_data.sendStepData(
-          "missing_child 9",
-          "(부모님과 재회했을 때 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+          "convenience 6",
+          "(편의점 계산 줄을 기다릴 때 느끼는 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
           "정답: 지루해요",
           "응답(감정 표현): 화나요");
     } else if (stateName == "boring") {

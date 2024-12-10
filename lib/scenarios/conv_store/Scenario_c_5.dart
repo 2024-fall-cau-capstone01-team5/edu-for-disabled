@@ -37,6 +37,8 @@ class _Scenario_c_5_leftState extends State<Scenario_c_5_left> {
                 "기억이 나지 않는다면 사고 싶은 물건을 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
   }
 
   @override

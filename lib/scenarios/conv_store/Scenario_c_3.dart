@@ -90,6 +90,9 @@ class _Scenario_c_3_rightState extends State<Scenario_c_3_right> {
             "안녕하세요!라고 씩씩하게 소리내어 직접 말해보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
   }
 
   void _onRiveInit(Artboard artboard) async{
@@ -134,6 +137,8 @@ class _Scenario_c_3_rightState extends State<Scenario_c_3_right> {
       tts.dispose();
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag2();
 
     } else if (stateName == "Timer exit") {

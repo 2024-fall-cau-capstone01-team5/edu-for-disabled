@@ -35,6 +35,8 @@ class _Scenario_c_8_leftState extends State<Scenario_c_8_left> {
             "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
   }
 
   @override

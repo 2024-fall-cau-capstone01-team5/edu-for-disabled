@@ -47,6 +47,8 @@ class _Scenario_c_7_leftState extends State<Scenario_c_7_left> {
             "오른쪽 화면의 카드를 손가락으로 직접 눌러 카드를 꽂아보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
