@@ -25,8 +25,14 @@ class _Scenario_stranger_9_leftState
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
     await _audioPlayer.play(AssetSource("effect_ascending.mp3"));
 
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "축하합니다. "
+            "모든 이야기를 마치셨습니다. "
+            "앞으로 모르는 사람이 다가올 때, \"도와주세요! 모르는 사람이에요!\" 이 말을 기억하길 바랍니다."
+    );
     await tts.TextToSpeech(
         "축하합니다. "
             "모든 이야기를 마치셨습니다. "

@@ -28,10 +28,22 @@ class _Scenario_stranger_7_leftState extends State<Scenario_stranger_7_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "여러분을 데리고 가려던 모르는 사람이 떠나네요. "
+            "참 잘했어요. "
+            "지나가던 남자분께 도움을 받았네요! "
+    );
     await tts.TextToSpeech("여러분을 데리고 가려던 모르는 사람이 떠나네요. "
         "참 잘했어요. "
-        "지나가던 남자분께 도움을 받았네요! "
-        " 여러분을 도와주신 남자뿐께 어떤 기분이 드나요? 자기가 느끼는 기분을 오른쪽 화면에서 손가락으로 직접 눌러보세요. ",
+        "지나가던 남자분께 도움을 받았네요! ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "여러분을 도와주신 남자 분께 어떤 기분이 드나요? 자기가 느끼는 기분을 오른쪽 화면에서 손가락으로 직접 눌러보세요. "
+    );
+    await tts.TextToSpeech(
+        "여러분을 도와주신 남자분께 어떤 기분이 드나요? 자기가 느끼는 기분을 오른쪽 화면에서 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -105,6 +117,9 @@ class _Scenario_stranger_7_rightState extends State<Scenario_stranger_7_right> {
             "응답(감정 표현): 좋아요");
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");

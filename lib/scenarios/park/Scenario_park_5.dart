@@ -10,7 +10,6 @@ import '../StepData.dart';
 final tts = TTS();
 final stt = STT();
 
-
 class Scenario_park_5_left extends StatefulWidget {
   final StatefulWidget acter;
 
@@ -85,7 +84,6 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
 
   void _onRiveInit(Artboard artboard) async{
     await _playWelcomeTTS();
-
     final controller = StateMachineController.fromArtboard(
       artboard,
       'State Machine 1',
@@ -101,15 +99,12 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
     }
     _bool1?.value = true;
 
-    setState(() async{
-      answer = await stt.gettext(6);
-    });
+    answer = await stt.gettext(6);
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
 
     if (stateName == 'ExitState') {
-
       widget.step_data.sendStepData(
           "park 5",
           "(밥을 먹는 상황)밥을 먹기 전 \"잘 먹겠습니다.\" 라고 소리내어 말해보세요",

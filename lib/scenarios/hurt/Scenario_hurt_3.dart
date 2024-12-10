@@ -25,6 +25,11 @@ class _Scenario_hurt_3_leftState extends State<Scenario_hurt_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "먼저 다쳤을 땐 당황하지 말고 마음을 가라앉히기 위해 심호흡을 해봐요. "
+            "오른쪽 화면을 손가락으로 직접 눌러보세요. "
+    );
     await tts.TextToSpeech(
         "먼저 다쳤을 땐 당황하지 말고. "
             "마음을 가라앉히기 위해 심호흡을 해봐요. "
@@ -101,6 +106,10 @@ class _Scenario_hurt_3_rightState extends State<Scenario_hurt_3_right> {
         );
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로는 어떤 상황이 와도 침착하게 심호흡부터 해 보도록 해요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로는 어떤 상황이 와도 침착하게 심호흡부터 해 보도록 해요. ",

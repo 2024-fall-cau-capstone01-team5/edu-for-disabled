@@ -25,18 +25,31 @@ class _Scenario_hurt_5_leftState extends State<Scenario_hurt_5_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "상처가 난 부위에는 일단 연고부터 발라야 해요. "
+            "연고는 나쁜 세균들이 몸에 들어오지 못하도록 보호를 해준답니다. "
+    );
     await tts.TextToSpeech(
         "상처가 난 부위에는 일단 연고부터 발라야 해요."
             "연고는 나쁜 세균들이 몸에 들어오지 못하도록 보호를 해준답니다. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그런 다음에는 반창고를 붙여야 해요. "
+            "반창고도 나쁜 세균들이 몸에 들어오지 못하도록 보호를 해준답니다. "
+    );
     await tts.TextToSpeech(
         "그런 다음에는 반창고를 붙여야 해요. "
             "반창고도 나쁜 세균들이 몸에 들어오지 못하도록 보호를 해준답니다. ",
             "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼, 반창고를 붙여볼까요? "
+            "오른쪽 화면의 반창고를 손가락으로 직접 눌러보세요. "
+    );
     await tts.TextToSpeech(
             "그럼, 반창고를 붙여볼까요?"
                 "오른쪽 화면의 반창고를 손가락으로 직접 눌러보세요. ",
@@ -111,6 +124,10 @@ class _Scenario_hurt_5_rightState extends State<Scenario_hurt_5_right> {
         );
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로 다쳤을 때는 연고를 바르고 반창고를 붙이는 것을 잊지 말아요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로 다쳤을 때는 연고를 바르고 반창고를 붙이는 것을 잊지 말아요. ",

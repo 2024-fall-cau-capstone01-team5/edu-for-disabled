@@ -66,11 +66,20 @@ class _Scenario_hurt_9_rightState extends State<Scenario_hurt_9_right> {
   String answer = '';
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "네, 알겠습니다. 주소가 어떻게 돼시죠? "
+    );
     await tts.TextToSpeech(
         "네, 알겠습니다. 주소가 어떻게 돼시죠? ",
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
 
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "119 구급대원분께서 주소를 물어보시네요. "
+            "대답해 볼까요? "
+            "여러분의 집 주소를 직접 소리내어 말해보세요! "
+    );
     await tts.TextToSpeech(
         "일일구 구급대원분께서 주소를 물어보시네요. "
             "대답해 볼까요? "
@@ -118,6 +127,10 @@ class _Scenario_hurt_9_rightState extends State<Scenario_hurt_9_right> {
         "응답(소리내어 말하기): $answer",
       );
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "혹시 집 주소를 모른다면, 지금부터라도 사고에 대비해서 집 주소를 꼭 외워보도록 해요. "
+      );
       await tts.TextToSpeech("참 잘했어요."
           "혹시 집 주소를 모른다면, 지금부터라도 사고에 대비해서 집 주소를 꼭 외워보도록 해요. ",
           "ko-KR-Wavenet-D");

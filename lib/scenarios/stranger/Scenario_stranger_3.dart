@@ -62,13 +62,30 @@ class _Scenario_stranger_3_rightState extends State<Scenario_stranger_3_right> {
   String answer = '';
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "저기 혹시 시간 괜찮으면 잠시 저 좀 따라올 수 있어요? "
+    );
     await tts.TextToSpeech("저기 혹시 시간 괜찮으면 잠시 저 좀 따라올 수 있어요? ",
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
 
-    await tts.TextToSpeech(
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "모르는 사람이 자기를 따라오라고 하네요. "
             "하지만 모르는 사람을 함부로 따라가면 나쁜 일이 생길 수도 있어요. "
+    );
+    await tts.TextToSpeech(
+        "모르는 사람이 자기를 따라오라고 하네요. "
+            "하지만 모르는 사람을 함부로 따라가면 나쁜 일이 생길 수도 있어요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+            "이럴 땐 싫다고 단호하게 말해야해요. "
+            "착하게 말하면 나쁜 사람이 떠나지 않아요. "
+            "그럼 지금부터 힘차게, \"싫어요!\"라고 직접 소리내어 말해보세요."
+    );
+    await tts.TextToSpeech(
             "이럴 땐 싫다고 단호하게 말해야해요. "
             "착하게 말하면 나쁜 사람이 떠나지 않아요. "
             "그럼 지금부터 힘차게, 싫어요!라고 직접 소리내어 말해보세요.",
@@ -108,8 +125,12 @@ class _Scenario_stranger_3_rightState extends State<Scenario_stranger_3_right> {
         "응답(소리내어 말하기): $answer",
       );
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로는 의사표현을 확실하게 해보도록 해요. "
+      );
       await tts.TextToSpeech(
-          "참 잘했어요."
+          "참 잘했어요. "
               "앞으로는 의사표현을 확실하게 해보도록 해요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;

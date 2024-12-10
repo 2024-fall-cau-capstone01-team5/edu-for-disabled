@@ -62,6 +62,12 @@ class _Scenario_stranger_8_rightState extends State<Scenario_stranger_8_right> {
   String answer = '';
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "여러분들은 남자분께 도움을 받았어요. "
+            "도움을 받았다면 감사의 인사를 해야 해요. "
+            "도와주신 남자분께 \"감사합니다.\" 라고 직접 소리내어 말해보세요. "
+    );
     await tts.TextToSpeech("여러분들은 남자분께 도움을 받았어요."
         "도움을 받았다면 감사의 인사를 해야 해요."
         "도와주신 남자분께 감사합니다. 라고 직접 소리내어 말해보세요. ",
@@ -97,11 +103,15 @@ class _Scenario_stranger_8_rightState extends State<Scenario_stranger_8_right> {
     if (stateName == 'ExitState') {
       widget.step_data.sendStepData(
         "stranger 8",
-        "(도와주신 남자분께 감사의 인사를 하는 상황)도와주신 남자분께 \"감사합니다\" 라고 말해보세요",
+        "(도와주신 남자분께 감사의 인사를 하는 상황)도와주신 남자분께 \"감사합니다.\" 라고 말해보세요",
         "정답: \"감사합니다.\"",
         "응답(소리내어 말하기): $answer",
       );
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로는 감사 인사를 꼭 해보도록 해요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요."
               "앞으로는 감사 인사를 꼭 해보도록 해요. ",

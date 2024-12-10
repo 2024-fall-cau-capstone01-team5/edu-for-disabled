@@ -28,10 +28,17 @@ class _Scenario_stranger_4_leftState extends State<Scenario_stranger_4_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "괜찮아요. 잠깐이면 되니까 따라오세요. "
+    );
     await tts.TextToSpeech("괜찮아요. 잠깐이면 돼니까 따라오세요. ",
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
-
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "\"싫어요.\" 라고 말했는데도 모르는 사람이 손을 잡고 여러분을 끌고 가려고 하고 있어요. "
+            "이럴 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요. "
+    );
     await tts.TextToSpeech("싫어요. 라고 말했는데도 모르는 사람이 손을 잡고 여러분을 끌고 가려고 하고 있어요. "
         "이럴 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
@@ -107,6 +114,9 @@ class _Scenario_stranger_4_rightState extends State<Scenario_stranger_4_right> {
             "응답(감정 표현): 싫어요");
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");

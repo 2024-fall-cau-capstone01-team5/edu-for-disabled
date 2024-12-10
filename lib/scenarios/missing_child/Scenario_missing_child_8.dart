@@ -64,18 +64,28 @@ class _Scenario_missing_child_8_rightState
   String answer = '';
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "경찰분께서 도와주기 위해 오셨네요. "
+    );
     await tts.TextToSpeech("경찰분께서 도와주기 위해 오셨네요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "안녕하세요. 경찰입니다. 길을 잃으셨군요. "
+            "제가 도와드리겠습니다. 부모님의 전화번호가 어떻게 되시죠?"
+    );
     await tts.TextToSpeech(
         "안녕하세요. 경찰입니다. 길을 잃으셨군요. "
             "제가 도와드리겠습니다. 부모님의 전화번호가 어떻게 되시죠?",
         "ko-KR-Wavenet-C");
     await tts.player.onPlayerComplete.first;
-
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "경찰 분께서 부모님의 전화번호를 물어봤네요. "
+            "대답해 볼까요? 부모님의 전화번호를 직접 소리내어 말해보세요. "
+    );
     await tts.TextToSpeech(
         "경찰 분께서 부모님의 전화번호를 물어봤네요. "
-            "대답해 볼까요? 부모님의 전화번호를 직접 소리내어 말해보세요 ", "ko-KR-Wavenet-D");
+            "대답해 볼까요? 부모님의 전화번호를 직접 소리내어 말해보세요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }
 
@@ -111,6 +121,11 @@ class _Scenario_missing_child_8_rightState
         "응답(소리내어 말하기): $answer",
       );
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "만약에 부모님의 전화번호를 모른다면 앞으로의 사고에 대비해, "
+              "지금부터 꼭 외워보도록 해요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "만약에 부모님의 전화번호를 모른다면 앞으로의 사고에 대비해, "

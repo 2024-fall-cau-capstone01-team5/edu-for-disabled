@@ -29,9 +29,14 @@ class _Scenario_missing_child_9_leftState
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "경찰분께서 부모님에게 연락해 부모님이 찾으러 오셨습니다. "
+            "정말 다행이네요. 부모님을 다시 만난 기분이 어떤가요? "
+            "오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요! "
+    );
     await tts.TextToSpeech(
-        "축하드려요. "
-            "경찰분께서 부모님에게 연락해 부모님이 찾으러 오셨습니다. "
+        "경찰분께서 부모님에게 연락해 부모님이 찾으러 오셨습니다. "
             "정말 다행이네요. 부모님을 다시 만난 기분이 어떤가요? "
             "오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요! ",
         "ko-KR-Wavenet-D");
@@ -108,6 +113,9 @@ class _Scenario_missing_child_9_rightState
             "응답(감정 표현): 좋아요");
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+      );
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

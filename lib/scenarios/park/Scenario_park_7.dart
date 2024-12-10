@@ -69,7 +69,7 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "이제 모두와 헤어질 시간이네요."
+        "이제 모두와 헤어질 시간이네요. "
             "모두와 헤어지기 전에 인사를 해볼까요? "
             "\"안녕히 가세요.\" 라고 직접 소리내어 말해보세요."
     );

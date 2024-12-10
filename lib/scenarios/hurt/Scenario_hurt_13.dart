@@ -28,10 +28,17 @@ class _Scenario_hurt_13_leftState
   Future<void> _playWelcomeTTS() async {
     await _audioPlayer.play(AssetSource("effect_ascending.mp3"));
 
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "축하합니다. "
+            "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
+            "상처가 났을 때 어떻게 행동해야 할지 "
+            "잘 생각해보시기 바랍니다."
+    );
     await tts.TextToSpeech(
         "축하합니다. "
             "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
-            "상처가 났을 떄 어떻게 행동해야 할지 "
+            "상처가 났을 때 어떻게 행동해야 할지 "
             "잘 생각해보시기 바랍니다.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;

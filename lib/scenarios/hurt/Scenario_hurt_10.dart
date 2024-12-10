@@ -25,6 +25,12 @@ class _Scenario_hurt_10_leftState extends State<Scenario_hurt_10_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "네. 지금 구급대원들이 출동했습니다. "
+            "침착하게 기다려 주세요. "
+            "그리고 전화는 끊지 마세요. "
+    );
     await tts.TextToSpeech(
         "네. 지금 구급대원들이 출동했습니다. "
             "침착하게 기다려 주세요. "
@@ -32,10 +38,21 @@ class _Scenario_hurt_10_leftState extends State<Scenario_hurt_10_left> {
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
 
-    await tts.TextToSpeech(
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "구급 대원분들이 출동했다고 하네요. "
             "도착할 때까지 시간이 걸리니까 침착하게 전화를 끊지 말고 끝까지 말을 잘 들어야 해요. 아시겠죠? "
-            "만약 긴장이 된다면 크게 심호흡을 해 보도록 해요. "
+    );
+    await tts.TextToSpeech(
+        "구급 대원분들이 출동했다고 하네요. "
+            "도착할 때까지 시간이 걸리니까 침착하게 전화를 끊지 말고 끝까지 말을 잘 들어야 해요. 아시겠죠? ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "만약 긴장이 된다면 크게 심호흡을 해 보도록 해요. "
+            "오른쪽 화면의 버튼을 손가락으로 직접 눌러보세요. "
+    );
+    await tts.TextToSpeech(
+        "만약 긴장이 된다면 크게 심호흡을 해 보도록 해요. "
             "오른쪽 화면의 버튼을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -105,6 +122,9 @@ class _Scenario_hurt_10_rightState extends State<Scenario_hurt_10_right> {
             "응답(터치하기): 터치 완료");
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+      );
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

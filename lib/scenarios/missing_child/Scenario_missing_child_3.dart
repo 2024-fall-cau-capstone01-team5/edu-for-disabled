@@ -25,6 +25,12 @@ class _Scenario_missing_child_3_leftState extends State<Scenario_missing_child_3
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "먼저 길을 잃었을 땐 멈춰 서서 주변을 천천히 살펴봐야 해요. "
+            "그리고 마음을 가라앉히기 위해 심호흡을 해봐요. "
+            "오른쪽 화면을 손가락으로 직접 눌러보세요. "
+    );
     await tts.TextToSpeech(
         "먼저 길을 잃었을 땐 멈춰 서서 주변을 천천히 살펴봐야 해요. "
             "그리고 마음을 가라앉히기 위해 심호흡을 해봐요. "
@@ -101,6 +107,10 @@ class _Scenario_missing_child_3_rightState extends State<Scenario_missing_child_
         );
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "앞으로는 어떤 상황이 와도 침착하게 행동해 보도록 해요. "
+      );
       await tts.TextToSpeech(
           "참 잘했어요. "
               "앞으로는 어떤 상황이 와도 침착하게 행동해 보도록 해요. ",
