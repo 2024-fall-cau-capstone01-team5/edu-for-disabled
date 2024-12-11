@@ -26,8 +26,13 @@ class _Traffic_2_leftState extends State<Traffic_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("그럼 횡단보도를 건너볼까요?\n오른쪽 화면을 손가락으로 직접 눌러보세요!");
+
     await tts.TextToSpeech(
-        "자 그럼 횡단보도를 건너볼까요? "
+        "그럼 횡단보도를 건너볼까요? "
             "오른쪽 화면을 손가락으로 직접 눌러보세요!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -101,10 +106,10 @@ class _Traffic_2_rightState extends State<Traffic_2_right> {
 
       await Provider.of<Scenario_Manager>(context, listen: false)
           .updateSubtitle(
-          "잘 하셨습니다! 앞으로 횡단 보도를 건널 때에는 자동차가 확실하게 안 오는지 왼쪽 오른쪽을 잘 살펴주세요!");
+          "잘 하셨습니다!\n앞으로 횡단 보도를 건널 때에는 자동차가 안 오는지 왼쪽 오른쪽을 확실하게 먼저 살피고 건너보세요!");
       await tts.TextToSpeech(
           "잘 하셨습니다! "
-              "앞으로 횡단 보도를 건널 때에는 자동차가 확실하게 안 오는지 왼쪽 오른쪽을 잘 살펴주세요!",
+              "앞으로 횡단 보도를 건널 때에는 자동차가 안 오는지 왼쪽 오른쪽을 확실하게 먼저 살피고 건너보세요!",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
 
@@ -124,14 +129,14 @@ class _Traffic_2_rightState extends State<Traffic_2_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-                  "assets/common/crossing.riv",
-                  fit: BoxFit.contain,
-                  onInit: _onRiveInit,
-                )
+            "assets/common/crossing.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
               : const Text(
-                  "먼저 설명을 들어보세요!",
-                  style: TextStyle(fontSize: 15),
-                ),
+            "먼저 설명을 들어보세요!",
+            style: TextStyle(fontSize: 15),
+          ),
         ]),
       ),
     );
