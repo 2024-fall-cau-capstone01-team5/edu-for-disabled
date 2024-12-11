@@ -25,14 +25,19 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("엘리베이터가 도착했네요. 그럼 타볼까요? ");
+    await tts.TextToSpeech("엘리베이터가 도착했네요. 그럼 타볼까요? ", "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("오른쪽 화면의 엘리베이터를 손가락으로 직접 눌러보세요! ");
     await tts.TextToSpeech(
-        "엘리베이터가 도착했네요. 그럼 타볼까요? "
-            "오른쪽 화면의 엘리베이터를 손가락으로 직접 눌러보세요! ",
-        "ko-KR-Wavenet-D");
+        "오른쪽 화면의 엘리베이터를 손가락으로 직접 눌러보세요! ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
-
   }
 
   @override
@@ -56,6 +61,7 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
 
 class Elevator_2_right extends StatefulWidget {
   final StepData step_data;
+
   const Elevator_2_right({super.key, required this.step_data});
 
   @override
@@ -81,28 +87,23 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-
-
     if (stateName == 'ExitState') {
-      if(_bool?.value == true){
+      if (_bool?.value == true) {
         widget.step_data.sendStepData(
             "elevator 2",
             "(엘리베이터에 탑승하는 상황)엘리베이터를 손가락으로 직접 눌러보세요!",
             "정답: 터치 완료",
-            "응답(터치하기): 시간 초과"
-        );
-      }else {
+            "응답(터치하기): 시간 초과");
+      } else {
         widget.step_data.sendStepData(
             "elevator 2",
             "(엘리베이터에 탑승하는 상황)엘리베이터를 손가락으로 직접 눌러보세요!",
             "정답: 터치 완료",
-            "응답(터치하기): 터치 완료"
-        );
+            "응답(터치하기): 터치 완료");
       }
-
-      await tts.TextToSpeech(
-          "참 잘했어요. ",
-          "ko-KR-Wavenet-D");
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("잘 하셨습니다. ");
+      await tts.TextToSpeech("잘 하셨습니다. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
@@ -120,10 +121,10 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/common/elevator_door.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
-          )
+                  "assets/common/elevator_door.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
               : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),

@@ -33,13 +33,20 @@ class _Go_outside_leftState extends State<Go_outside_left> {
 
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false)
-        .updateSubtitle("반가워요! 이번 이야기에서 우리는 \"$title!\" 이야기를 시작해보겠습니다.. "
-            "자. 그럼 출발해볼까요? 오른쪽 화면에 나와있는 문을 터치해서 밖으로 나가보세요!");
+        .updateSubtitle("여러분 반갑습니다!\n이번 이야기에서 우리는 \"$title!\" 이야기를 시작해보겠습니다. ");
+
     await tts.TextToSpeech(
-        "반가워요! 이번 이야기에서 우리는 $title! 이야기를 시작해보겠습니다. "
-            " 자 그럼 출발해볼까요? 오른쪽 화면에 나와있는 문을 터치해서 밖으로 나가보세요!",
+        "여러분 반갑습니다! 이번 이야기에서 우리는 $title! 이야기를 시작해보겠습니다. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("자. 그럼 출발해볼까요?\n오른쪽 화면에 나와있는 문을 손가락으로 직접 눌러보세요!");
+
+    await tts.TextToSpeech(
+        "자. 그럼 출발해볼까요? 오른쪽 화면에 나와있는 문을 손가락으로 직접 눌러보세요!", "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 

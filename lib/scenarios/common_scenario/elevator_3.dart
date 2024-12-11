@@ -27,13 +27,27 @@ class _Elevator_3_leftState extends State<Elevator_3_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("여러분은 엘리베이터에 탔습니다. ");
     await tts.TextToSpeech(
-        "엘리베이터에 탑승했습니다. "
-            "우리는 1층으로 내려가야 해요. "
-            "오른쪽 화면에서 1층 버튼을 눌러보세요! ",
+        "여러분은 엘리베이터에 탔습니다. ",
         "ko-KR-Wavenet-D");
 
     await tts.player.onPlayerComplete.first;
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("여러분은 1층으로 내려가야 해요.");
+    await tts.TextToSpeech("여러분은 1층으로 내려가야 해요.", "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("오른쪽 화면에서 1층 버튼을 눌러보세요! ");
+    await tts.TextToSpeech("오른쪽 화면에서 1층 버튼을 눌러보세요! ", "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+
+
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
@@ -122,9 +136,7 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
 
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-    } else if (stateMachineName == 'Pressed 1') {
-
-    } else if (stateName == 'Pressed 2') {
+    }else if (stateName == 'Pressed 2') {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
       widget.step_data.sendStepData(
           "elevator 1",
@@ -147,7 +159,9 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
           "응답(선택하기): 4층");
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
-      _trigger1?.value = true;
+      if(_trigger1?.value == false){
+        _trigger1?.value = true;
+      }
     }
   }
 
