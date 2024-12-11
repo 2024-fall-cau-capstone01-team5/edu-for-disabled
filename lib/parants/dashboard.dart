@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'learningReport.dart';
 import '../tool/kst.dart';
 import 'learningList.dart';
+import 'learnigStatics.dart';
 
 class Dashboard extends StatefulWidget {
   final String userId;
@@ -78,7 +79,10 @@ class _DashboardState extends State<Dashboard> {
       if (response.statusCode == 200) {
         final data = json.decode(utf8.decode(response.bodyBytes));
         setState(() {
-          learningLogs = List<Map<String, dynamic>>.from(data);
+          // num_of_answer_records > 0인 항목만 필터링
+          learningLogs = List<Map<String, dynamic>>.from(data)
+              .where((log) => log["num_of_answer_records"] > 0)
+              .toList();
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -100,6 +104,23 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedProfile.isNotEmpty ? "$selectedProfile님의 학습 현황" : "학습 현황"),
+          actions:
+          [
+            IconButton(
+            icon: Icon(Icons.pie_chart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LearningStatisticsPage(
+                    userId: widget.userId,
+                    profileName: selectedProfile,
+                  ),
+                ),
+              );
+            },
+          ),
+        ]
       ),
       body: Row(
         children: [

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpractice/scenarios/StepData.dart';
 import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
 import '../../providers/Scenario_Manager.dart';
+import '../StepData.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
@@ -25,34 +25,30 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await Future.delayed(Duration(milliseconds: 300));
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요!"
-    );
-    await tts.TextToSpeech("오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요"
-        "!", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech(
+        "엘리베이터가 도착했네요. 그럼 타볼까요? "
+            "오른쪽 화면의 엘리베이터를 손가락으로 직접 눌러보세요! ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
-        child: Stack(
-          children: [
-            // 배경 이미지 (아래쪽에 위치)
-            const Positioned.fill(
-              child: Image(
-                image: AssetImage("assets/common/elevator.png"),
-                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
-              ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Image(
+              image: AssetImage("assets/common/엘리베이터 외부.webp"),
+              fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
-            // 배우 이미지 (위쪽에 위치)
-            Positioned.fill(
-                child: widget.acter
-            ),
-          ],
-        ),
+          ),
+          Positioned.fill(child: widget.acter),
+        ],
       ),
     );
   }
@@ -67,9 +63,10 @@ class Elevator_2_right extends StatefulWidget {
 }
 
 class _Elevator_2_rightState extends State<Elevator_2_right> {
-  SMITrigger? _touch;
+  SMITrigger? _trigger;
+  SMIBool? _bool;
 
-  void _onRiveInit(Artboard artboard) {
+  void _onRiveInit(Artboard artboard) async {
     final controller = StateMachineController.fromArtboard(
       artboard,
       'State Machine 1',
@@ -78,33 +75,41 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
 
     if (controller != null) {
       artboard.addController(controller);
-      _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
+      _trigger = controller.findInput<SMITrigger>('touch') as SMITrigger?;
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
     }
   }
 
-  void _hitBump() {
+  void _onStateChange(String stateMachineName, String stateName) async {
 
-    _touch?.fire();
 
-    print("Touch TRIGGERED!");
-  }
+    if (stateName == 'ExitState') {
+      if(_bool?.value == true){
+        widget.step_data.sendStepData(
+            "elevator 2",
+            "(엘리베이터에 탑승하는 상황)엘리베이터를 손가락으로 직접 눌러보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과"
+        );
+      }else {
+        widget.step_data.sendStepData(
+            "elevator 2",
+            "(엘리베이터에 탑승하는 상황)엘리베이터를 손가락으로 직접 눌러보세요!",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료"
+        );
+      }
 
-  void _onStateChange(String stateMachineName, String stateName) async{
-    if (stateName == 'exit') {
-      widget.step_data.sendStepData(
-          "외출 common_scenario 3",
-          "엘리베이터 문을 터치해 엘리베이터 안으로 들어가 보세요",
-          "정답: 터치 완료",
-          "응답(터치 하기): 터치 완료"
-      );
-
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요. ");
       await tts.TextToSpeech(
           "참 잘했어요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
+      tts.dispose();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-      print("EXIT");
+    } else if (stateName == "Timer exit") {
+      _bool?.value = true;
     }
   }
 
@@ -113,14 +118,13 @@ class _Elevator_2_rightState extends State<Elevator_2_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          GestureDetector(
-            onTap: _hitBump,
-            child: RiveAnimation.asset(
-              "assets/common/elevator_door.riv",
-              fit: BoxFit.contain,
-              onInit: _onRiveInit,
-            ),
-          ),
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+            "assets/common/elevator_door.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

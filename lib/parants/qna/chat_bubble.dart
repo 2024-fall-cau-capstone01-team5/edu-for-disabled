@@ -26,15 +26,15 @@ class ChatBubbles extends StatelessWidget{
           children: [
             ChatBubble(
               clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
-              backGroundColor: Colors.blue,
+              backGroundColor: Colors.yellowAccent,
               margin: EdgeInsets.only(top: 20),
               child: Container(
                 constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  maxWidth: MediaQuery.of(context).size.width * 0.5,
                 ),
                 child: Text(
-                  message["question"],
-                  style: TextStyle(color: Colors.white),
+                  '"'+message["question"]+'"',
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
             )
@@ -49,7 +49,7 @@ class ChatBubbles extends StatelessWidget{
               margin: EdgeInsets.only(top: 20),
               child: Container(
                 constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  maxWidth: MediaQuery.of(context).size.width * 0.5,
                 ),
                 child: Text(
                   message['answer'],
@@ -70,7 +70,7 @@ class ChatBubbles extends StatelessWidget{
               backGroundColor: Color(0xffE7E7ED),
               child: Container(
                 constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  maxWidth: MediaQuery.of(context).size.width * 0.5,
                 ),
                 child: Text(
                 message['response'],

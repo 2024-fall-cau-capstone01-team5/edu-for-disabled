@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'qna/answers.dart';
+import 'ai_report.dart';
 
 class LearningReportPage extends StatefulWidget {
   final int learningLogId;
@@ -69,18 +70,30 @@ class _LearningReportPageState extends State<LearningReportPage> {
           // 우측 컴포넌트: "AI 학습 분석"
           Expanded(
             flex: 4,
-            child: Container(
-              color: Colors.green[50],
-              child: Center(
-                child: Text(
-                  "학습 분석\n(14주차)",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  color: Colors.green[50], // 제목 배경색 설정
+                  padding: const EdgeInsets.symmetric(vertical: 16.0), // 상하 여백 추가
+                  child: Center( // 중앙 정렬
+                    child: Text(
+                      "AI 학습 분석",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Expanded(
+                    child: Container(
+                      //color: Colors.green[50],
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: AiReportScreen(learningLogId: widget.learningLogId),
+                    )
+                ),
+              ],
             ),
           ),
         ],

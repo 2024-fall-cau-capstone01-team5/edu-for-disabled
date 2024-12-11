@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import '../../providers/Scenario_Manager.dart';
+import 'package:flutterpractice/scenarios/tts.dart';
 import 'package:provider/provider.dart';
-import '../tts.dart';
-import 'package:audioplayers/audioplayers.dart';
+import '../../providers/Scenario_Manager.dart';
 import '../StepData.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import 'package:rive/rive.dart' hide Image;
 
+final tts = TTS();
 final AudioPlayer _audioPlayer = AudioPlayer();
 
-class c_4_display_left extends StatefulWidget {
+class Scenario_c_4_left extends StatefulWidget {
   final StatefulWidget acter;
 
-
-  const c_4_display_left({super.key, required this.acter});
+  const Scenario_c_4_left({super.key, required this.acter});
 
   @override
-  State<c_4_display_left> createState() => _c_4_display_leftState();
+  State<Scenario_c_4_left> createState() => _Scenario_c_4_leftState();
 }
 
-class _c_4_display_leftState extends State<c_4_display_left> {
-  final TTS tts = TTS();
-  String? stuff_choice;
-
+class _Scenario_c_4_leftState extends State<Scenario_c_4_left> {
   @override
   void initState() {
     super.initState();
@@ -30,130 +27,128 @@ class _c_4_display_leftState extends State<c_4_display_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-    await tts.TextToSpeech("찾는 물건은 어디있나요? 올바른 물건을 선택해보세요", "ko-KR-Wavenet-D");
-  }
+    await tts.TextToSpeech(
+        "씩씩하게 인사를 해보니까 기분이 어떤가요? "
+            "오른쪽 화면에서 자기가 느낀 기분을 손가락으로 직접 눌러보세요! ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
 
-  Future<void> _goodChoiceTTS() async {
-    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-    await tts.TextToSpeech("잘 하셨습니다", "ko-KR-Wavenet-D");
-    await Future.delayed(Duration(seconds: 2));
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Scenario_Manager>(
-      builder: (context, sinarioProvider, child) {
-        return Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
-            child: Stack(
-              children: [
-                // 배경 이미지 (아래쪽에 위치)
-                const Positioned.fill(
-                  child: Image(
-                    image: AssetImage("assets/c_display.PNG"),
-
-                    fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
-                  ),
-                ),
-                // 배우 이미지 (위쪽에 위치)
-                Positioned.fill(child: widget.acter),
-              ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Image(
+              image: AssetImage("assets/convenience/카운터.webp"),
+              fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
-        );
-      },
+          Positioned.fill(child: widget.acter),
+        ],
+      ),
     );
   }
 }
 
-class c_4_display_right extends StatefulWidget {
-  const c_4_display_right({super.key});
+class Scenario_c_4_right extends StatefulWidget {
+  final StepData step_data;
+
+  const Scenario_c_4_right({super.key, required this.step_data});
 
   @override
-  State<c_4_display_right> createState() => _c_4_display_rightState();
+  State<Scenario_c_4_right> createState() => _Scenario_c_4_rightState();
 }
 
-class _c_4_display_rightState extends State<c_4_display_right> {
-  SMITrigger? _tissue;
-  SMITrigger? _tissue_water;
-  SMITrigger? _pen;
-  SMITrigger? _noodle_cup;
-  SMITrigger? _noodle;
-  SMITrigger? _chocolate;
-  SMITrigger? _bread;
-  SMITrigger? _cookie;
-  SMITrigger? _juice;
-  SMITrigger? _cola;
-  SMITrigger? _coffee;
-  SMITrigger? _water;
+class _Scenario_c_4_rightState extends State<Scenario_c_4_right> {
+  SMITrigger? _trigger1;
+  SMITrigger? _trigger2;
+  SMITrigger? _trigger3;
+  SMIBool? _bool;
 
-  void _onRiveInit(Artboard artboard) {
+  void _onRiveInit(Artboard artboard) async {
     final controller = StateMachineController.fromArtboard(
-        artboard, 'State Machine 1',
-        onStateChange: _onStateChange);
+      artboard,
+      'State Machine 1',
+      onStateChange: _onStateChange,
+    );
 
     if (controller != null) {
       artboard.addController(controller);
-      _tissue_water = controller.findInput<bool>('물티슈 클릭') as SMITrigger;
-      if (_tissue_water == null) {
-        print("NULL");
-      } else {
-        print("TISSUE_WATER: $_tissue_water");
-      }
-      _tissue = controller.findInput<bool>('화장지 클릭') as SMITrigger?;
-      _pen = controller.findInput<bool>('볼펜 클릭') as SMITrigger?;
-      _noodle_cup = controller.findInput<bool>('컵라면 클릭') as SMITrigger?;
-      _noodle = controller.findInput<bool>('라면 클릭') as SMITrigger?;
-      _chocolate = controller.findInput<bool>('초콜렛 클릭') as SMITrigger?;
-      _bread = controller.findInput<bool>('빵 클릭') as SMITrigger?;
-      _cookie = controller.findInput<bool>('쿠키 클릭') as SMITrigger?;
-      _juice = controller.findInput<bool>('주스 클릭') as SMITrigger?;
-      _cola = controller.findInput<bool>('콜라 클릭') as SMITrigger?;
-      _coffee = controller.findInput<bool>('커피 클릭') as SMITrigger?;
-      _water = controller.findInput<bool>('생수 클릭') as SMITrigger?;
+      _trigger1 = controller.findInput<bool>('Trigger 1') as SMITrigger?;
+      _trigger2 = controller.findInput<SMITrigger>('Trigger 2') as SMITrigger?;
+      _trigger3 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
     }
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-    print("$stateName");
+    if (stateName == 'ExitState') {
+      if (_bool?.value == true) {
+        widget.step_data.sendStepData(
+            "convenience 4",
+            "(씩씩하게 인사를 했을 때 느끼는 감정을 선택하는 상황)오른쪽 화면에서 자기의 기분을 선택해보세요.",
+            "정답: 좋아요",
+            "응답(감정 표현): 시간 초과");
+      } else {
+        widget.step_data.sendStepData(
+            "convenience 4",
+            "(씩씩하게 인사를 했을 때 느끼는 감정을 선택하는 상황)오른쪽 화면에서 자기의 기분을 선택해보세요.",
+            "정답: 좋아요",
+            "응답(감정 표현): 좋아요");
+      }
+
+      await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+    } else if (stateName == "Timer exit") {
+      _bool?.value = true;
+      _trigger1?.value = true;
+    } else if (stateName == "sad") {
+      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
+
+      widget.step_data.sendStepData(
+          "convenience 4",
+          "(씩씩하게 인사를 했을 때 느끼는 감정을 선택하는 상황)오른쪽 화면에서 자기의 기분을 선택해보세요.",
+          "정답: 좋아요",
+          "응답(감정 표현): 슬퍼요");
+    } else if (stateName == "angry") {
+      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
+
+      widget.step_data.sendStepData(
+          "convenience 4",
+          "(씩씩하게 인사를 했을 때 느끼는 감정을 선택하는 상황)오른쪽 화면에서 자기의 기분을 선택해보세요.",
+          "정답: 좋아요",
+          "응답(감정 표현): 화나요");
+    } else if (stateName == "good") {
+      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+      await Future.delayed(Duration(seconds: 2));
+
+      _audioPlayer.dispose();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        GestureDetector(
-          onTap: () {
-            // 예시: 특정 트리거를 실행할 때
-            if (_tissue_water != null) {
-              _tissue_water!.fire();
-              print("물티슈 클릭 트리거 실행됨");
-            } else {
-              print("물티슈 클릭 트리거가 null입니다!");
-            }
-
-            // 다른 트리거를 실행하려면 아래와 같이 추가하세요:
-            if (_coffee != null) {
-              _coffee!.fire();
-              print("커피 클릭 트리거 실행됨");
-            } else {
-              print("커피 클릭 트리거가 null입니다!");
-            }
-          },
-          child: RiveAnimation.asset(
-            "assets/shelf.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
-          ),
-        ),
-        ElevatedButton(
-            onPressed: () {
-              Provider.of<Scenario_Manager>(context, listen: false)
-                  .updateIndex();
-            },
-            child: Text("강제 화면 넘기기"))
-      ]),
+      body: Center(
+        child: Stack(children: [
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+                  "assets/common/emotion_good.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
+              : const Text("먼저 설명을 들어보세요!"),
+        ]),
+      ),
     );
   }
 }
