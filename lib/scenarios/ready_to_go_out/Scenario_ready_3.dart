@@ -34,16 +34,11 @@ class _Scenario_ready_3_leftState extends State<Scenario_ready_3_left> {
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "부모님이 음식을 만들고 계시는 동안 식탁을 차려볼까요? "
-    );
-    await tts.TextToSpeech(
-        "부모님이 음식을 만들고 계시는 동안 식탁을 차려볼까요?",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "부모님이 음식을 만들고 계시는 동안 식탁을 차려볼까요?\n"
         "오른쪽 화면의 접시와 수저들을 손가락으로 직접 눌러보세요. "
     );
     await tts.TextToSpeech(
+        "부모님이 음식을 만들고 계시는 동안 식탁을 차려볼까요? "
         "오른쪽 화면의 접시와 수저들을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -120,17 +115,12 @@ class _Scenario_ready_3_rightState extends State<Scenario_ready_3_right> {
       }
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. 앞으로는 밥을 먹기 전에 식탁을 차려\n"
+              "부모님을 도와주는 착한 사람이 돼 보도록 해요."
+      );
+      await tts.TextToSpeech(
           "참 잘했어요. 앞으로는 밥을 먹기 전에 식탁을 차려"
-      );
-      await tts.TextToSpeech(
-          "참 잘했어요. 앞으로는 밥을 먹기 전에 식탁을 차려",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "부모님을 도와주는 착한 사람이 돼 보도록 해요."
-      );
-      await tts.TextToSpeech(
-          "부모님을 도와주는 착한 사람이 돼 보도록 해요.",
+              "부모님을 도와주는 착한 사람이 돼 보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

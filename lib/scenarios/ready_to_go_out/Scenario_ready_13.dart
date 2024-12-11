@@ -27,17 +27,12 @@ class _Scenario_ready_13_leftState extends State<Scenario_ready_13_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "그럼, 깔끔하게 씻었으니 이제 밖에 나가기 위해서 옷을 입어볼까요? "
+        "그럼, 깔끔하게 씻었으니 이제 밖에 나가기 위해서 옷을 입어볼까요?\n"
+            "오른쪽 화면에서 마음에 드는 옷과 장신구를 터치해 캐릭터를 꾸며보세요!"
     );
     await tts.TextToSpeech(
-        "그럼, 깔끔하게 씻었으니 이제 밖에 나가기 위해서 옷을 입어볼까요?",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "오른쪽 화면에서 마음에 드는 옷과 장신구를 터치해 캐릭터를 꾸며보세요!"
-    );
-    await tts.TextToSpeech(
-        "오른쪽 화면에서 마음에 드는 옷과 장신구를 터치해 캐릭터를 꾸며보세요!",
+        "그럼, 깔끔하게 씻었으니 이제 밖에 나가기 위해서 옷을 입어볼까요?"
+            "오른쪽 화면에서 마음에 드는 옷과 장신구를 터치해 캐릭터를 꾸며보세요!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -94,17 +89,12 @@ class _Scenario_ready_13_rightState extends State<Scenario_ready_13_right> {
           "응답(선택하기): 선택 완료"
       );
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. 앞으로 옷을 입을 땐"
+          "참 잘했어요. 앞으로 옷을 입을 땐 스스로\n"
+              "입는 습관을 들이는 착한 사람이 돼 보도록 해요."
       );
       await tts.TextToSpeech(
-          "참 잘했어요. 앞으로 옷을 입을 땐",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "스스로 입는 습관을 들이는 착한 사람이 돼 보도록 해요. "
-      );
-      await tts.TextToSpeech(
-          "스스로 입는 습관을 들이는 착한 사람이 돼 보도록 해요. ",
+          "참 잘했어요. 앞으로 옷을 입을 땐 스스로 "
+              "입는 습관을 들이는 착한 사람이 돼 보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

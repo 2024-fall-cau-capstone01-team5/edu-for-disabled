@@ -27,31 +27,23 @@ class _Scenario_hurt_6_leftState extends State<Scenario_hurt_6_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "만약에, 크게 다쳐서 피가 철철난다면 어떻게 해야 할까요? "
+        "만약에, 크게 다쳐서 피가 철철 난다면 어떻게 해야 할까요?\n"
+            "피가 철철 난다면 연고를 바르고 반창고를 붙여도 상처에 소용이 없어요."
     );
     await tts.TextToSpeech(
-            "만약에, 크게 다쳐서 피가 철철난다면 어떻게 해야 할까요? ",
+            "만약에, 크게 다쳐서 피가 철철난다면 어떻게 해야 할까요? "
+                "피가 철철난다면 연고를 바르고 반창고를 붙여도 상처에 소용이 없어요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "피가 철철난다면 연고를 바르고 반창고를 붙여도 상처에 소용이 없어요. "
+        "이럴 땐 먼저, 상처가 난 곳을 수건으로 꾹 눌러서 피를 막아야 해요."
     );
     await tts.TextToSpeech(
-            "피가 철철난다면 연고를 바르고 반창고를 붙여도 상처에 소용이 없어요. ",
+        "이럴 땐 먼저, 상처가 난 곳을 수건으로 꾹 눌러서 피를 막아야 해요.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "이럴 땐 먼저, 상처가 난 곳을 수건으로 꾹 눌러서 피를 막아야 해요. "
-    );
-    await tts.TextToSpeech(
-            "이럴 땐 먼저, 상처가 난 곳을 수건으로 꾹 눌러서 피를 막아야 해요. ",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "오른쪽 화면의 수건을 손가락으로 직접 눌러 상처가 난 곳을 수건으로 꾹 눌러보세요! "
+        "오른쪽 화면의 수건을 손가락으로 직접 눌러\n상처가 난 곳을 수건으로 꾹 눌러보세요! "
     );
     await tts.TextToSpeech(
         "오른쪽 화면의 수건을 손가락으로 직접 눌러 상처가 난 곳을 수건으로 꾹 눌러보세요! ",
@@ -127,8 +119,7 @@ class _Scenario_hurt_6_rightState extends State<Scenario_hurt_6_right> {
       }
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "피가 철철나게 놔두면 정말로 위험할 수 있어요. "
+          "참 잘했어요. 피가 철철 나게 놔두면 정말로 위험할 수 있어요.\n"
               "혹시 이런 일이 일어나면 꼭 수건으로 상처를 누르는 것을 잊지 말아주세요! "
       );
       await tts.TextToSpeech(

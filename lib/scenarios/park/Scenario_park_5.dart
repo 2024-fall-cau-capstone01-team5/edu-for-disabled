@@ -72,17 +72,12 @@ class _Scenario_park_5_rightState extends State<Scenario_park_5_right> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "재밌게 놀다보니 배가 고프네요. 밥을 먹어볼까요?\n"
+            "그 전에 \"잘 먹겠습니다.\" 라고 직접 소리내어 말해보세요. "
+    );
+    await tts.TextToSpeech(
         "재밌게 놀다보니 배가 고프네요. 밥을 먹어볼까요?"
-    );
-    await tts.TextToSpeech(
-        "재밌게 놀다보니 배가 고프네요. 밥을 먹어볼까요?",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "그 전에 \"잘 먹겠습니다.\" 라고 직접 소리내어 말해보세요. "
-    );
-    await tts.TextToSpeech(
-        "그 전에 잘 먹겠습니다. 라고 직접 소리내어 말해보세요. ",
+            "그 전에 잘 먹겠습니다. 라고 직접 소리내어 말해보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }

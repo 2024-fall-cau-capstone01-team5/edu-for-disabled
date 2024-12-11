@@ -204,3 +204,5 @@ fabric.properties
 /android/build.gradle
 /android/gradle.properties
 /android/settings.gradle
+
+lib/scenarios/common_scenario

@@ -27,14 +27,19 @@ class _Scenario_hurt_12_leftState extends State<Scenario_hurt_12_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "칼은 위험해서 부모님이 아니면 절대 만지면 안돼요. "
+        "칼은 위험해서 부모님이 아니면 절대 만지면 안돼요.\n"
             "앞으로는 절대 칼을 만지지 말도록 해요. 잘 아시겠죠? "
-            "그럼 오른쪽 화면의 다음으로 넘어가기 버튼을 눌러보세요! "
     );
     await tts.TextToSpeech(
-            "칼은 위험해서 부모님이 아니면 절대 만지면 안돼요."
-                "앞으로는 절대 칼을 만지지 말도록 해요. 잘 아시겠죠?"
-                "그럼 오른쪽 화면의 다음으로 넘어가기 버튼을 눌러보세요! ",
+        "칼은 위험해서 부모님이 아니면 절대 만지면 안돼요."
+            "앞으로는 절대 칼을 만지지 말도록 해요. 잘 아시겠죠?",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼 오른쪽 화면의 다음으로 넘어가기 버튼을 눌러보세요! "
+    );
+    await tts.TextToSpeech(
+        "그럼 오른쪽 화면의 다음으로 넘어가기 버튼을 눌러보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 

@@ -27,17 +27,12 @@ class _Scenario_ready_11_leftState extends State<Scenario_ready_11_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼 양치질을 해볼까요?\n"
+            "오른쪽 화면의 이빨을 손가락으로 직접 눌러보세요."
+    );
+    await tts.TextToSpeech(
         "그럼 양치질을 해볼까요?"
-    );
-    await tts.TextToSpeech(
-        "그럼 양치질을 해볼까요?",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "오른쪽 화면의 이빨을 손가락으로 직접 눌러보세요."
-    );
-    await tts.TextToSpeech(
-        "오른쪽 화면의 이빨을 손가락으로 직접 눌러보세요.",
+            "오른쪽 화면의 이빨을 손가락으로 직접 눌러보세요.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -115,17 +110,12 @@ class _Scenario_ready_11_rightState extends State<Scenario_ready_11_right> {
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "앞으로는 양치질을 꼼꼼하게 깨끗히 해 보도록 해요.\n"
+          "그리고 양치질이 끝나면 물로 입을 헹구는 것도 잊지 않도록 해요."
+      );
+      await tts.TextToSpeech(
           "앞으로는 양치질을 꼼꼼하게 깨끗히 해 보도록 해요."
-      );
-      await tts.TextToSpeech(
-          "앞으로는 양치질을 꼼꼼하게 깨끗히 해 보도록 해요.",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "그리고 양치질이 끝나면 물로 입을 헹구는 것도 잊지 않도록 해요. "
-      );
-      await tts.TextToSpeech(
-          "그리고 양치질이 끝나면 물로 입을 헹구는 것도 잊지 않도록 해요. ",
+          "그리고 양치질이 끝나면 물로 입을 헹구는 것도 잊지 않도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

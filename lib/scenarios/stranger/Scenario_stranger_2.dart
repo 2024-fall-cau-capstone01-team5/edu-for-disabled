@@ -31,10 +31,10 @@ class _Scenario_stranger_2_leftState
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "여러분은 지금 길을 걷고 있어요. 그런데 저기서 어떤 모르는 사람이 여러분에게 다가오네요."
+        "여러분은 지금 길을 걷고 있어요. 그런데 저기서\n모르는 사람이 여러분에게 다가오네요."
     );
     await tts.TextToSpeech(
-        "여러분은 지금 길을 걷고 있어요. 그런데 저기서 어떤 모르는 사람이 여러분에게 다가오네요. ",
+        "여러분은 지금 길을 걷고 있어요. 그런데 저기서 모르는 사람이 여러분에게 다가오네요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -57,7 +57,7 @@ class _Scenario_stranger_2_leftState
     await tts.player.onPlayerComplete.first;
 
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "모르는 사람을 처음 봤을 때 여러분의 기분은 어떤가요? "
+        "모르는 사람을 처음 봤을 때 여러분의 기분은 어떤가요?\n"
             "오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요! "
     );
     await tts.TextToSpeech(
@@ -145,7 +145,7 @@ class _Scenario_stranger_2_rightState
       }
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
+          "참 잘했어요.\n"
               "앞으론 모르는 사람이 말을 걸면 의문부터 가져보도록 해요. "
       );
       await tts.TextToSpeech("참 잘했어요. "

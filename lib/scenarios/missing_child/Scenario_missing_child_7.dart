@@ -68,10 +68,10 @@ class _Scenario_missing_child_7_rightState extends State<Scenario_missing_child_
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "직원 분께서 대답을 하시네요. 한번 들어볼까요? "
+        "직원분께서 대답을 하시네요. 한번 들어볼까요? "
     );
     await tts.TextToSpeech(
-        "직원 분께서 대답을 하시네요. 한번 들어볼까요? ",
+        "직원분께서 대답을 하시네요. 한번 들어볼까요? ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
@@ -82,10 +82,10 @@ class _Scenario_missing_child_7_rightState extends State<Scenario_missing_child_
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "직원 분께서 이름을 물어봤네요. 대답해 볼까요? 자기의 이름을 직접 소리내어 말해보세요. "
+        "직원분께서 이름을 물어봤네요. 대답해 볼까요?\n자기의 이름을 직접 소리내어 말해보세요. "
     );
     await tts.TextToSpeech(
-        "직원 분께서 이름을 물어봤네요. 대답해 볼까요? 자기의 이름을 직접 소리내어 말해보세요 ",
+        "직원분께서 이름을 물어봤네요. 대답해 볼까요? 자기의 이름을 직접 소리내어 말해보세요 ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -135,14 +135,19 @@ class _Scenario_missing_child_7_rightState extends State<Scenario_missing_child_
           "ko-KR-Wavenet-A");
       await tts.player.onPlayerComplete.first;
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "지금 직원분께서 경찰에 연락을 하고 계시네요. "
+          "지금 직원분께서 경찰에 연락을 하고 계시네요.\n"
               "경찰은 나쁜 사람들을 잡아가기만 하는 무서운 분들이 아니에요. "
-              "사람들에게 도움을 주기도 하는 착한 분들이랍니다. "
       );
       await tts.TextToSpeech(
           "지금 직원분께서 경찰에 연락을 하고 계시네요. "
-              "경찰은 나쁜 사람들을 잡아가기만 하는 무서운 분들이 아니에요. "
-              "사람들에게 도움을 주기도 하는 착한 분들이랍니다. ",
+              "경찰은 나쁜 사람들을 잡아가기만 하는 무서운 분들이 아니에요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "사람들에게 도움을 주기도 하는 착한 분들이랍니다. "
+      );
+      await tts.TextToSpeech(
+          "사람들에게 도움을 주기도 하는 착한 분들이랍니다. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
 

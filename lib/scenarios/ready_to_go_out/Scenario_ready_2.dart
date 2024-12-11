@@ -68,17 +68,12 @@ class _Scenario_ready_2_rightState extends State<Scenario_ready_2_right> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "일어난 다음에는 부모님께 인사를 해 보도록 해요."
+        "일어난 다음에는 부모님께 인사를 해 보도록 해요.\n"
+            "\"안녕히 주무셨어요?\" 라고 직접 소리내어 말해보세요. "
     );
     await tts.TextToSpeech(
-          "일어난 다음에는 부모님께 인사를 해 보도록 해요.",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "\"안녕히 주무셨어요?\" 라고 직접 소리내어 말해보세요. "
-    );
-    await tts.TextToSpeech(
-        "안녕히 주무셨어요? 라고 직접 소리내어 말해보세요. ",
+          "일어난 다음에는 부모님께 인사를 해 보도록 해요."
+              "안녕히 주무셨어요? 라고 직접 소리내어 말해보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }
@@ -119,17 +114,12 @@ class _Scenario_ready_2_rightState extends State<Scenario_ready_2_right> {
       );
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. 앞으로는 아침에 일어난 다음에\n"
+              "부모님께 인사를 씩씩하게 해보도록 해요."
+      );
+      await tts.TextToSpeech(
           "참 잘했어요. 앞으로는 아침에 일어난 다음에"
-      );
-      await tts.TextToSpeech(
-          "참 잘했어요. 앞으로는 아침에 일어난 다음에",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "부모님께 인사를 씩씩하게 해보도록 해요."
-      );
-      await tts.TextToSpeech(
-          "부모님께 인사를 씩씩하게 해보도록 해요",
+              "부모님께 인사를 씩씩하게 해보도록 해요",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

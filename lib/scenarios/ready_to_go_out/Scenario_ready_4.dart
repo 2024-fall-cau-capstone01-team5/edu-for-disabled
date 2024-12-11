@@ -102,17 +102,12 @@ class _Scenario_ready_4_rightState extends State<Scenario_ready_4_right> {
         );
       }
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. 앞으로 밥을 먹을 때에는 손으로 직접 음식을 집는 것이 아닌"
+          "참 잘했어요. 앞으로 밥을 먹을 때에는 손으로 직접 음식을\n"
+              "집는 것이 아닌 꼭 숟가락과 젓가락을 사용해요."
       );
       await tts.TextToSpeech(
-          "참 잘했어요. 앞으로 밥을 먹을 때에는 손으로 직접 음식을 집는 것이 아닌",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "꼭 숟가락과 젓가락을 사용해요."
-      );
-      await tts.TextToSpeech(
-          "꼭 숟가락과 젓가락을 사용해요.",
+          "참 잘했어요. 앞으로 밥을 먹을 때에는 손으로 직접 음식을 집는 것이 아닌 "
+              "꼭 숟가락과 젓가락을 사용해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
