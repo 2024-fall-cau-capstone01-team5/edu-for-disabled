@@ -106,7 +106,7 @@ class _Traffic_2_rightState extends State<Traffic_2_right> {
 
       await Provider.of<Scenario_Manager>(context, listen: false)
           .updateSubtitle(
-          "잘 하셨습니다!\n앞으로 횡단 보도를 건널 때에는 자동차가 안 오는지 왼쪽 오른쪽을 확실하게 먼저 살피고 건너보세요!");
+              "잘 하셨습니다!\n앞으로 횡단 보도를 건널 때에는 자동차가 안 오는지 왼쪽 오른쪽을 확실하게 먼저 살피고 건너보세요!");
       await tts.TextToSpeech(
           "잘 하셨습니다! "
               "앞으로 횡단 보도를 건널 때에는 자동차가 안 오는지 왼쪽 오른쪽을 확실하게 먼저 살피고 건너보세요!",
