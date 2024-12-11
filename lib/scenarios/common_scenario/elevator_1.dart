@@ -36,12 +36,12 @@ class _Elevator_1_leftState extends State<Elevator_1_left> {
 
     await Provider.of<Scenario_Manager>(context, listen: false)
         .updateSubtitle("우리는 지금 아래로 내려가야 할까요? 아니면 "
-        "위로 올라가야 할까요?\n오른쪽 화면에서 올바른 "
-        "엘리베이터 호출 버튼을 손가락으로 직접 눌러보세요.");
+            "위로 올라가야 할까요?\n오른쪽 화면에서 올바른 "
+            "엘리베이터 호출 버튼을 손가락으로 직접 눌러보세요.");
     await tts.TextToSpeech(
         "우리는 지금 아래로 내려가야 할까요? 아니면 "
-        "위로 올라가야 할까요? 오른쪽 화면에서 올바른 "
-        "엘리베이터 호출 버튼을 손가락으로 직접 눌러보세요.",
+            "위로 올라가야 할까요? 오른쪽 화면에서 올바른 "
+            "엘리베이터 호출 버튼을 손가락으로 직접 눌러보세요.",
         "ko-KR-Wavenet-D");
 
     await tts.player.onPlayerComplete.first;
