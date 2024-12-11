@@ -27,12 +27,17 @@ class _Scenario_ready_5_leftState extends State<Scenario_ready_5_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "밥을 다 먹고 난 후에는 식탁을 치워야 해요. "
-            "오른쪽 화면의 그릇과 수저들을 손가락으로 직접 눌러보세요. "
+        "밥을 다 먹고 난 후에는 식탁을 치워야 해요."
     );
     await tts.TextToSpeech(
-            "밥을 다 먹고 난 후에는 식탁을 치워야 해요."
-                "오른쪽 화면의 그릇과 수저들을 손가락으로 직접 눌러보세요. ",
+        "밥을 다 먹고 난 후에는 식탁을 치워야 해요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "오른쪽 화면의 그릇과 수저들을 손가락으로 직접 눌러보세요."
+    );
+    await tts.TextToSpeech(
+        "오른쪽 화면의 그릇과 수저들을 손가락으로 직접 눌러보세요.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -112,12 +117,17 @@ class _Scenario_ready_5_rightState extends State<Scenario_ready_5_right> {
       }
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "앞으로는 자기가 밥을 먹은 그릇들은 스스로 치우는 착한 사람이 돼 보도록 해요. "
+          "참 잘했어요. 앞으로는 자기가 밥을 먹은 그릇들은"
       );
       await tts.TextToSpeech(
-          "참 잘했어요. "
-              "앞으로는 자기가 밥을 먹은 그릇들은 스스로 치우는 착한 사람이 돼 보도록 해요. ",
+          "참 잘했어요. 앞으로는 자기가 밥을 먹은 그릇들은",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "스스로 치우는 착한 사람이 돼 보도록 해요."
+      );
+      await tts.TextToSpeech(
+          "스스로 치우는 착한 사람이 돼 보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

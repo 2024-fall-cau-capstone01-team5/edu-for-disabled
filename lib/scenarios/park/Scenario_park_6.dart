@@ -28,14 +28,25 @@ class _Scenario_park_6_leftState extends State<Scenario_park_6_left> {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요. "
-            "오른쪽 화면을 손가락으로 눌러보세요. "
-            "그리고 아래로 떨어지는 쓰레기들을 눌러보세요."
     );
-    await tts.TextToSpeech("집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요. "
+    await tts.TextToSpeech(
+        "집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "오른쪽 화면을 손가락으로 눌러보세요. "
+    );
+    await tts.TextToSpeech(
+        "오른쪽 화면을 손가락으로 눌러보세요. "
+        , "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그리고 아래로 떨어지는 쓰레기들을 눌러보세요."
+    );
+    await tts.TextToSpeech(
         "그리고 아래로 떨어지는 쓰레기들을 눌러보세요. "
         , "ko-KR-Wavenet-D");
-
+    await tts.player.onPlayerComplete.first;
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
@@ -102,13 +113,18 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
       );
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "앞으로는 집에 가기 전에 자기가 남긴 쓰레기는 스스로 치우는 "
-              "착한 사람이 되보도록 해요"
+          "참 잘했어요. 앞으로는 집에 가기 전에 자기가 남긴 쓰레기는"
       );
-      await tts.TextToSpeech("참 잘했어요. "
-          "앞으로는 집에 가기 전에 자기가 남긴 쓰레기는 스스로 치우는"
-          " 착한 사람이 되보도록 해요", "ko-KR-Wavenet-D");
+      await tts.TextToSpeech(
+          "참 잘했어요. 앞으로는 집에 가기 전에 자기가 남긴 쓰레기는",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "스스로 치우는 착한 사람이 되보도록 해요."
+      );
+      await tts.TextToSpeech(
+          "스스로 치우는 착한 사람이 되보도록 해요",
+          "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();

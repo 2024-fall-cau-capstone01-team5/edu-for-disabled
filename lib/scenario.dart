@@ -380,7 +380,7 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
                           sinarioProvider.subtitle, // Scenario_Manager에서 제공하는 텍스트
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 18,
+                            fontSize: 21,
                           ),textAlign: TextAlign.center,
                         ),
                       );

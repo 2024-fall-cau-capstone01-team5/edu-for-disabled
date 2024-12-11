@@ -27,14 +27,24 @@ class _Scenario_ready_1_leftState extends State<Scenario_ready_1_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "여러분 반가워요! 오늘은 외출 준비를 해보도록 해요. "
-            "먼저 아침에 일어나면 자기가 덮고 잤던 이불은 자기가 직접 개야 해요. "
-            "오른쪽 화면의 이불을 손가락으로 직접 눌러보세요. "
+        "여러분 반가워요! 오늘은 외출 준비를 해보도록 해요."
     );
     await tts.TextToSpeech(
-        "여러분 반가워요! 오늘은 외출 준비를 해보도록 해요. "
-            "먼저 아침에 일어나면 자기가 덮고 잤던 이불은 자기가 직접 개야 해요. "
-            "오른쪽 화면의 이불을 손가락으로 직접 눌러보세요. ",
+        "여러분 반가워요! 오늘은 외출 준비를 해보도록 해요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "먼저 아침에 일어나면 자기가 덮고 잤던 이불은 자기가 직접 개야 해요."
+    );
+    await tts.TextToSpeech(
+        "먼저 아침에 일어나면 자기가 덮고 잤던 이불은 자기가 직접 개야 해요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "오른쪽 화면의 이불을 손가락으로 직접 눌러보세요."
+    );
+    await tts.TextToSpeech(
+        "오른쪽 화면의 이불을 손가락으로 직접 눌러보세요.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -107,12 +117,17 @@ class _Scenario_ready_1_rightState extends State<Scenario_ready_1_right> {
         );
       }
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "앞으로는 자기가 덮고 잤던 이불은 부모님이 아닌 자기가 스스로 개는 착한 사람이 되보도록 해요. "
+          "참 잘했어요. 앞으로는 자기가 덮고 잤던 이불은"
       );
       await tts.TextToSpeech(
-          "참 잘했어요. "
-              "앞으로는 자기가 덮고 잤던 이불은 부모님이 아닌 자기가 스스로 개는 착한 사람이 되보도록 해요. ",
+          "참 잘했어요. 앞으로는 자기가 덮고 잤던 이불은",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "부모님이 아닌 자기가 개는 착한 사람이 되보도록 해요."
+      );
+      await tts.TextToSpeech(
+          "부모님이 아닌 자기가 개는 착한 사람이 되보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

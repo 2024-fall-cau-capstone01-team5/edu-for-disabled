@@ -28,10 +28,15 @@ class _Scenario_ready_12_leftState extends State<Scenario_ready_12_left> {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "양치질을 다 끝냈으니 마지막으로 세수를 해보도록 해요. "
-            "오른쪽 화면을 손가락으로 직접 눌러보세요. "
     );
     await tts.TextToSpeech(
-        "양치질을 다 끝냈으니 마지막으로 세수를 해보도록해요."
+        "양치질을 다 끝냈으니 마지막으로 세수를 해보도록 해요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+            "오른쪽 화면을 손가락으로 직접 눌러보세요."
+    );
+    await tts.TextToSpeech(
             "오른쪽 화면을 손가락으로 직접 눌러보세요 ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -102,14 +107,24 @@ class _Scenario_ready_12_rightState extends State<Scenario_ready_12_right> {
         );
       }
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "세수를 할 때는 손에 충분히 비누를 뭍힌 다음에 얼굴을 문질러서 깨끗히 씻어보도록 해요. "
-              "앞으로는 얼굴을 깨끗히 씻어서 깔끔한 모습을 다른 사람들에게 보여주도록 해요. "
+          "참 잘했어요. 세수를 할 때는 손에 충분히 비누를 뭍힌 다음에"
       );
       await tts.TextToSpeech(
-          "참 잘했어요. "
-              "세수를 할 때는 손에 충분히 비누를 뭍힌 다음에 얼굴을 문질러서 깨끗히 씻어보도록 해요. "
-              "앞으로는 얼굴을 깨끗히 씻어서 깔끔한 모습을 다른 사람들에게 보여주도록 해요. ",
+          "참 잘했어요. 세수를 할 때는 손에 충분히 비누를 뭍힌 다음에",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "얼굴을 문질러서 깨끗히 씻어보도록 해요. 앞으로는 얼굴을 깨끗히 씻어서"
+      );
+      await tts.TextToSpeech(
+          "얼굴을 문질러서 깨끗히 씻어보도록 해요. 앞으로는 얼굴을 깨끗히 씻어서",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "깔끔한 모습을 다른 사람들에게 보여주도록 해요. "
+      );
+      await tts.TextToSpeech(
+          "깔끔한 모습을 다른 사람들에게 보여주도록 해요. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

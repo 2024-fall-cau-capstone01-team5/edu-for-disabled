@@ -27,10 +27,18 @@ class _Elevator_3_leftState extends State<Elevator_3_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "밖으로 나가려면 몇 층으로 가야 하나요? 올바른 층의 버튼을 터치해 보세요!"
+        "밖으로 나가려면 몇 층으로 가야 하나요?"
     );
-    await tts.TextToSpeech("밖으로 나가려면 몇 층으로 가야 하나요?"
-        "올바른 층의 버튼을 터치해 보세요!", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech(
+        "밖으로 나가려면 몇 층으로 가야 하나요?",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "올바른 층의 버튼을 터치해 보세요!"
+    );
+    await tts.TextToSpeech(
+        "올바른 층의 버튼을 터치해 보세요!",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
   }
 
   @override

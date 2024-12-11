@@ -26,12 +26,17 @@ class _Scenario_ready_14_leftState extends State<Scenario_ready_14_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "외출 준비를 해 보니까 어떤가요? "
-            "앞으로는 스스로 할 수 있는 것들은 스스로 해 보는 착한 사람이 돼보도록 해요."
+        "외출 준비를 해 보니까 어떤가요? 앞으로는 스스로 할 수 있는 것들은"
     );
     await tts.TextToSpeech(
-        "외출 준비를 해 보니까 어떤가요? "
-            "앞으로는 스스로 할 수 있는 것들은 스스로 해 보는 착한 사람이 돼보도록 해요.",
+        "외출 준비를 해 보니까 어떤가요? 앞으로는 스스로 할 수 있는 것들은",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "스스로 해 보는 착한 사람이 돼보도록 해요."
+    );
+    await tts.TextToSpeech(
+        "스스로 해 보는 착한 사람이 돼보도록 해요.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -40,16 +45,17 @@ class _Scenario_ready_14_leftState extends State<Scenario_ready_14_left> {
     await _audioPlayer.play(AssetSource("effect_ascending.mp3"));
 
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "축하합니다. "
-            "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
-            "집에 있을 때 어떻게 행동해야 할지 "
-            "잘 생각해보시기 바랍니다."
+        "축하합니다. 모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
     );
     await tts.TextToSpeech(
-        "축하합니다. "
-            "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
-            "집에 있을 때 어떻게 행동해야 할지 "
-            "잘 생각해보시기 바랍니다.",
+        "축하합니다. 모든 이야기를 마치셨습니다. 이번 경험을 바탕으로",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "집에 있을 때 어떻게 행동해야 할지 잘 생각해보시기 바랍니다."
+    );
+    await tts.TextToSpeech(
+        "집에 있을 때 어떻게 행동해야 할지 잘 생각해보시기 바랍니다.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     tts.dispose();

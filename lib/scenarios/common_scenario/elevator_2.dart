@@ -29,8 +29,10 @@ class _Elevator_2_leftState extends State<Elevator_2_left> {
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요!"
     );
-    await tts.TextToSpeech("오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요"
-        "!", "ko-KR-Wavenet-D");
+    await tts.TextToSpeech(
+        "오른쪽 화면에 나와 있는 문을 터치해서 열고 들어가보세요!",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
   }
 
   @override
