@@ -31,12 +31,15 @@ class STT{
 
     if(await recorder.hasPermission()){
       try{
-        print("rrwerwetewtewitjweitojweiroewjrioewjriweorjoidvd");
         await recorder.start(rconfig ,path: filePath);
         await Future.delayed(Duration(seconds: sec));
         await recorder.stop();
       }catch(e){
         return "Error in Recording";
+      }
+
+      Future<List<int>> _getAudioContent(String path) async {
+        return File(path).readAsBytesSync().toList();
       }
 
       final serviceAccount = ServiceAccount.fromString(
@@ -53,7 +56,7 @@ class STT{
           sampleRateHertz: 44100,
           languageCode: 'ko-KR');
 
-      final audio = File(filePath).readAsBytesSync().toList();
+      final audio =await _getAudioContent(filePath);
       final response = await speechToText.recognize(config, audio);
       result=response.results.map((e)=>e.alternatives.first.transcript).join('\n');
     }
