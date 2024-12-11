@@ -29,11 +29,22 @@ class _Scenario_c_2_leftState extends State<Scenario_c_2_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle( "편의점 모습이 보이시나요? 편의점에 도착했습니다. ");
+
     await tts.TextToSpeech(
         "편의점 모습이 보이시나요? 편의점에 도착했습니다. "
-            "그럼 들어가볼까요? 오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요. "
-            "오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
+            ,
         "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("그럼 들어가볼까요?\n"
+        "오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요. ");
+    await tts.TextToSpeech("그럼 들어가볼까요? "
+        "오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -111,8 +122,11 @@ class _Scenario_c_2_rightState extends State<Scenario_c_2_right> {
         );
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("잘 하셨습니다.");
+
       await tts.TextToSpeech(
-          "잘하셨습니다. ",
+          "잘 하셨습니다. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
 
