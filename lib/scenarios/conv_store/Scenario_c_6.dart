@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpractice/scenarios/StepData.dart';
-import '../../providers/Scenario_Manager.dart';
 import 'package:provider/provider.dart';
-import '../tts.dart';
-import '../stt.dart';
+import '../../providers/Scenario_Manager.dart';
+
 import 'package:audioplayers/audioplayers.dart';
+import '../tts.dart';
+
+import 'package:rive/rive.dart' hide Image;
+
+import '../StepData.dart';
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
-final STT stt = STT();
 
-
-class c_6_display_left extends StatefulWidget {
+class Scenario_c_6_left extends StatefulWidget {
   final StatefulWidget acter;
-  const c_6_display_left({super.key, required this.acter});
+
+  const Scenario_c_6_left({super.key, required this.acter});
 
   @override
-  State<c_6_display_left> createState() => _c_6_display_leftState();
+  State<Scenario_c_6_left> createState() => _Scenario_c_6_leftState();
 }
 
-class _c_6_display_leftState extends State<c_6_display_left> {
-
-
+class _Scenario_c_6_leftState extends State<Scenario_c_6_left> {
   @override
   void initState() {
     super.initState();
@@ -29,141 +29,144 @@ class _c_6_display_leftState extends State<c_6_display_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
-
-    await tts.TextToSpeech("편의점을 나가기 전에 놓고 온 물건이 있나요? 카드는 다시 챙겼나요? "
-        "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 생각해주세요",
+    await tts.TextToSpeech(
+        "그럼, 물건을 다 골랐으니 계산을 해볼까요? "
+            "그런데 이런, 먼저 계산을 하러 온 손님이 있네요."
+            "조금만 기다려볼까요? "
+            "계산 줄을 차분하게 기다려 보도록 해요. "
+            "편의점이나 가게에서 계산을 할 때에는 줄을 기다리는 경우가 많답니다. ",
         "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
 
-    await Future.delayed(Duration(seconds: 10));
+    await tts.TextToSpeech(
+            "이렇게 줄을 기다려야 할 때 나의 기분은 어떤가요?"
+                "오른쪽 화면의 내가 느낀 기분을 손가락으로 직접 눌러보세요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
-
-    await tts.TextToSpeech("안녕히 가세요",
-        "ko-KR-Wavenet-C");
-
-    await Future.delayed(Duration(seconds: 2));
-
-    await tts.TextToSpeech("편의점 직원분께서 잘 가라고 인사를 해주시네요 우리도 같이 인사해 볼까요? "
-        "오른쪽 화면의 버튼을 클릭해 소리내어 안녕히가세요라고 인사를 해 보세요",
-        "ko-KR-Wavenet-D");
-
-    await Future.delayed(Duration(seconds: 10));
-
-    Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<Scenario_Manager>(
-        builder: (context, sinarioProvider, child) {
-          return Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20), // 원하는 경계 반경 설정
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Image(
-                      image: AssetImage("assets/c_exit.webp"),
-                      fit: BoxFit.cover, // 이미지가 ClipRRect 경계 내에 꽉 차도록 설정
-                    )
-                  ),
-                  Positioned.fill(
-                    child: sinarioProvider.flag == 1
-                        ? widget.acter
-                        : SizedBox.shrink(),
-                  ),
-                ],
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // 부모의 경계 반경과 동일하게 설정
+        child: Stack(
+          children: [
+            // 배경 이미지 (아래쪽에 위치)
+            const Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/convenience/편의점 줄.webp"),
+                fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
               ),
-            )
-          );
-        },
+            ),
+            // 배우 이미지 (위쪽에 위치)
+            Positioned.fill(
+                child: widget.acter
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class c_6_display_right extends StatefulWidget {
+class Scenario_c_6_right extends StatefulWidget {
   final StepData step_data;
-  const c_6_display_right({super.key, required this.step_data});
+
+  const Scenario_c_6_right({super.key, required this.step_data});
 
   @override
-  State<c_6_display_right> createState() => _c_6_display_rightState();
+  State<Scenario_c_6_right> createState() =>
+      _Scenario_c_6_rightState();
 }
 
-class _c_6_display_rightState extends State<c_6_display_right> {
-  String door_image = "assets/door_closed.png";
+class _Scenario_c_6_rightState
+    extends State<Scenario_c_6_right> {
+  SMITrigger? _trigger1;
+  SMITrigger? _trigger2;
+  SMITrigger? _trigger3;
+  SMIBool? _bool;
+
+  void _onRiveInit(Artboard artboard) async {
+    final controller = StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1',
+      onStateChange: _onStateChange,
+    );
+
+    if (controller != null) {
+      artboard.addController(controller);
+      _trigger1 = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
+      _trigger2 = controller.findInput<bool>('Trigger 2') as SMITrigger?;
+      _trigger3 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
+    }
+  }
+
+  void _onStateChange(String stateMachineName, String stateName) async {
+    if (stateName == 'ExitState') {
+      if (_bool?.value == true) {
+        widget.step_data.sendStepData(
+            "convenience 6",
+            "(편의점 계산 줄을 기다릴 때 느끼는 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+            "정답: 지루해요",
+            "응답(감정 표현): 시간 초과");
+      } else {
+        widget.step_data.sendStepData(
+            "convenience 6",
+            "(편의점 계산 줄을 기다릴 때 느끼는 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+            "정답: 지루해요",
+            "응답(감정 표현): 지루해요");
+      }
+
+      await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
+      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+    } else if (stateName == "Timer exit") {
+      _bool?.value = true;
+      _trigger2?.value = true;
+    } else if (stateName == "good") {
+      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
+
+      widget.step_data.sendStepData(
+          "convenience 6",
+          "(편의점 계산 줄을 기다릴 때 느끼는 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+          "정답: 지루해요",
+          "응답(감정 표현): 슬퍼요");
+    } else if (stateName == "angry") {
+      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
+
+      widget.step_data.sendStepData(
+          "convenience 6",
+          "(편의점 계산 줄을 기다릴 때 느끼는 감정을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+          "정답: 지루해요",
+          "응답(감정 표현): 화나요");
+    } else if (stateName == "boring") {
+      await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+      await Future.delayed(Duration(seconds: 2));
+
+      _audioPlayer.dispose();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<Scenario_Manager>(
-        builder: (context, sinarioProvider, child) {
-          return Stack(
-            children: [
-              Center(
-                child: sinarioProvider.flag2 == 1 ?
-                ElevatedButton(
-                  onPressed: () async {
-                    String answer = await stt.gettext(3);
-
-                    widget.step_data.sendStepData(
-                        "convenience 5",
-                        "(편의점을 나가는 상황)편의점 직원분께 안녕히 계세요라고 인사해보세요",
-                        "정답: \"안녕히 계세요\"",
-                        "응답(소리내어 말하기): $answer",
-                    );
-                    //step_data.toJson();
-
-                    await Future.delayed(Duration(seconds: 3));
-                    await tts.TextToSpeech("잘 하셨습니다. 이제 오른쪽 화면의 문을 터치해 편의점을 나가보세요",
-                        "ko-KR-Wavenet-D");
-                    await Future.delayed(Duration(seconds: 6));
-
-                    sinarioProvider.decrement_flag();
-                    sinarioProvider.decrement_flag2();
-                    sinarioProvider.increment_flag3();
-
-                  },
-                  child: Center(
-                    child: Icon(Icons.mic),
-
-                  ),
-                ) : SizedBox.shrink(),
-              ),
-              Center(
-                child: sinarioProvider.flag3 == 1 ?
-                ElevatedButton(
-                  onPressed: () async {
-                    widget.step_data.sendStepData(
-                        "convenience 5",
-                        "(편의점을 나가는 상황)문을 터치하고 편의점 밖으로 나가보세요",
-                        "정답: 터치 완료",
-                        "응답(터치하기): 터치 완료"
-                    );
-
-                    await _audioPlayer.play(AssetSource("effect_door.mp3"));
-                    setState(() {
-                      door_image = "assets/door_open.png";
-                      print("door_image: $door_image");
-                    });
-                    await Future.delayed(Duration(seconds: 1));
-                    setState(() {
-                      door_image = "";
-                      print("door_image: $door_image");
-                    });
-                    sinarioProvider.updateIndex(); // Provider 상태 업데이트
-                  },
-                  child: Center(
-                    child: Image(
-                      image: AssetImage(door_image),
-                    ),
-                  ),
-                ) : SizedBox.shrink(),
-              ),
-            ],
-          );
-        },
+      body: Center(
+        child: Stack(children: [
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+            "assets/common/emotion_boring.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
+              : const Text("먼저 설명을 들어보세요!"),
+        ]),
       ),
     );
   }

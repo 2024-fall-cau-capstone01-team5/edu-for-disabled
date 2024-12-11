@@ -299,7 +299,7 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
           // 배경 이미지 추가
           Positioned.fill(
             child: Image.asset(
-              "assets/background.jpg", // 배경 이미지 파일 경로
+              "assets/배경화면임시.png", // 배경 이미지 파일 경로
               fit: BoxFit.cover, // 화면에 꽉 차도록 설정
             ),
           ),

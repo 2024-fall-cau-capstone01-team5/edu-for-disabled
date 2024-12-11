@@ -12,16 +12,16 @@ import '../StepData.dart';
 final AudioPlayer _audioPlayer = AudioPlayer();
 final TTS tts = TTS();
 
-class Scenario_c_2_left extends StatefulWidget {
+class Scenario_c_8_left extends StatefulWidget {
   final StatefulWidget acter;
 
-  const Scenario_c_2_left({super.key, required this.acter});
+  const Scenario_c_8_left({super.key, required this.acter});
 
   @override
-  State<Scenario_c_2_left> createState() => _Scenario_c_2_leftState();
+  State<Scenario_c_8_left> createState() => _Scenario_c_8_leftState();
 }
 
-class _Scenario_c_2_leftState extends State<Scenario_c_2_left> {
+class _Scenario_c_8_leftState extends State<Scenario_c_8_left> {
   @override
   void initState() {
     super.initState();
@@ -30,12 +30,11 @@ class _Scenario_c_2_leftState extends State<Scenario_c_2_left> {
 
   Future<void> _playWelcomeTTS() async {
     await tts.TextToSpeech(
-        "편의점 모습이 보이시나요? 편의점에 도착했습니다. "
-            "그럼 들어가볼까요? 오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요. "
-            "오른쪽 화면에 나와있는 문을 터치해서 편의점에 들어가보세요.",
+        "이제 볼일을 다 봤으니 편의점에서 나가보도록 할까요? "
+            "편의점에서 나가기 전에 챙기는 것을 잊어버린 물건은 없나요? "
+            "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
   }
@@ -50,7 +49,7 @@ class _Scenario_c_2_leftState extends State<Scenario_c_2_left> {
             // 배경 이미지 (아래쪽에 위치)
             const Positioned.fill(
               child: Image(
-                image: AssetImage("assets/convenience/편의점 외부.webp"),
+                image: AssetImage("assets/convenience/편의점 나가기.webp"),
                 fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
               ),
             ),
@@ -65,16 +64,16 @@ class _Scenario_c_2_leftState extends State<Scenario_c_2_left> {
   }
 }
 
-class Scenario_c_2_right extends StatefulWidget {
+class Scenario_c_8_right extends StatefulWidget {
   final StepData step_data;
-  const Scenario_c_2_right({super.key, required this.step_data});
+  const Scenario_c_8_right({super.key, required this.step_data});
 
   @override
-  State<Scenario_c_2_right> createState() =>
-      _Scenario_c_2_rightState();
+  State<Scenario_c_8_right> createState() =>
+      _Scenario_c_8_rightState();
 }
 
-class _Scenario_c_2_rightState extends State<Scenario_c_2_right> {
+class _Scenario_c_8_rightState extends State<Scenario_c_8_right> {
   SMITrigger? _touch;
   SMIBool? _bool;
 
@@ -97,25 +96,23 @@ class _Scenario_c_2_rightState extends State<Scenario_c_2_right> {
     if (stateName == 'ExitState') {
       if (_bool?.value == true) {
         widget.step_data.sendStepData(
-            "convenience 2",
-            "(편의점에 도착해 문을 열고 들어가는 상황)문을 터치하고 편의점에 들어가 보세요",
+            "convenience 8",
+            "(편의점을 나가는 상황)문을 터치해보세요!",
             "정답: 터치 완료",
             "응답(터치하기): 시간 초과"
         );
       } else {
         widget.step_data.sendStepData(
-            "convenience 2",
-            "(편의점에 도착해 문을 열고 들어가는 상황)문을 터치하고 편의점에 들어가 보세요",
+            "convenience 8",
+            "(편의점을 나가는 상황)문을 터치해보세요!",
             "정답: 터치 완료",
             "응답(터치하기): 터치 완료"
         );
       }
-
       await tts.TextToSpeech(
           "잘하셨습니다. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
-
       tts.dispose();
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
