@@ -29,14 +29,32 @@ class _Scenario_c_8_leftState extends State<Scenario_c_8_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("이제, 볼일을 다 봤으니 편의점에서 나가보도록 해요.");
+
     await tts.TextToSpeech(
-        "이제 볼일을 다 봤으니 편의점에서 나가보도록 할까요? "
-            "편의점에서 나가기 전에 챙기는 것을 잊어버린 물건은 없나요? "
-            "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요. ",
+        "이제 볼일을 다 봤으니 편의점에서 나가보도록 해요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
 
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("그 전에, 잊어버린 물건은 없나요?\n"
+            "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요.");
+    await tts.TextToSpeech(
+        "그 전에, 잊어버린 물건은 없나요?"
+            "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("다 확인을 했다면 오른쪽 화면에서 문을 손가락으로 직접 눌러보세요!");
+    await tts.TextToSpeech(
+        "다 확인을 했다면 오른쪽 화면에서 문을 손가락으로 직접 눌러보세요!", "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
 
   @override
@@ -49,14 +67,12 @@ class _Scenario_c_8_leftState extends State<Scenario_c_8_left> {
             // 배경 이미지 (아래쪽에 위치)
             const Positioned.fill(
               child: Image(
-                image: AssetImage("assets/convenience/편의점 나가기.webp"),
+                image: AssetImage("assets/convenience/편의점 나가기.png"),
                 fit: BoxFit.cover, // 이미지가 Container에 맞도록 설정
               ),
             ),
             // 배우 이미지 (위쪽에 위치)
-            Positioned.fill(
-                child: widget.acter
-            ),
+            Positioned.fill(child: widget.acter),
           ],
         ),
       ),
@@ -66,11 +82,11 @@ class _Scenario_c_8_leftState extends State<Scenario_c_8_left> {
 
 class Scenario_c_8_right extends StatefulWidget {
   final StepData step_data;
+
   const Scenario_c_8_right({super.key, required this.step_data});
 
   @override
-  State<Scenario_c_8_right> createState() =>
-      _Scenario_c_8_rightState();
+  State<Scenario_c_8_right> createState() => _Scenario_c_8_rightState();
 }
 
 class _Scenario_c_8_rightState extends State<Scenario_c_8_right> {
@@ -78,12 +94,10 @@ class _Scenario_c_8_rightState extends State<Scenario_c_8_right> {
   SMIBool? _bool;
 
   void _onRiveInit(Artboard artboard) {
-    final controller =
-    StateMachineController.fromArtboard(
+    final controller = StateMachineController.fromArtboard(
       artboard,
       'State Machine 1',
       onStateChange: _onStateChange,
-
     );
     artboard.addController(controller!);
 
@@ -91,34 +105,26 @@ class _Scenario_c_8_rightState extends State<Scenario_c_8_right> {
     _bool = controller.findInput<bool>('Boolean 1') as SMIBool;
   }
 
-  void _onStateChange(String stateMachineName, String stateName) async{
+  void _onStateChange(String stateMachineName, String stateName) async {
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'ExitState') {
       if (_bool?.value == true) {
-        widget.step_data.sendStepData(
-            "convenience 8",
-            "(편의점을 나가는 상황)문을 터치해보세요!",
-            "정답: 터치 완료",
-            "응답(터치하기): 시간 초과"
-        );
+        widget.step_data.sendStepData("convenience 8",
+            "(편의점을 나가는 상황)문을 터치해보세요!", "정답: 터치 완료", "응답(터치하기): 시간 초과");
       } else {
-        widget.step_data.sendStepData(
-            "convenience 8",
-            "(편의점을 나가는 상황)문을 터치해보세요!",
-            "정답: 터치 완료",
-            "응답(터치하기): 터치 완료"
-        );
+        widget.step_data.sendStepData("convenience 8",
+            "(편의점을 나가는 상황)문을 터치해보세요!", "정답: 터치 완료", "응답(터치하기): 터치 완료");
       }
-      await tts.TextToSpeech(
-          "잘하셨습니다. ",
-          "ko-KR-Wavenet-D");
+
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("잘 하셨습니다.");
+      await tts.TextToSpeech("잘 하셨습니다. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
-
-    }else if (stateName == 'Timer exit'){
+    } else if (stateName == 'Timer exit') {
       _bool?.value = true;
     }
   }
@@ -130,11 +136,14 @@ class _Scenario_c_8_rightState extends State<Scenario_c_8_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/common/door_opening_and_closing.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
-          )
-              : const Text("먼저 설명을 들어보세요!", style: TextStyle(fontSize: 15),),
+                  "assets/common/door_opening_and_closing.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
+              : const Text(
+                  "먼저 설명을 들어보세요!",
+                  style: TextStyle(fontSize: 15),
+                ),
         ]),
       ),
     );

@@ -34,7 +34,7 @@ class _Scenario_stranger_2_leftState
         "여러분은 지금 길을 걷고 있어요. 그런데 저기서 어떤 모르는 사람이 여러분에게 다가오네요."
     );
     await tts.TextToSpeech(
-        "여러분은 지금 길을 걷고 있어요. 그런데 저기서 어떤 모르는 사람이 여러분에게 다가오네요. ",
+        "여러분은 지금 길을 걷고 있어요. 그런데 저기서 모르는 사람이 여러분에게 다가오네요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 

@@ -14,12 +14,10 @@ class Scenario_c_9_left extends StatefulWidget {
   const Scenario_c_9_left({super.key});
 
   @override
-  State<Scenario_c_9_left> createState() =>
-      _Scenario_c_9_leftState();
+  State<Scenario_c_9_left> createState() => _Scenario_c_9_leftState();
 }
 
-class _Scenario_c_9_leftState
-    extends State<Scenario_c_9_left> {
+class _Scenario_c_9_leftState extends State<Scenario_c_9_left> {
   void initState() {
     super.initState();
     _playWelcomeTTS();
@@ -28,13 +26,23 @@ class _Scenario_c_9_leftState
   Future<void> _playWelcomeTTS() async {
     await _audioPlayer.play(AssetSource("effect_ascending.mp3"));
 
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("축하합니다. 모든 이야기를 마치셨습니다.");
+
     await tts.TextToSpeech(
         "축하합니다. "
-            "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
-            "편의점에 갔을 때 어떻게 행동해야 할지 "
-            "잘 생각해보시기 바랍니다.",
+            "모든 이야기를 마치셨습니다. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("이번 경험을 바탕으로, 편의점에 갔을 때 어떻게 행동해야 할지 잘 생각해 보시기 바랍니다.");
+    await tts.TextToSpeech("이번 경험을 바탕으로, 편의점에 갔을 때 어떻게 행동해야 할지 잘 생각해 보시기 바랍니다.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+
     tts.dispose();
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -56,32 +64,30 @@ class Scenario_c_9_right extends StatefulWidget {
   const Scenario_c_9_right({super.key});
 
   @override
-  State<Scenario_c_9_right> createState() =>
-      _Scenario_c_9_rightState();
+  State<Scenario_c_9_right> createState() => _Scenario_c_9_rightState();
 }
 
-class _Scenario_c_9_rightState
-    extends State<Scenario_c_9_right> {
+class _Scenario_c_9_rightState extends State<Scenario_c_9_right> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
             child:
-            Provider.of<Scenario_Manager>(context, listen: false).flag == 1
-                ? ElevatedButton(
-              onPressed: () {
-                Provider.of<Scenario_Manager>(context, listen: false)
-                    .decrement_flag();
-                Navigator.pop(context);
-              },
-              child: Text(
-                "나가기",
-                style: TextStyle(fontSize: 40),
-                textAlign: TextAlign.center,
+                Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+                    ? ElevatedButton(
+                        onPressed: () {
+                          Provider.of<Scenario_Manager>(context, listen: false)
+                              .decrement_flag();
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "나가기",
+                          style: TextStyle(fontSize: 40),
+                          textAlign: TextAlign.center,
 
-                //오디오 멈추는 작업 하기
-              ),
-            )
-                : const Text("먼저 설명을 들어보세요!")));
+                          //오디오 멈추는 작업 하기
+                        ),
+                      )
+                    : const Text("먼저 설명을 들어보세요!")));
   }
 }

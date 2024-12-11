@@ -27,6 +27,12 @@ class _Scenario_c_4_leftState extends State<Scenario_c_4_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("씩씩하게 인사를 해보니까 기분이 어떤가요?\n"
+        "오른쪽 화면에서 자기가 느낀 기분을 손가락으로 직접 눌러보세요!");
+
     await tts.TextToSpeech(
         "씩씩하게 인사를 해보니까 기분이 어떤가요? "
             "오른쪽 화면에서 자기가 느낀 기분을 손가락으로 직접 눌러보세요! ",
@@ -44,7 +50,7 @@ class _Scenario_c_4_leftState extends State<Scenario_c_4_left> {
         children: [
           Positioned.fill(
             child: Image(
-              image: AssetImage("assets/convenience/카운터.webp"),
+              image: AssetImage("assets/convenience/편의점 카운터.webp"),
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
@@ -101,7 +107,8 @@ class _Scenario_c_4_rightState extends State<Scenario_c_4_right> {
             "정답: 좋아요",
             "응답(감정 표현): 좋아요");
       }
-
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
@@ -110,7 +117,9 @@ class _Scenario_c_4_rightState extends State<Scenario_c_4_right> {
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
-      _trigger1?.value = true;
+      if(_trigger1?.value == false){
+        _trigger1?.value = true;
+      }
     } else if (stateName == "sad") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 

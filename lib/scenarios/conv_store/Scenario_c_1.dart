@@ -29,6 +29,12 @@ class _Scenario_c_1_leftState extends State<Scenario_c_1_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("여러분은 지금 편의점에 가서 어떤 물건을 사고 싶나요?\n"
+        "오른쪽 화면에서 사고 싶은 물건을 손가락으로 직접 눌러보세요!");
+
     await tts.TextToSpeech(
         "여러분은 지금 편의점에 가서 어떤 물건을 사고 싶나요? "
             "오른쪽 화면에서 사고 싶은 물건을 손가락으로 직접 눌러보세요! ",
@@ -82,7 +88,7 @@ class _Scenario_c_1_rightState extends State<Scenario_c_1_right> {
     );
     artboard.addController(controller!);
 
-    _number = controller.findInput<SMINumber>('Number 1') as SMINumber;
+    _number = controller.getNumberInput("Number 1") as SMINumber;
     if(_number == null){
       debugPrint("NUMBER IS NULL");
     }
@@ -92,26 +98,55 @@ class _Scenario_c_1_rightState extends State<Scenario_c_1_right> {
   void _onStateChange(String stateMachineName, String stateName) async{
     // 애니메이션이 끝나는 상태를 확인하여 print
     if (stateName == 'ExitState') {
+      print("선택한 물건:::${(_number?.value as double).toInt()}");
+
+      Provider.of<Scenario_Manager>(context,listen: false).setString(stuffs[(_number?.value as double).toInt()]);
 
       widget.step_data.sendStepData(
-        "convenience 5",
+        "convenience 1",
         "(처음에 사려고 선택한 물건을 진열대에서 직접 찾아보는 상황)처음에 사려고 선택한 물건을 진열대에서 직접 찾아보세요",
-        "정답: ${Provider.of<Scenario_Manager>(context,listen: false).str}",
-        "응답(선택하기): ${stuffs[_number?.value as int]}",
+        "정답: ${stuffs[(_number?.value as double).toInt()]}",
+        "응답(선택하기): ${stuffs[(_number?.value as double).toInt()]}",
       );
 
+
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("잘하셨습니다. \"${stuffs[(_number?.value as double).toInt()]}\"을 선택하셨군요."
+          "방금 선택하신 물건을 잘 기억하시길 바랍니다. ");
+
       await tts.TextToSpeech(
-          "잘하셨습니다. ${stuffs[_number?.value as int]}을 선택하셨군요."
+          "잘하셨습니다. ${stuffs[(_number?.value as double).toInt()]}을 선택하셨군요."
               "방금 선택하신 물건을 잘 기억하시길 바랍니다. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
+
       tts.dispose();
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
 
     }else if (stateName == 'Timer exit'){
-      _bool?.value = true;
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("사고 싶은 물건이 없나요?\n"
+          "지금 정하지 않아도 괜찮아요. 나중에 편의점에 가서 사고 싶은 물건을 골라보도록 해요. ");
+      await tts.TextToSpeech(
+          "사고 싶은 물건이 없나요?"
+              "지금 정하지 않아도 괜찮아요. 나중에 편의점에 가서 사고 싶은 물건을 골라보도록 해요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+
+      widget.step_data.sendStepData(
+        "convenience 1",
+        "(처음에 사려고 선택한 물건을 진열대에서 직접 찾아보는 상황)처음에 사려고 선택한 물건을 진열대에서 직접 찾아보세요",
+        "정답: ex)과자",
+        "응답(선택하기): ${stuffs[(_number?.value as double).toInt()]}",
+      );
+
+
+      tts.dispose();
+
+      Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
     }
   }
 

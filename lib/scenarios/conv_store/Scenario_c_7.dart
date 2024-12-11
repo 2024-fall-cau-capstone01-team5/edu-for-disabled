@@ -29,8 +29,14 @@ class _Scenario_c_7_leftState extends State<Scenario_c_7_left> {
   }
 
   Future<void> _playWelcomeTTS() async {
+    await Future.delayed(Duration(milliseconds: 300));
+
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("다른 사람들이 계산을 다 마치고 여러분들의 차례가 왔네요.\n"
+        "계산을 해 보도록 할까요?");
+
     await tts.TextToSpeech(
-        "다른 사람들이 계산을 다 마치고 드디어 여러분들의 차례가 왔네요."
+        "다른 사람들이 계산을 다 마치고 여러분들의 차례가 왔네요. "
             "계산을 해보도록 할까요? ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -38,13 +44,18 @@ class _Scenario_c_7_leftState extends State<Scenario_c_7_left> {
     await _audioPlayer.play(AssetSource("effect_beep.mp3"));
     _audioPlayer.dispose();
 
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("1500원 입니다.\n계산 도와드릴게요.");
+
     await tts.TextToSpeech(
         "천오백원입니다. 계산 도와드릴게요.",
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
 
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("오른쪽 화면에서 카드를 터치해서 계산을 해보세요!");
     await tts.TextToSpeech(
-            "오른쪽 화면의 카드를 손가락으로 직접 눌러 카드를 꽂아보세요! ",
+        "오른쪽 화면에서 카드를 터치해서 계산을 해보세요!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
@@ -122,8 +133,11 @@ class _Scenario_c_7_rightState extends State<Scenario_c_7_right> {
         );
       }
 
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("잘 하셨습니다.");
+
       await tts.TextToSpeech(
-          "잘하셨습니다. ",
+          "잘 하셨습니다. ",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
@@ -143,7 +157,7 @@ class _Scenario_c_7_rightState extends State<Scenario_c_7_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/convenience/POS Animation.riv",
+            "assets/convenience/pos_animation.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
