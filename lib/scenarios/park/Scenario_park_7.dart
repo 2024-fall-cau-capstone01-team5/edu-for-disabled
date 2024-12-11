@@ -69,18 +69,14 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "이제 모두와 헤어질 시간이네요. "
-            "모두와 헤어지기 전에 인사를 해볼까요? "
+        "이제 모두와 헤어질 시간이네요. 모두와 헤어지기 전에 인사를 해볼까요?\n"
             "\"안녕히 가세요.\" 라고 직접 소리내어 말해보세요."
     );
     await tts.TextToSpeech(
-        "이제 모두와 헤어질 시간이네요."
-            "모두와 헤어지기 전에 인사를 해볼까요? "
+        "이제 모두와 헤어질 시간이네요. 모두와 헤어지기 전에 인사를 해볼까요? "
             "안녕히 가세요. 라고 직접 소리내어 말해보세요",
         "ko-KR-Wavenet-D");
-
     await tts.player.onPlayerComplete.first;
-
   }
 
   void _onRiveInit(Artboard artboard) async {
@@ -124,12 +120,12 @@ class _Scenario_park_7_rightState extends State<Scenario_park_7_right> {
 
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. 앞으로는 모두와 헤어지기 전에 잘 가라고 인사를 해 보도록 해요"
+          "참 잘했어요.\n"
+              "앞으로는 모두와 헤어지기 전에 잘 가라고 인사를 해 보도록 해요."
       );
       await tts.TextToSpeech(
           "참 잘했어요."
-              "앞으로는 모두와 헤어지기 전에 "
-              "잘 가라고 인사를 해 보도록 해요",
+              "앞으로는 모두와 헤어지기 전에 잘 가라고 인사를 해 보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
 

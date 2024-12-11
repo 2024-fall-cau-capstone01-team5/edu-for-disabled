@@ -129,14 +129,14 @@ class _Traffic_2_rightState extends State<Traffic_2_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-                  "assets/common/crossing.riv",
-                  fit: BoxFit.contain,
-                  onInit: _onRiveInit,
-                )
+            "assets/common/crossing.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
               : const Text(
-                  "먼저 설명을 들어보세요!",
-                  style: TextStyle(fontSize: 15),
-                ),
+            "먼저 설명을 들어보세요!",
+            style: TextStyle(fontSize: 15),
+          ),
         ]),
       ),
     );

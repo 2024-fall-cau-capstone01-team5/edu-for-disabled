@@ -27,12 +27,12 @@ class _Scenario_ready_8_leftState extends State<Scenario_ready_8_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "볼일을 다 봤으니 휴지를 사용해 볼까요? "
+        "볼일을 다 봤으니 휴지를 사용해 볼까요?\n"
             "오른쪽 화면의 휴지를 손가락으로 직접 눌러보세요. "
     );
     await tts.TextToSpeech(
         "볼일을 다 봤으니 휴지를 사용해 볼까요?"
-            "오른쪽 화면의 휴지를 손가락으로 직접 눌러보세요 ",
+            "오른쪽 화면의 휴지를 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -102,14 +102,12 @@ class _Scenario_ready_8_rightState extends State<Scenario_ready_8_right> {
         );
       }
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "앞으로 화장실을 이용할 때에는 "
-              "휴지는 사용할 만큼만 사용해 보는 습관을 들여보도록 해요. "
+          "참 잘했어요. 앞으로 화장실을 이용할 때에는\n"
+              "휴지는 사용할 만큼만 사용해 보는 습관을 들여 보도록 해요."
       );
       await tts.TextToSpeech(
-          "참 잘했어요. "
-              "앞으로 화장실을 이용할 때에는 "
-              "휴지는 사용할 만큼만 사용해 보는 습관을 들여보도록 해요. ",
+          "참 잘했어요. 앞으로 화장실을 이용할 때에는"
+              "휴지는 사용할 만큼만 사용해 보는 습관을 들여보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

@@ -76,8 +76,7 @@ class _Scenario_hurt_8_rightState extends State<Scenario_hurt_8_right> {
     await tts.player.onPlayerComplete.first;
 
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "119 구급 대원분께서 무엇을 도와주냐고 물어봤네요. "
-            "대답해 볼까요? "
+        "119 구급 대원분께서 무엇을 도와주냐고 물어봤네요. 대답해 볼까요?\n"
             " \"도와주세요! 다쳤어요!\"라고 직접 소리내어 말해보세요! "
     );
     await tts.TextToSpeech(
@@ -128,8 +127,7 @@ class _Scenario_hurt_8_rightState extends State<Scenario_hurt_8_right> {
       );
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요."
-              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요."
+          "참 잘했어요. 앞으로 도움을 구할 땐 꼭 자기가\n어떤 상황에 처해있는지 잘 설명해 보도록 해요."
       );
       await tts.TextToSpeech("참 잘했어요. "
           "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요.",

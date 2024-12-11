@@ -76,7 +76,7 @@ class _Scenario_stranger_6_rightState extends State<Scenario_stranger_6_right> {
         "ko-KR-Wavenet-C");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "남자분이 어떤 상황인지 물어보네요."
+        "남자분이 어떤 상황인지 물어보네요.\n"
             "\"도와주세요! 모르는 사람이에요!\"라고 다시 한 번 직접 소리내어 말해보세요. "
     );
     await tts.TextToSpeech("남자분이 어떤 상황인지 물어보네요."
@@ -120,7 +120,7 @@ class _Scenario_stranger_6_rightState extends State<Scenario_stranger_6_right> {
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
           "참 잘했어요. "
-              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요."
+              "앞으로 도움을 구할 땐\n꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요."
       );
       await tts.TextToSpeech(
           "참 잘했어요."

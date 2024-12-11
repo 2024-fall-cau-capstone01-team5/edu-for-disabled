@@ -30,13 +30,12 @@ class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요. "
+        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요.\n"
             "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요!"
     );
     await tts.TextToSpeech(
-        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요. "
-            "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요"
-            "!",
+        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요."
+            "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();

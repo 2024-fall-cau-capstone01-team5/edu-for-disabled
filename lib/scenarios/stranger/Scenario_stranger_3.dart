@@ -72,7 +72,7 @@ class _Scenario_stranger_3_rightState extends State<Scenario_stranger_3_right> {
     await tts.player.onPlayerComplete.first;
 
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "모르는 사람이 자기를 따라오라고 하네요. "
+        "모르는 사람이 자기를 따라오라고 하네요.\n"
             "하지만 모르는 사람을 함부로 따라가면 나쁜 일이 생길 수도 있어요. "
     );
     await tts.TextToSpeech(
@@ -81,14 +81,19 @@ class _Scenario_stranger_3_rightState extends State<Scenario_stranger_3_right> {
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-            "이럴 땐 싫다고 단호하게 말해야해요. "
+            "이럴 땐 싫다고 단호하게 말해야해요.\n"
             "착하게 말하면 나쁜 사람이 떠나지 않아요. "
-            "그럼 지금부터 힘차게, \"싫어요!\"라고 직접 소리내어 말해보세요."
     );
     await tts.TextToSpeech(
             "이럴 땐 싫다고 단호하게 말해야해요. "
-            "착하게 말하면 나쁜 사람이 떠나지 않아요. "
-            "그럼 지금부터 힘차게, 싫어요!라고 직접 소리내어 말해보세요.",
+            "착하게 말하면 나쁜 사람이 떠나지 않아요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼 지금부터 힘차게, \"싫어요!\"라고 직접 소리내어 말해보세요."
+    );
+    await tts.TextToSpeech(
+        "그럼 지금부터 힘차게, 싫어요!라고 직접 소리내어 말해보세요.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }

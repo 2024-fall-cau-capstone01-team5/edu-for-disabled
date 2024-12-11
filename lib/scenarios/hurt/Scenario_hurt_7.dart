@@ -27,38 +27,29 @@ class _Scenario_hurt_7_leftState extends State<Scenario_hurt_7_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "상처가 난 곳을 수건으로 꾹 눌렀다면, 이번엔 도움을 구해야 해요.\n"
+            "부모님이 옆에 계시다면, 부모님께 먼저 도움을 구해 보도록 해요. "
+    );
+    await tts.TextToSpeech(
         "상처가 난 곳을 수건으로 꾹 눌렀다면, 이번엔 도움을 구해야 해요. "
-    );
-    await tts.TextToSpeech(
-        "상처가 난 곳을 수건으로 꾹 눌렀다면, 이번엔 도움을 구해야 해요. ",
+            "부모님이 옆에 계시다면, 부모님께 먼저 도움을 구해 보도록 해요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "부모님이 옆에 계시다면, 부모님께 먼저 도움을 구해 보도록 해요. "
-    );
-    await tts.TextToSpeech(
-        "부모님이 옆에 계시다면, 부모님께 먼저 도움을 구해 보도록 해요. ",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "만약에 부모님이 안 계실 때에는 119에 전화를 해서 도움을 구해야 해요. "
+        "만약에 부모님이 안 계실 때에는 119에 전화를 해서 도움을 구해야 해요."
     );
     await tts.TextToSpeech(
         "만약에 부모님이 안 계실 때에는 119에 전화를 해서 도움을 구해야 해요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "그럼 119에 전화를 걸어볼까요? 오른쪽 화면의 버튼을 손가락으로 직접 눌러보세요! "
+        "그럼 119에 전화를 걸어볼까요?\n오른쪽 화면의 버튼을 손가락으로 직접 눌러보세요! "
     );
     await tts.TextToSpeech(
         "그럼 119에 전화를 걸어볼까요? 오른쪽 화면의 버튼을 손가락으로 직접 눌러보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
-
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }

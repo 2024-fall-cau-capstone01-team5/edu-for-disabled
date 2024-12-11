@@ -27,7 +27,7 @@ class _Scenario_hurt_11_leftState extends State<Scenario_hurt_11_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "구급 대원분들이 도착했네요. "
+        "구급 대원분들이 도착했네요.\n"
             "참 잘했어요. 구급 대원분들이 오실 때까지 침착하게 기다렸네요."
     );
     await tts.TextToSpeech(
@@ -36,12 +36,17 @@ class _Scenario_hurt_11_leftState extends State<Scenario_hurt_11_left> {
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "구급 대원분들이 도착하면 문을 열어주는 것을 잊으면 안돼요! 잘 아시겠죠? "
-            "그럼, 오른쪽 화면의 다음으로 넘어가기 버튼을 손가락으로 직접 눌러보세요! "
+        "구급 대원분들이 도착하면 문을 열어주는\n것을 잊으면 안돼요! 잘 아시겠죠?"
     );
     await tts.TextToSpeech(
-        "구급 대원분들이 도착하면 문을 열어주는 것을 잊으면 안돼요! 잘 아시겠죠? "
-            "그럼, 오른쪽 화면의 다음으로 넘어가기 버튼을 손가락으로 직접 눌러보세요! ",
+        "구급 대원분들이 도착하면 문을 열어주는 것을 잊으면 안돼요! 잘 아시겠죠? ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "그럼, 오른쪽 화면의 다음으로 넘어가기 버튼을\n손가락으로 직접 눌러보세요! "
+    );
+    await tts.TextToSpeech(
+        "그럼, 오른쪽 화면의 다음으로 넘어가기 버튼을 손가락으로 직접 눌러보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 

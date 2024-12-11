@@ -66,7 +66,7 @@ class _Scenario_missing_child_10_rightState
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "지금까지 여러분을 도와준 모든 분들께 \"감사합니다.\" 라고 직접 소리내어 인사를 해 보세요. "
+        "지금까지 여러분을 도와준 모든 분들께\n \"감사합니다.\" 라고 직접 소리내어 인사를 해 보세요. "
     );
     await tts.TextToSpeech("지금까지 여러분을 도와준 모든 분들께 감사합니다 라고 직접 소리내어 인사를 해 보세요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
