@@ -16,8 +16,10 @@ class LearningStatisticsPage extends StatefulWidget {
 
 class _LearningStatisticsPageState extends State<LearningStatisticsPage> {
   Map<String, int> statistics = {
-    "real_response_cnt": 0,
-    "expect_response_cnt": 0,
+    "whole_response_cnt": 0,
+    "responsed_question_cnt": 0,
+    "expected_question_cnt": 0,
+    "eval_response_cnt": 0,
     "correct_response_cnt": 0,
     "timeout_response_cnt": 0,
   };
@@ -57,8 +59,10 @@ class _LearningStatisticsPageState extends State<LearningStatisticsPage> {
       if (response.statusCode == 200) {
         final data = json.decode(utf8.decode(response.bodyBytes));
         setState(() {
-          statistics["real_response_cnt"] = data["real_response_cnt"] ?? 0;
-          statistics["expect_response_cnt"] = data["expect_response_cnt"] ?? 0;
+          statistics["whole_response_cnt"] = data["whole_response_cnt"] ?? 0;
+          statistics["responsed_question_cnt"] = data["responsed_question_cnt"] ?? 0;
+          statistics["expected_question_cnt"] = data["expected_question_cnt"] ?? 0;
+          statistics["eval_response_cnt"] = data["eval_response_cnt"] ?? 0;
           statistics["correct_response_cnt"] =
               data["correct_response_cnt"] ?? 0;
           statistics["timeout_response_cnt"] =
@@ -72,8 +76,10 @@ class _LearningStatisticsPageState extends State<LearningStatisticsPage> {
     } catch (e) {
       print("There aren't fetching statistics: $e");
       setState(() {
-        statistics["real_response_cnt"] = 0;
-        statistics["expect_response_cnt"] = 0;
+        statistics["whole_response_cnt"] = 0;
+        statistics["responsed_question_cnt"] = 0;
+        statistics["expected_question_cnt"] = 0;
+        statistics["eval_response_cnt"] = 0;
         statistics["correct_response_cnt"] = 0;
         statistics["timeout_response_cnt"] = 0;
         isLoading = false;
@@ -85,17 +91,19 @@ class _LearningStatisticsPageState extends State<LearningStatisticsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final realResponse = statistics["real_response_cnt"]!;
-    final expectResponse = statistics["expect_response_cnt"]!;
+    final wholeResponse = statistics["whole_response_cnt"]!;
+    final responsedQuestion = statistics["responsed_question_cnt"]!;
+    final expectedQuestion = statistics["expected_question_cnt"]!;
+    final evalResponse = statistics["eval_response_cnt"]!;
     final correctResponse = statistics["correct_response_cnt"]!;
     final timeoutResponse = statistics["timeout_response_cnt"]!;
 
     final responseRate =
-    expectResponse > 0 ? realResponse * 100 / expectResponse : 0.0;
+    expectedQuestion > 0 ? responsedQuestion * 100 / expectedQuestion : 0.0;
     final accuracyRate =
-    realResponse > 0 ? correctResponse * 100 / realResponse : 0.0;
+    evalResponse > 0 ? correctResponse * 100 / evalResponse : 0.0;
     final timeoutRate =
-    realResponse > 0 ? timeoutResponse * 100 / realResponse : 0.0;
+    evalResponse > 0 ? timeoutResponse * 100 / evalResponse : 0.0;
 
     Map<String, double> ratioData = {
       "응답률": responseRate,
@@ -177,9 +185,13 @@ class _LearningStatisticsPageState extends State<LearningStatisticsPage> {
                     ),
                     const SizedBox(height: 10),
                     // 통계 수치
-                    _buildStatRow("문항수", "$expectResponse 개"),
+                    _buildStatRow("전체 문항수", "$expectedQuestion 개"),
                     const SizedBox(height: 10),
-                    _buildStatRow("응답수", "$realResponse 개"),
+                    _buildStatRow("응답 문항수", "$responsedQuestion 개"),
+                    const SizedBox(height: 10),
+                    _buildStatRow("전체 응답수", "$wholeResponse 개"),
+                    const SizedBox(height: 10),
+                    _buildStatRow("평가 응답수", "$evalResponse 개"),
                     const SizedBox(height: 10),
                     _buildStatRow("정답수", "$correctResponse 개"),
                     const SizedBox(height: 10),
@@ -251,7 +263,15 @@ class _LearningStatisticsPageState extends State<LearningStatisticsPage> {
         required Color color,
         required bool validDate}) {
     double value = double.parse(percentage.toStringAsFixed(2));
-    String ratioText = title + "\n(" + value.toString() + "%)";
+    String ratioText = title + " (" + value.toString() + "%)";
+    switch(title){
+      case "응답률":
+        ratioText += "\n(응답 문항수 / 전체 문항수)";
+      case "정답률":
+        ratioText += "\n(정답수 / 평가 응답수)";
+      case "시간초과 비율":
+        ratioText += "\n(시간초과 / 평가 응답수)\n*무응답 포함";
+    }
     if(!validDate) ratioText = "해당 기간 내 평가된\n학습 기록이 없습니다";
     return Stack(
       alignment: Alignment.center,
