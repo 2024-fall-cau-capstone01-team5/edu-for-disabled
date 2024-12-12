@@ -127,8 +127,8 @@ class _Scenario_c_1_rightState extends State<Scenario_c_1_right> {
 
     }else if (stateName == 'Timer exit'){
       await Provider.of<Scenario_Manager>(context, listen: false)
-          .updateSubtitle("사고 싶은 물건이 없나요?\n"
-          "지금 정하지 않아도 괜찮아요. 나중에 편의점에 가서 사고 싶은 물건을 골라보도록 해요. ");
+          .updateSubtitle("사고 싶은 물건이 없나요? "
+          "지금 정하지 않아도 괜찮아요.\n나중에 편의점에 가서 사고 싶은 물건을 골라보도록 해요. ");
       await tts.TextToSpeech(
           "사고 싶은 물건이 없나요?"
               "지금 정하지 않아도 괜찮아요. 나중에 편의점에 가서 사고 싶은 물건을 골라보도록 해요. ",

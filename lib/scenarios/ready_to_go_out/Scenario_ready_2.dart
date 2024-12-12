@@ -95,17 +95,19 @@ class _Scenario_ready_2_rightState extends State<Scenario_ready_2_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-    await Provider.of<Scenario_Manager>(context, listen: false)
-        .updateSubtitle("참 잘했어요. 앞으로는 아침에 일어난 다음에\n"
-            "부모님께 인사를 씩씩하게 해보도록 해요.");
-    await tts.TextToSpeech(
-        "참 잘했어요. 앞으로는 아침에 일어난 다음에"
-            "부모님께 인사를 씩씩하게 해보도록 해요",
-        "ko-KR-Wavenet-D");
-    await tts.player.onPlayerComplete.first;
-    tts.dispose();
 
     if (stateName == 'ExitState') {
+
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("참 잘했어요. 앞으로는 아침에 일어난 다음에\n"
+          "부모님께 인사를 씩씩하게 해보도록 해요.");
+      await tts.TextToSpeech(
+          "참 잘했어요. 앞으로는 아침에 일어난 다음에"
+              "부모님께 인사를 씩씩하게 해보도록 해요",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
       widget.step_data.sendStepData(
         "ready_to_go 2",
         "(부모님께 아침 인사를 하는 상황)부모님께 \"안녕히 주무셨어요?\" 라고 소리내어 말해보세요",
