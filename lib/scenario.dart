@@ -17,7 +17,6 @@ import 'character.dart';
 
 AudioPlayer _audioPlayer = AudioPlayer();
 
-
 class Scenario extends StatelessWidget {
   final String label;
   final String user_id;
@@ -237,37 +236,20 @@ class Scenario extends StatelessWidget {
         },
       );
     }else{
-      return FutureBuilder<String>(
-        future: _learnstart('3'),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // 로딩 중 상태
-            return Scaffold(
-              appBar: AppBar(title: Text('로딩 중...')),
-              body: Center(child: CircularProgressIndicator()),
-            );
-          } else if (snapshot.hasError) {
-            // 에러 상태
-            return Scaffold(
-              appBar: AppBar(title: Text('접속 장애 페이지')),
-              body: Center(
-                child: Text(
-                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
-                  textAlign: TextAlign.center,
-                ),
+      return const Scaffold(
+        body: Center(
+          child: Column(
+            children: [
+              Text(
+                '새로운 컨텐츠 업데이트 예정!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
               ),
-            );
-          } else {
-            // 정상 상태
-            final learning_log_id = snapshot.data!;
-            return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_ready_provider(learningLogId: learning_log_id, acter: acterWidget),
-              child: const Scenario_Canvas(),
-            );
-          }
-        },
+              Expanded(child: Image(image: AssetImage("assets/category_icons/푸앙_미소.png")))
+            ],
+          ),
+        ),
       );
-
     }
   }
 }
