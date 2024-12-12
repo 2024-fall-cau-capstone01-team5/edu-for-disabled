@@ -301,10 +301,11 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
             ),
           ),
           Align(
-            alignment: Alignment.topRight, // 오른쪽 상단에 배치
+            alignment: Alignment.topLeft, // 왼쪽 상단에 배치
             child: IconButton(
               icon: Icon(Icons.exit_to_app),
               color: Colors.black,
+              iconSize: 30.0, // 아이콘 크기 조정 (기본값은 24.0)
               onPressed: () {
                 Navigator.pop(context);
               },

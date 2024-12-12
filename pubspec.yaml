@@ -82,6 +82,7 @@ flutter:
     - assets/stranger/
     - assets/hurt/
     - assets/convenience/
+    - assets/capstone-439716-2cd705dd280d.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
