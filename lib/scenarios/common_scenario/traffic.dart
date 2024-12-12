@@ -28,10 +28,17 @@ Future<void> _playWelcomeTTS(BuildContext context) async {
   await Provider.of<Scenario_Manager>(context, listen: false)
       .updateSubtitle(
       "초록불이더라도 이렇게 깜빡거리고 있으면, 빨리 건너려고 하지 말고 차분히 다음 신호를 기다려 보도록 해요. "
+  );
+
+  await tts.TextToSpeech(
+      "초록불이더라도 이렇게 깜빡거리고 있으면, 빨리 건너려고 하지 말고 차분히 다음 신호를 기다려 보도록 해요. ",
+      "ko-KR-Wavenet-D");
+  await tts.player.onPlayerComplete.first;
+  await Provider.of<Scenario_Manager>(context, listen: false)
+      .updateSubtitle(
           "횡단보도를 건너는 도중에 빨간불로 바뀔 수도 있답니다.");
 
   await tts.TextToSpeech(
-      "초록불이더라도 이렇게 깜빡거리고 있으면, 빨리 건너려고 하지 말고 차분히 다음 신호를 기다려 보도록 해요. "
           "횡단보도를 건너는 도중에 빨간불로 바뀔 수도 있답니다.", "ko-KR-Wavenet-D");
   await tts.player.onPlayerComplete.first;
 
@@ -39,14 +46,19 @@ Future<void> _playWelcomeTTS(BuildContext context) async {
   _is_red_on?.value = true;
 
   await Future.delayed(Duration(seconds: 2));
-  await Provider.of<Scenario_Manager>(context, listen: false)
-      .updateSubtitle("신호등이 빨간불이 되었네요. 빨간불이 되었을 땐 절대 도로에 들어가면 안돼요. "
+  await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+      "신호등이 빨간불이 되었네요. 빨간불이 되었을 땐 절대 도로에 들어가면 안돼요. "
       "도로에는 자동차가 쌩쌩 달리고 있답니다. "
-      "그럼 이제부터 신호등이 초록불로 바뀔 때까지 차분히 기다려 보도록 해요.");
+      );
   await tts.TextToSpeech(
       "신호등이 빨간불이 되었네요. 빨간불이 되었을 땐 절대 도로에 들어가면 안돼요. "
-          "도로에는 자동차가 쌩쌩 달리고 있답니다. "
-          "신호등이 초록불로 바뀔 때까지 차분히 기다려보도록 해요.",
+          "도로에는 자동차가 쌩쌩 달리고 있답니다. ",
+      "ko-KR-Wavenet-D");
+  await tts.player.onPlayerComplete.first;
+  await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "신호등이 초록불로 바뀔 때까지 차분히 기다려 보도록 해요.");
+  await tts.TextToSpeech(
+          "신호등이 초록불로 바뀔 때까지 차분히 기다려 보도록 해요.",
       "ko-KR-Wavenet-D");
   await tts.player.onPlayerComplete.first;
 

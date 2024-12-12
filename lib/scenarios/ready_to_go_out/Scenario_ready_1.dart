@@ -116,7 +116,7 @@ class _Scenario_ready_1_rightState extends State<Scenario_ready_1_right> {
               "부모님이 아닌 자기가 스스로 개는 착한 사람이 되보도록 해요."
       );
       await tts.TextToSpeech(
-          "참 잘했어요. 앞으로는 자기가 덮고 잤던 이불은"
+          "참 잘했어요. 앞으로는 자기가 덮고 잤던 이불은 "
               "부모님이 아닌 자기가 스스로 개는 착한 사람이 되보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;

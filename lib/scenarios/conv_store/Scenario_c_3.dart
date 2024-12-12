@@ -93,7 +93,7 @@ class _Scenario_c_3_rightState extends State<Scenario_c_3_right> {
     await tts.player.onPlayerComplete.first;
 
     await Provider.of<Scenario_Manager>(context, listen: false)
-        .updateSubtitle("직원분께서 인사를 해 주시네요.");
+        .updateSubtitle("편의점 직원분께서 인사를 해 주시네요.");
 
     await tts.TextToSpeech(
         "편의점 직원분께서 인사를 해 주시네요."
