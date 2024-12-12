@@ -22,7 +22,7 @@ class _AddProfileScreenState extends State<AddProfileScreen> {
   ];
 
   Future<void> _addProfile() async {
-    final url = Uri.parse("http://20.9.151.223:8080/profiles/set/");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/profiles/set/");
     final response = await http.post(
       url,
       headers: {

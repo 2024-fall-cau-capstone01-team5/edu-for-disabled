@@ -34,7 +34,7 @@ class _CheckboxListState extends State<CheckboxList> {
   Future<void> fetchLearningList() async {
     try {
       final response = await http.post(
-        Uri.parse('http://20.9.151.223:8080/learning_list/scenarios'),
+        Uri.parse('https://www.gamercmdgpt.store/api/learning_list/scenarios'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
           "user_id": widget.userId,
@@ -104,8 +104,8 @@ class _CheckboxListState extends State<CheckboxList> {
                     });
 
                     final url = value == true
-                        ? 'http://20.9.151.223:8080/learning_list/add'
-                        : 'http://20.9.151.223:8080/learning_list/remove';
+                        ? 'https://www.gamercmdgpt.store/api/learning_list/add'
+                        : 'https://www.gamercmdgpt.store/api/learning_list/remove';
 
                     await http.post(
                       Uri.parse(url),

@@ -40,7 +40,7 @@ class _CharacterState extends State<Character> {
 
   Future<void> _fetchCharacterState() async {
     final url = Uri.parse(
-        "http://20.9.151.223:8080/character/get?user_id=${widget
+        "https://www.gamercmdgpt.store/api/character/get?user_id=${widget
             .userId}&profile_name=${widget.profile}");
 
     try {

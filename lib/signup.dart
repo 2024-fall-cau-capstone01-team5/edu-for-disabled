@@ -13,7 +13,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _userNameController = TextEditingController();
 
   Future<void> _signup() async {
-    final url = Uri.parse("http://20.9.151.223:8080/register");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/register");
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},

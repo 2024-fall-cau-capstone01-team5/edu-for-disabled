@@ -50,7 +50,7 @@ class _LearningStatisticsPageState extends State<LearningStatisticsPage> {
         .toIso8601String();
 
     final url = Uri.parse(
-        "http://20.9.151.223:8080/statics?user_id=${widget.userId}&profile_name=${widget.profileName}" +
+        "https://www.gamercmdgpt.store/api/statics?user_id=${widget.userId}&profile_name=${widget.profileName}" +
             (startDate != null && endDate != null
                 ? "&start_date=$startDate&end_date=$endDate"
                 : ""));

@@ -24,7 +24,7 @@ class RemoveProfileScreen extends StatefulWidget {
 
 class _RemoveProfileScreenState extends State<RemoveProfileScreen> {
   Future<void> _removeProfile(BuildContext context, String profileName) async {
-    final url = Uri.parse("http://20.9.151.223:8080/profiles/rm/");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/profiles/rm/");
     final response = await http.delete(
       url,
       headers: {
