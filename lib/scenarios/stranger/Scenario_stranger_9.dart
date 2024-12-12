@@ -17,8 +17,7 @@ class Scenario_stranger_9_left extends StatefulWidget {
       _Scenario_stranger_9_leftState();
 }
 
-class _Scenario_stranger_9_leftState
-    extends State<Scenario_stranger_9_left> {
+class _Scenario_stranger_9_leftState extends State<Scenario_stranger_9_left> {
   void initState() {
     super.initState();
     _playWelcomeTTS();
@@ -28,11 +27,10 @@ class _Scenario_stranger_9_leftState
     await Future.delayed(Duration(milliseconds: 300));
     await _audioPlayer.play(AssetSource("effect_ascending.mp3"));
 
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "축하합니다. "
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("축하합니다. "
             "모든 이야기를 마치셨습니다. "
-            "앞으로 모르는 사람이 다가올 때,\n \"도와주세요! 모르는 사람이에요!\" 이 말을 기억하길 바랍니다."
-    );
+            "앞으로 모르는 사람이 다가올 때,\n \"도와주세요! 모르는 사람이에요!\" 이 말을 기억하길 바랍니다.");
     await tts.TextToSpeech(
         "축하합니다. "
             "모든 이야기를 마치셨습니다. "
@@ -64,28 +62,36 @@ class Scenario_stranger_9_right extends StatefulWidget {
       _Scenario_stranger_9_rightState();
 }
 
-class _Scenario_stranger_9_rightState
-    extends State<Scenario_stranger_9_right> {
+class _Scenario_stranger_9_rightState extends State<Scenario_stranger_9_right> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child:
-            Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+            child: Provider.of<Scenario_Manager>(context, listen: false).flag ==
+                    1
                 ? ElevatedButton(
-              onPressed: () {
-                Provider.of<Scenario_Manager>(context, listen: false)
-                    .decrement_flag();
-                Navigator.pop(context);
-              },
-              child: Text(
-                "나가기",
-                style: TextStyle(fontSize: 40),
-                textAlign: TextAlign.center,
-
-                //오디오 멈추는 작업 하기
-              ),
-            )
+                    onPressed: () {
+                      Provider.of<Scenario_Manager>(context, listen: false)
+                          .decrement_flag();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      '나가기',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      backgroundColor: Colors.blueAccent, // 게임 스타일에 맞는 색상
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 10,
+                    ),
+                  )
                 : const Text("먼저 설명을 들어보세요!")));
   }
 }

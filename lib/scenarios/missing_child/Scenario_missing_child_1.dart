@@ -22,32 +22,27 @@ class _Scenario_missing_child_1_leftState
     extends State<Scenario_missing_child_1_left> {
   @override
   void initState() {
-        super.initState();
+    super.initState();
     _playWelcomeTTS();
   }
 
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "여러분 반가워요!\n이번 시간에는 길을 잃었을 때 어떻게 해야 하는지 알아볼 거에요."
-    );
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("여러분 반가워요!\n이번 시간에는 길을 잃었을 때 어떻게 해야 하는지 알아볼 거에요.");
     await tts.TextToSpeech(
-        "여러분 반가워요! 이번 시간에는 길을 잃었을 때 어떻게 해야 하는지 알아볼 거에요. ",
-        "ko-KR-Wavenet-D");
+        "여러분 반가워요! 이번 시간에는 길을 잃었을 때 어떻게 해야 하는지 알아볼 거에요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "여러분은 길을 잃어본 적이 있나요? 그럴 때 어떻게 행동 하셨나요? "
-    );
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("여러분은 길을 잃어본 적이 있나요? 그럴 때 어떻게 행동 하셨나요? ");
     await tts.TextToSpeech(
-        "여러분은 길을 잃어본 적이 있나요? 그럴 때 어떻게 행동 하셨나요? ",
-        "ko-KR-Wavenet-D");
+        "여러분은 길을 잃어본 적이 있나요? 그럴 때 어떻게 행동 하셨나요? ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-            "이번 이야기를 경험 삼아 어떻게 해야 하는지 알아보도록 해요.\n"
-            "그럼 도움을 구해보러 가볼까요? 오른쪽 화면의 시작하기 버튼을 눌러보세요! "
-    );
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("이번 이야기를 경험 삼아 어떻게 해야 하는지 알아보도록 해요.\n"
+            "그럼 도움을 구해보러 가볼까요? 오른쪽 화면의 시작하기 버튼을 눌러보세요! ");
     await tts.TextToSpeech(
-            "이번 이야기를 경험삼아 어떻게 해야 하는지 알아보도록 해요. "
+        "이번 이야기를 경험삼아 어떻게 해야 하는지 알아보도록 해요. "
             "그럼 도움을 구해보러 가볼까요? 오른쪽 화면의 시작하기 버튼을 눌러보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -93,32 +88,44 @@ class _Scenario_missing_child_1_rightState
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? ElevatedButton(
-              onPressed: () async{
-                await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
-                await Future.delayed(Duration(seconds: 2));
+                  onPressed: () async {
+                    await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
+                    await Future.delayed(Duration(seconds: 2));
 
-                await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-                    "잘 하셨습니다."
-                );
-                await tts.TextToSpeech("잘 하셨습니다.",
-                    "ko-KR-Wavenet-D");
-                await tts.player.onPlayerComplete.first;
+                    await Provider.of<Scenario_Manager>(context, listen: false)
+                        .updateSubtitle("잘 하셨습니다.");
+                    await tts.TextToSpeech("잘 하셨습니다.", "ko-KR-Wavenet-D");
+                    await tts.player.onPlayerComplete.first;
 
+                    tts.dispose();
+                    _audioPlayer.dispose();
 
-                tts.dispose();
-                _audioPlayer.dispose();
-
-                widget.step_data.sendStepData(
-                    "missing_child 1",
-                    "(긿을 잃었을 때 어떻게 해야 하는지 알아보는 이야기를 시작하기 위해 시작하기 버튼을 누르는 상황)시작하기 버튼을 눌러보세요",
-                    "정답: 터치 완료",
-                    "응답(터치하기): 터치 완료"
-                );
-                Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
-                Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
-              },
-              child: Text("시작하기!")
-          )
+                    widget.step_data.sendStepData(
+                        "missing_child 1",
+                        "(긿을 잃었을 때 어떻게 해야 하는지 알아보는 이야기를 시작하기 위해 시작하기 버튼을 누르는 상황)시작하기 버튼을 눌러보세요",
+                        "정답: 터치 완료",
+                        "응답(터치하기): 터치 완료");
+                    Provider.of<Scenario_Manager>(context, listen: false)
+                        .decrement_flag();
+                    Provider.of<Scenario_Manager>(context, listen: false)
+                        .updateIndex();
+                  },
+                  child: Text(
+                    '시작하기!',
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    backgroundColor: Colors.blueAccent, // 게임 스타일에 맞는 색상
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    elevation: 10,
+                  ),
+                )
               : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),

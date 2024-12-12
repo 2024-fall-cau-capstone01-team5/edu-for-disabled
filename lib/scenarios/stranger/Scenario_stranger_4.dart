@@ -134,7 +134,7 @@ class _Scenario_stranger_4_rightState extends State<Scenario_stranger_4_right> {
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
-      _trigger2?.value = true;
+      _trigger1?.value = true;
     } else if (stateName == "sad") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
