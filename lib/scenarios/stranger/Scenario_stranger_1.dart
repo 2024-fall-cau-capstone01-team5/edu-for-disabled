@@ -118,7 +118,7 @@ class _Scenario_stranger_1_rightState extends State<Scenario_stranger_1_right> {
                         .updateIndex();
                   },
                   child: Text(
-                    '나가기',
+                    '시작하기',
                     style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
