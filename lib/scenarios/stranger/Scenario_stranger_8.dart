@@ -101,8 +101,7 @@ class _Scenario_stranger_8_rightState extends State<Scenario_stranger_8_right> {
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "앞으로는 감사 인사를 꼭 해보도록 해요. "
+          "참 잘했어요. 앞으로는 도움을 받았다면 감사 인사를 꼭 해보도록 해요. "
       );
       await tts.TextToSpeech(
           "참 잘했어요."
