@@ -135,6 +135,14 @@ class _Scenario_stranger_4_rightState extends State<Scenario_stranger_4_right> {
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
       _trigger2?.value = true;
+    } else if (stateName == "sad") {
+      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
+
+      widget.step_data.sendStepData(
+          "stranger 4",
+          "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+          "정답: 싫어요",
+          "응답(감정 표현): 슬퍼요");
     } else if (stateName == "good") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
@@ -143,14 +151,6 @@ class _Scenario_stranger_4_rightState extends State<Scenario_stranger_4_right> {
           "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
           "정답: 싫어요",
           "응답(감정 표현): 좋아요");
-    } else if (stateName == "fun") {
-      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
-
-      widget.step_data.sendStepData(
-          "stranger 4",
-          "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
-          "정답: 싫어요",
-          "응답(감정 표현): 즐거워요");
     } else if (stateName == "nope") {
       await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
       await Future.delayed(Duration(seconds: 2));

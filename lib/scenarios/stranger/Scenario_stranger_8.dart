@@ -94,20 +94,12 @@ class _Scenario_stranger_8_rightState extends State<Scenario_stranger_8_right> {
 
     _bool1?.value = true;
 
-    setState(() async {
-      answer = await stt.gettext(5);
-    });
+    answer = await stt.gettext(5);
+
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
-      widget.step_data.sendStepData(
-        "stranger 8",
-        "(도와주신 남자분께 감사의 인사를 하는 상황)도와주신 남자분께 \"감사합니다.\" 라고 말해보세요",
-        "정답: \"감사합니다.\"",
-        "응답(소리내어 말하기): $answer",
-      );
-
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
           "참 잘했어요. "
               "앞으로는 감사 인사를 꼭 해보도록 해요. "
@@ -118,6 +110,15 @@ class _Scenario_stranger_8_rightState extends State<Scenario_stranger_8_right> {
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+
+      widget.step_data.sendStepData(
+        "stranger 8",
+        "(도와주신 남자분께 감사의 인사를 하는 상황)도와주신 남자분께 \"감사합니다.\" 라고 말해보세요",
+        "정답: \"감사합니다.\"",
+        "응답(소리내어 말하기): $answer",
+      );
+
+
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {

@@ -125,7 +125,7 @@ class _Scenario_missing_child_5_rightState extends State<Scenario_missing_child_
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/ready/door_opening_and_closing.riv",
+            "assets/common/door_opening_and_closing.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )
