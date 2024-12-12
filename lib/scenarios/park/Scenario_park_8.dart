@@ -18,7 +18,6 @@ class Scenario_park_8_left extends StatefulWidget {
 }
 
 class _Scenario_park_8_leftState extends State<Scenario_park_8_left> {
-
   void initState() {
     super.initState();
     _playWelcomeTTS();
@@ -54,7 +53,6 @@ class _Scenario_park_8_leftState extends State<Scenario_park_8_left> {
     await tts.player.onPlayerComplete.first;
 
     tts.dispose();
-
   }
 
   @override
@@ -83,20 +81,29 @@ class _Scenario_park_8_rightState extends State<Scenario_park_8_right> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child:
-                Provider.of<Scenario_Manager>(context, listen: false).flag == 1
-                    ? ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "나가기",
-                          style: TextStyle(fontSize: 40),
-                          textAlign: TextAlign.center,
-
-                          //오디오 멈추는 작업 하기
-                        ),
-                      )
-                    : const SizedBox.shrink()));
+            child: Provider.of<Scenario_Manager>(context, listen: false).flag ==
+                    1
+                ? ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      '나가기',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      backgroundColor: Colors.blueAccent, // 게임 스타일에 맞는 색상
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 10,
+                    ),
+                  )
+                : const SizedBox.shrink()));
   }
 }
