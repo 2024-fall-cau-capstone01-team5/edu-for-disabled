@@ -75,10 +75,10 @@ class _Scenario_missing_child_7_rightState extends State<Scenario_missing_child_
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "길을 잃으셨나요? 이름이 어떻게 되시나요?"
+        "길을 잃었다고요? 이름이 어떻게 되시나요?"
     );
     await tts.TextToSpeech(
-        "길을 잃으셨나요? 이름이 어떻게 되시나요?",
+        "길을 잃었다고요? 이름이 어떻게 되시나요?",
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
