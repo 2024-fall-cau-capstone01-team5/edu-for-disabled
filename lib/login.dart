@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _login() async {
-    final url = Uri.parse("http://20.9.151.223:8080/login");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/login");
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},

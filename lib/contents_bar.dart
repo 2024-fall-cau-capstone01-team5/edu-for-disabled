@@ -118,7 +118,7 @@ class MainScroll extends StatelessWidget {
   Future<void> fetch() async {
     try {
       final response = await http.post(
-        Uri.parse('http://20.9.151.223:8080/learning_list/scenarios'),
+        Uri.parse('https://www.gamercmdgpt.store/api/learning_list/scenarios'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
           "user_id": userId,

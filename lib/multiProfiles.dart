@@ -67,7 +67,7 @@ class _MultiProfilesScreenState extends State<MultiProfilesScreen> {
   }
 
   Future<void> _fetchProfiles() async {
-    final url = Uri.parse("http://20.9.151.223:8080/profiles/get/?user_id=${widget.userId}");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/profiles/get/?user_id=${widget.userId}");
     print("Requesting profiles from: $url");
 
     try {

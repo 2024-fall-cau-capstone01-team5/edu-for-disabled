@@ -25,7 +25,7 @@ class StepData {
       'response': response
     };
 
-    final url = Uri.parse("http://20.9.151.223:8080/learn/step");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/learn/step");
     try {
       final response = await http.post(
         url,
