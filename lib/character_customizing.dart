@@ -33,7 +33,7 @@ class _CharacterCustomState extends State<CharacterCustom> {
   };
 
   Future<void> _fetchCharacterState() async {
-    final url = Uri.parse("http://20.9.151.223:8080/character/get?user_id=${widget.userId}&profile_name=${widget.profile}");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/character/get?user_id=${widget.userId}&profile_name=${widget.profile}");
 
     try {
       final response = await http.get(url, headers: {"Content-Type": "application/json"});
@@ -55,7 +55,7 @@ class _CharacterCustomState extends State<CharacterCustom> {
   }
 
   Future<void> _saveCharacterState() async {
-    final url = Uri.parse("http://20.9.151.223:8080/character/update");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/character/update");
 
     final body = {
       "user_id": widget.userId,

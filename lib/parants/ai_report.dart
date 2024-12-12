@@ -29,7 +29,7 @@ class _LearningReportScreenState extends State<AiReportScreen> {
 
     try {
       final response = await http.get(
-        Uri.parse('http://20.9.151.223:8080/learn/ai_report?learning_log_id=${widget.learningLogId}'),
+        Uri.parse('https://www.gamercmdgpt.store/api/learn/ai_report?learning_log_id=${widget.learningLogId}'),
       );
 
       if (response.statusCode == 200) {
@@ -62,7 +62,7 @@ class _LearningReportScreenState extends State<AiReportScreen> {
     try {
       print("Request Body: ${json.encode({"learning_log_id": widget.learningLogId})}");
       final response = await http.post(
-        Uri.parse('http://20.9.151.223:8080/learn/ai_report'),
+        Uri.parse('https://www.gamercmdgpt.store/api/learn/ai_report'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({"learning_log_id": widget.learningLogId}),
       );

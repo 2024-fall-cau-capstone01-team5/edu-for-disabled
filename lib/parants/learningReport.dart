@@ -25,7 +25,7 @@ class _LearningReportPageState extends State<LearningReportPage> {
   }
 
   Future<void> _fetchAnswers() async {
-    final url = Uri.parse("http://20.9.151.223:8080/answers?learning_log_id=${widget.learningLogId}");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/answers?learning_log_id=${widget.learningLogId}");
 
     try {
       final response = await http.get(url);

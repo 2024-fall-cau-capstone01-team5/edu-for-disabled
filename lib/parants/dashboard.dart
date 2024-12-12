@@ -30,7 +30,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<void> _fetchProfiles() async {
-    final url = Uri.parse("http://20.9.151.223:8080/profiles/get/?user_id=${widget.userId}");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/profiles/get/?user_id=${widget.userId}");
     try {
       final response = await http.get(url);
 
@@ -72,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<void> _fetchLearningLogs() async {
-    final url = Uri.parse("http://20.9.151.223:8080/learn/logs?user_id=${widget.userId}&profile_name=$selectedProfile");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/learn/logs?user_id=${widget.userId}&profile_name=$selectedProfile");
     try {
       final response = await http.get(url);
 

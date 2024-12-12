@@ -26,7 +26,7 @@ class Scenario extends StatelessWidget {
   Scenario({required this.label, required this.user_id, required this.profile_name});
 
   Future<String> _learnstart(String scenario_id) async {
-    final url = Uri.parse("http://20.9.151.223:8080/learn/start");
+    final url = Uri.parse("https://www.gamercmdgpt.store/api/learn/start");
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},
