@@ -107,19 +107,12 @@ class _Scenario_missing_child_8_rightState
 
     _bool1?.value = true;
 
-    setState(() async {
-      answer = await stt.gettext(4);
-    });
+    answer = await stt.gettext(4);
+
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
-      widget.step_data.sendStepData(
-        "missing_child 8",
-        "(경찰분이 길을 잃은 사람이 있다는 신고를 가게 점원분에게 받고 가게를 찾아와 이용자에게 부모님의 전화번호를 물어보는 상황)경찰 분께 부모님의 전화번호를 직접 소리내어 말해보세요",
-        "정답: \"(부모님의 전화번호)\"",
-        "응답(소리내어 말하기): $answer",
-      );
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
           "참 잘했어요. "
@@ -134,6 +127,14 @@ class _Scenario_missing_child_8_rightState
       await tts.player.onPlayerComplete.first;
 
       tts.dispose();
+
+      widget.step_data.sendStepData(
+        "missing_child 8",
+        "(경찰분이 길을 잃은 사람이 있다는 신고를 가게 점원분에게 받고 가게를 찾아와 이용자에게 부모님의 전화번호를 물어보는 상황)경찰 분께 부모님의 전화번호를 직접 소리내어 말해보세요",
+        "정답: \"(부모님의 전화번호)\"",
+        "응답(소리내어 말하기): $answer",
+      );
+
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {

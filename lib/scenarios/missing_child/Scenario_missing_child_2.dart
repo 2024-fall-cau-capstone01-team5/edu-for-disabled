@@ -157,9 +157,7 @@ class _Scenario_missing_child_2_rightState
     } else if (stateName == "Timer exit") {
       print("Timer exit!");
       _bool?.value = true;
-      print("${_trigger2?.value}");
       _trigger2?.value = true;
-      print("${_trigger2?.value}");
 
     } else if (stateName == "good") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));

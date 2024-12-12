@@ -160,14 +160,14 @@ class _Scenario_stranger_2_rightState
       _bool?.value = true;
       _trigger2?.value = true;
 
-    } else if (stateName == "good") {
+    } else if (stateName == "sad") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
       widget.step_data.sendStepData(
           "stranger 2",
           "(낯선 사람이 다가와 말을 걸었을 때 기분을 선택하는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
           "정답: 의문",
-          "응답(감정 표현): 좋아요");
+          "응답(감정 표현): 슬퍼요");
     } else if (stateName == "angry") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 

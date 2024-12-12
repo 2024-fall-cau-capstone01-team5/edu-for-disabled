@@ -22,23 +22,22 @@ class _Scenario_park_1_leftState extends State<Scenario_park_1_left> {
   @override
   void initState() {
     super.initState();
-     _playWelcomeTTS();
+    _playWelcomeTTS();
   }
 
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "지금부터 자동차에 타보도록 해요.\n"
-            "오른쪽 화면의 문을 손가락으로 직접 눌러보세요!"
-        );
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("지금부터 자동차에 타보도록 해요.\n"
+            "오른쪽 화면의 문을 손가락으로 직접 눌러보세요!");
     await tts.TextToSpeech(
         "지금부터 자동차에 타보도록 해요."
             "오른쪽 화면의 문을 손가락으로 직접 눌러보세요!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
+
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +52,7 @@ class _Scenario_park_1_leftState extends State<Scenario_park_1_left> {
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
-          Positioned.fill(
-              child: widget.acter
-          ),
+          Positioned.fill(child: widget.acter),
         ],
       ),
     );
@@ -73,6 +70,7 @@ class Scenario_park_1_right extends StatefulWidget {
 
 class _Scenario_park_1_rightState extends State<Scenario_park_1_right> {
   SMITrigger? _touch;
+  SMIBool? _bool;
 
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
@@ -84,33 +82,37 @@ class _Scenario_park_1_rightState extends State<Scenario_park_1_right> {
     if (controller != null) {
       artboard.addController(controller);
       _touch = controller.findInput<SMITrigger>('touch') as SMITrigger?;
+      _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
     }
   }
 
-  void _hitBump() {
+  void _onStateChange(String stateMachineName, String stateName) async {
+    if (stateName == 'ExitState') {
+      if (_bool?.value == true) {
+        widget.step_data.sendStepData(
+            "park 1",
+            "(자동차 문을 열고 타는 상황)오른쪽 화면의 문을 손가락으로 직접 눌러보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 시간 초과");
+      } else {
+        widget.step_data.sendStepData(
+            "park 1",
+            "(자동차 문을 열고 타는 상황)오른쪽 화면의 문을 손가락으로 직접 눌러보세요",
+            "정답: 터치 완료",
+            "응답(터치하기): 터치 완료");
+      }
 
-    _touch?.fire();
-
-    print("Touch TRIGGERED!");
-  }
-
-  void _onStateChange(String stateMachineName, String stateName) async{
-    if (stateName == 'exit') {
-      widget.step_data.sendStepData(
-          "park 1",
-          "(자동차 문을 열고 타는 상황)오른쪽 화면의 문을 손가락으로 직접 눌러보세요",
-          "정답: 터치 완료",
-          "응답(터치하기): 터치 완료"
-      );
-
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
-      await tts.TextToSpeech(
-          "참 잘했어요. ",
-          "ko-KR-Wavenet-D");
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("참 잘했어요.");
+      await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+
+      Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
       print("EXIT");
+    } else if (stateName == 'Timer exit') {
+      _bool?.value = true;
     }
   }
 
@@ -119,14 +121,13 @@ class _Scenario_park_1_rightState extends State<Scenario_park_1_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          GestureDetector(
-            onTap: _hitBump,
-            child: RiveAnimation.asset(
-              "assets/door_open.riv",
-              fit: BoxFit.contain,
-              onInit: _onRiveInit,
-            ),
-          ),
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+                  "assets/common/door_opening_and_closing.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

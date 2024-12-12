@@ -89,18 +89,20 @@ class _Scenario_park_8_rightState extends State<Scenario_park_8_right> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Text(
-          "나가기",
-          style: TextStyle(fontSize: 40),
-          textAlign: TextAlign.center,
+            child:
+            Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+                ? ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "나가기",
+                style: TextStyle(fontSize: 40),
+                textAlign: TextAlign.center,
 
-          //오디오 멈추는 작업 하기
-        ),
-      ),
-    ));
+                //오디오 멈추는 작업 하기
+              ),
+            )
+                : const SizedBox.shrink()));
   }
 }
