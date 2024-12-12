@@ -106,7 +106,7 @@ class _Scenario_ready_10_rightState extends State<Scenario_ready_10_right> {
               "방금 본 것처럼 같이 필요한 만큼만 짜 보도록 해요."
       );
       await tts.TextToSpeech(
-          "참 잘했어요. 앞으로는 치약을 짤 때에는"
+          "참 잘했어요. 앞으로는 치약을 짤 때에는 "
               "방금 본 것처럼 같이 필요한 만큼만 짜 보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;

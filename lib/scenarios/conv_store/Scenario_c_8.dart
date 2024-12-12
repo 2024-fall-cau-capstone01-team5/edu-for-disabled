@@ -40,8 +40,8 @@ class _Scenario_c_8_leftState extends State<Scenario_c_8_left> {
     await tts.player.onPlayerComplete.first;
 
     await Provider.of<Scenario_Manager>(context, listen: false)
-        .updateSubtitle("그 전에, 잊어버린 물건은 없나요?\n"
-            "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요.");
+        .updateSubtitle("그 전에, 잊어버린 물건은 없나요?"
+            "혹시 모르니 앞으론\n편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요.");
     await tts.TextToSpeech(
         "그 전에, 잊어버린 물건은 없나요?"
             "혹시 모르니 앞으론 편의점을 나가기 전에 다시 한 번 꼼꼼히 확인해 보도록 해요.",

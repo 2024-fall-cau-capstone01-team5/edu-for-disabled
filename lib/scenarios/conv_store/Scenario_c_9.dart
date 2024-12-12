@@ -72,22 +72,31 @@ class _Scenario_c_9_rightState extends State<Scenario_c_9_right> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child:
-                Provider.of<Scenario_Manager>(context, listen: false).flag == 1
-                    ? ElevatedButton(
-                        onPressed: () {
-                          Provider.of<Scenario_Manager>(context, listen: false)
-                              .decrement_flag();
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "나가기",
-                          style: TextStyle(fontSize: 40),
-                          textAlign: TextAlign.center,
-
-                          //오디오 멈추는 작업 하기
-                        ),
-                      )
-                    : const Text("먼저 설명을 들어보세요!")));
+            child: Provider.of<Scenario_Manager>(context, listen: false).flag ==
+                    1
+                ? ElevatedButton(
+                    onPressed: () {
+                      Provider.of<Scenario_Manager>(context, listen: false)
+                          .decrement_flag();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      '나가기',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      backgroundColor: Colors.blueAccent, // 게임 스타일에 맞는 색상
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 10,
+                    ),
+                  )
+                : const Text("먼저 설명을 들어보세요!")));
   }
 }

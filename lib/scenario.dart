@@ -17,13 +17,13 @@ import 'character.dart';
 
 AudioPlayer _audioPlayer = AudioPlayer();
 
-
 class Scenario extends StatelessWidget {
   final String label;
   final String user_id;
   final String profile_name;
 
-  Scenario({required this.label, required this.user_id, required this.profile_name});
+  Scenario(
+      {required this.label, required this.user_id, required this.profile_name});
 
   Future<String> _learnstart(String scenario_id) async {
     final url = Uri.parse("https://www.gamercmdgpt.store/api/learn/start");
@@ -39,7 +39,8 @@ class Scenario extends StatelessWidget {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
-      return data["learning_log_id"].toString(); // 정정: JSON 키 값 "learning_log_id" 확인
+      return data["learning_log_id"]
+          .toString(); // 정정: JSON 키 값 "learning_log_id" 확인
     } else {
       throw Exception("Failed to start learning");
     }
@@ -73,13 +74,14 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Sinario_c_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Sinario_c_provider(
+                  learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }
         },
       );
-    }else if (label == '공원'){
+    } else if (label == '공원') {
       return FutureBuilder<String>(
         future: _learnstart('2'),
         builder: (context, snapshot) {
@@ -104,13 +106,14 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_park_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Scenario_park_provider(
+                  learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }
         },
       );
-    }else if (label == '외출 준비'){
+    } else if (label == '외출 준비') {
       return FutureBuilder<String>(
         future: _learnstart('4'),
         builder: (context, snapshot) {
@@ -135,13 +138,14 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_ready_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Scenario_ready_provider(
+                  learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }
         },
       );
-    }else if (label == '상처가 났을 때'){
+    } else if (label == '상처가 났을 때') {
       return FutureBuilder<String>(
         future: _learnstart('5'),
         builder: (context, snapshot) {
@@ -166,14 +170,14 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_hurt_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Scenario_hurt_provider(
+                  learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }
         },
       );
-    }
-    else if (label == '낯선 사람'){
+    } else if (label == '낯선 사람') {
       return FutureBuilder<String>(
         future: _learnstart('7'),
         builder: (context, snapshot) {
@@ -198,14 +202,14 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_stranger_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Scenario_stranger_provider(
+                  learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }
         },
       );
-    }
-    else if (label == '길을 잃었을 때'){
+    } else if (label == '길을 잃었을 때') {
       return FutureBuilder<String>(
         future: _learnstart('8'),
         builder: (context, snapshot) {
@@ -230,44 +234,30 @@ class Scenario extends StatelessWidget {
             // 정상 상태
             final learning_log_id = snapshot.data!;
             return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_missing_child_provider(learningLogId: learning_log_id, acter: acterWidget),
+              create: (context) => Scenario_missing_child_provider(
+                  learningLogId: learning_log_id, acter: acterWidget),
               child: const Scenario_Canvas(),
             );
           }
         },
       );
-    }else{
-      return FutureBuilder<String>(
-        future: _learnstart('3'),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // 로딩 중 상태
-            return Scaffold(
-              appBar: AppBar(title: Text('로딩 중...')),
-              body: Center(child: CircularProgressIndicator()),
-            );
-          } else if (snapshot.hasError) {
-            // 에러 상태
-            return Scaffold(
-              appBar: AppBar(title: Text('접속 장애 페이지')),
-              body: Center(
-                child: Text(
-                  '죄송합니다. $label Scenario 이용에 장애가 발생했습니다.\n에러: ${snapshot.error}',
-                  textAlign: TextAlign.center,
-                ),
+    } else {
+      return const Scaffold(
+        body: Center(
+          child: Column(
+            children: [
+              Text(
+                '새로운 컨텐츠 업데이트 예정!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
               ),
-            );
-          } else {
-            // 정상 상태
-            final learning_log_id = snapshot.data!;
-            return ChangeNotifierProvider<Scenario_Manager>(
-              create: (context) => Scenario_ready_provider(learningLogId: learning_log_id, acter: acterWidget),
-              child: const Scenario_Canvas(),
-            );
-          }
-        },
+              Expanded(
+                  child: Image(
+                      image: AssetImage("assets/category_icons/푸앙_미소.png")))
+            ],
+          ),
+        ),
       );
-
     }
   }
 }
@@ -285,7 +275,7 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
     super.initState();
     _audioPlayer = AudioPlayer();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     double screenWidth_for_left = MediaQuery.of(context).size.width;
@@ -310,12 +300,21 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
               textAlign: TextAlign.center,
             ),
           ),
+          Align(
+            alignment: Alignment.topRight, // 오른쪽 상단에 배치
+            child: IconButton(
+              icon: Icon(Icons.exit_to_app),
+              color: Colors.black,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
 
           // 위의 ListView 콘텐츠 추가
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -335,7 +334,8 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
                               width: 1,
                             ),
                           ),
-                          child: sinarioProvider.leftScreen[sinarioProvider.index],
+                          child:
+                              sinarioProvider.leftScreen[sinarioProvider.index],
                         );
                       },
                     ),
@@ -351,11 +351,11 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
                               width: 1,
                             ),
                           ),
-                          child: sinarioProvider.rightScreen[sinarioProvider.index],
+                          child: sinarioProvider
+                              .rightScreen[sinarioProvider.index],
                         );
                       },
                     ),
-
                   ],
                 ),
               ),
@@ -368,24 +368,24 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
               Center(
                 child: Consumer<Scenario_Manager>(
                     builder: (context, sinarioProvider, child) {
-                      return Container(
-                        width: screenWidth_for_right * 0.9,
-                        height: screenHeight_for_right * 0.18,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Color(0xfff5f5dc),
-                            borderRadius: BorderRadius.circular(8)
-                        ),
-                        child: Text(
-                          sinarioProvider.subtitle, // Scenario_Manager에서 제공하는 텍스트
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 21,
-                          ),textAlign: TextAlign.center,
-                        ),
-                      );
-                    }
-                ),
+                  return Container(
+                    width: screenWidth_for_right * 0.9,
+                    height: screenHeight_for_right * 0.18,
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        color: Color(0xfff5f5dc),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Text(
+                      sinarioProvider.subtitle,
+                      // Scenario_Manager에서 제공하는 텍스트
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 21,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }),
               ),
             ],
           )

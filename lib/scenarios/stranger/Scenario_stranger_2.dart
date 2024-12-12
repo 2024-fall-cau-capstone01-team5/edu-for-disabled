@@ -121,7 +121,7 @@ class _Scenario_stranger_2_rightState
 
     if (controller != null) {
       artboard.addController(controller);
-      _trigger1 = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
+      _trigger1 = controller.findInput<bool>('Trigger 1') as SMITrigger?;
       _trigger2 = controller.findInput<bool>('Trigger 2') as SMITrigger?;
       _trigger3 = controller.findInput<SMITrigger>('Trigger 3') as SMITrigger?;
       _bool = controller.findInput<bool>('Boolean 1') as SMIBool?;
@@ -158,7 +158,7 @@ class _Scenario_stranger_2_rightState
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
-      _trigger2?.value = true;
+      _trigger1?.value = true;
 
     } else if (stateName == "sad") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));

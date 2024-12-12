@@ -63,7 +63,19 @@ class _SignupScreenState extends State<SignupScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _signup,
-              child: Text("회원가입(Sign Up)"),
+              child: Text(
+                '회원가입(Sign up)',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor: Colors.blueAccent, // 게임 스타일에 맞는 색상
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                elevation: 10,
+              ),
             ),
           ],
         ),
