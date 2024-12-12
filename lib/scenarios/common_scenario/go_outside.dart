@@ -136,14 +136,14 @@ class _Go_outside_rightState extends State<Go_outside_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-                  "assets/common/door_opening_and_closing.riv",
-                  fit: BoxFit.contain,
-                  onInit: _onRiveInit,
-                )
+            "assets/common/door_opening_and_closing.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
               : const Text(
-                  "먼저 설명을 들어보세요!",
-                  style: TextStyle(fontSize: 15),
-                ),
+            "먼저 설명을 들어보세요!",
+            style: TextStyle(fontSize: 15),
+          ),
         ]),
       ),
     );

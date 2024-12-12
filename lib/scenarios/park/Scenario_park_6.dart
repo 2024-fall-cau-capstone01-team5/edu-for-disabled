@@ -26,19 +26,20 @@ class _Scenario_park_6_leftState extends State<Scenario_park_6_left> {
 
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요. "
-            "오른쪽 화면을 손가락으로 눌러보세요. "
-            "그리고 아래로 떨어지는 쓰레기들을 눌러보세요."
-    );
-    await tts.TextToSpeech("집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요. "
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요. ");
+    await tts.TextToSpeech("집으로 돌아가기 전에 자기가 남긴 쓰레기를 치워봐요.", "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("오른쪽 화면을 손가락으로 눌러보세요.\n"
+            "그리고 아래로 떨어지는 쓰레기들을 눌러보세요.");
+    await tts.TextToSpeech(
         "오른쪽 화면을 손가락으로 눌러보세요. "
-        "그리고 아래로 떨어지는 쓰레기들을 눌러보세요. "
-        , "ko-KR-Wavenet-D");
-
+            "그리고 아래로 떨어지는 쓰레기들을 눌러보세요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
-
   }
 
   @override
@@ -58,9 +59,7 @@ class _Scenario_park_6_leftState extends State<Scenario_park_6_left> {
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
-          Positioned.fill(
-              child: widget.acter
-          ),
+          Positioned.fill(child: widget.acter),
         ],
       ),
     );
@@ -77,13 +76,10 @@ class Scenario_park_6_right extends StatefulWidget {
 }
 
 class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
-
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
-      artboard,
-      'oceanStateMachine',
-      onStateChange: _onStateChange
-    );
+        artboard, 'oceanStateMachine',
+        onStateChange: _onStateChange);
 
     if (controller != null) {
       artboard.addController(controller);
@@ -91,24 +87,20 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-
     if (stateName == 'ExitState') {
-
       widget.step_data.sendStepData(
           "park 6",
           "(공원에서 떠나기 전 자기가 남긴 쓰레기를 줍는 상황)오른쪽 화면의 쓰레기들을 손가락으로 직접 눌러보세요!",
           "정답: 미니 게임 완료",
-          "응답(터치하기): 미니 게임 완료"
-      );
+          "응답(터치하기): 미니 게임 완료");
 
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "앞으로는 집에 가기 전에 자기가 남긴 쓰레기는 스스로 치우는 "
-              "착한 사람이 되보도록 해요"
-      );
-      await tts.TextToSpeech("참 잘했어요. "
-          "앞으로는 집에 가기 전에 자기가 남긴 쓰레기는 스스로 치우는"
-          " 착한 사람이 되보도록 해요", "ko-KR-Wavenet-D");
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("참 잘했어요. 앞으로는 집에 가기 전에 자기가 남긴 쓰레기는\n"
+              "스스로 치우는 착한 사람이 되보도록 해요.");
+      await tts.TextToSpeech(
+          "참 잘했어요. 앞으로는 집에 가기 전에 자기가 남긴 쓰레기는"
+              "스스로 치우는 착한 사람이 되보도록 해요.",
+          "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
       Provider.of<Scenario_Manager>(context, listen: false).decrement_flag();
@@ -122,11 +114,13 @@ class _Scenario_park_6_rightState extends State<Scenario_park_6_right> {
     return Scaffold(
       body: Center(
         child: Stack(children: [
-          RiveAnimation.asset(
-            "assets/park/garbage_collecting.riv",
-            fit: BoxFit.contain,
-            onInit: _onRiveInit,
-          ),
+          Provider.of<Scenario_Manager>(context, listen: false).flag == 1
+              ? RiveAnimation.asset(
+                  "assets/park/garbage_collecting.riv",
+                  fit: BoxFit.contain,
+                  onInit: _onRiveInit,
+                )
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

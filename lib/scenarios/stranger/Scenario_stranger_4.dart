@@ -36,10 +36,16 @@ class _Scenario_stranger_4_leftState extends State<Scenario_stranger_4_left> {
         "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "\"싫어요.\" 라고 말했는데도 모르는 사람이 손을 잡고 여러분을 끌고 가려고 하고 있어요. "
-            "이럴 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요. "
+        "\"싫어요.\" 라고 말했는데도 모르는 사람이\n손을 잡고 여러분을 끌고 가려고 하고 있어요. "
     );
-    await tts.TextToSpeech("싫어요. 라고 말했는데도 모르는 사람이 손을 잡고 여러분을 끌고 가려고 하고 있어요. "
+    await tts.TextToSpeech(
+        "싫어요. 라고 말했는데도 모르는 사람이 손을 잡고 여러분을 끌고 가려고 하고 있어요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "이럴 때 여러분의 기분은 어떤가요?\n오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요. "
+    );
+    await tts.TextToSpeech(
         "이럴 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요. ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
@@ -129,6 +135,14 @@ class _Scenario_stranger_4_rightState extends State<Scenario_stranger_4_right> {
     } else if (stateName == "Timer exit") {
       _bool?.value = true;
       _trigger2?.value = true;
+    } else if (stateName == "sad") {
+      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
+
+      widget.step_data.sendStepData(
+          "stranger 4",
+          "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
+          "정답: 싫어요",
+          "응답(감정 표현): 슬퍼요");
     } else if (stateName == "good") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
 
@@ -137,14 +151,6 @@ class _Scenario_stranger_4_rightState extends State<Scenario_stranger_4_right> {
           "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
           "정답: 싫어요",
           "응답(감정 표현): 좋아요");
-    } else if (stateName == "fun") {
-      await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));
-
-      widget.step_data.sendStepData(
-          "stranger 4",
-          "(낯선 사람이 자기를 끌고 가는 상황)오른쪽 화면의 자신의 기분을 선택해보세요.",
-          "정답: 싫어요",
-          "응답(감정 표현): 즐거워요");
     } else if (stateName == "nope") {
       await _audioPlayer.play(AssetSource("effect_coorect.mp3"));
       await Future.delayed(Duration(seconds: 2));

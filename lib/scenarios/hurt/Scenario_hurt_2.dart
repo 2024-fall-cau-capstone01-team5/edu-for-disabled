@@ -31,27 +31,38 @@ class _Scenario_hurt_2_leftState
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "여러분은 지금 집에 있어요. 여러분은 주방으로 갔습니다. "
-            "그런데 저기 부모님이 정리를 안하신 칼이 보이네요. "
-            "여러분은 호기심에 칼을 들어봅니다. "
+        "여러분은 지금 집에 있어요. 여러분은 주방으로 갔습니다.\n"
+            "그런데 저기 부모님이 정리를 안하신 칼이 보이네요."
     );
     await tts.TextToSpeech(
         "여러분은 지금 집에 있어요. 여러분은 주방으로 갔습니다."
-            "그런데 저기 부모님이 정리를 안하신 칼이 보이네요."
-            "여러분은 호기심에 칼을 들어봅니다. ",
+            "그런데 저기 부모님이 정리를 안하신 칼이 보이네요.",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "여러분은 호기심에 칼을 들어봅니다."
+    );
+    await tts.TextToSpeech(
+        "여러분은 호기심에 칼을 들어봅니다.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "그런데 이런, 칼이 손에서 미끄러지고 말았어요. "
+        "그런데 이런, 칼이 손에서 미끄러지고 말았어요.\n"
             "여러분의 손가락에서 피가 나네요. "
-            "이런 상황일 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요."
     );
     await tts.TextToSpeech(
         "그런데 이런, 칼이 손에서 미끄러지고 말았어요. "
-            "여러분의 손가락에서 피가 나네요. "
-            "이런 상황일 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요",
+            "여러분의 손가락에서 피가 나네요. ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+        "이런 상황일 때 여러분의 기분은 어떤가요?\n오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요."
+    );
+    await tts.TextToSpeech(
+        "이런 상황일 때 여러분의 기분은 어떤가요? 오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
 

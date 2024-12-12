@@ -77,7 +77,7 @@ class _Scenario_hurt_9_rightState extends State<Scenario_hurt_9_right> {
 
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "119 구급대원분께서 주소를 물어보시네요. "
-            "대답해 볼까요? "
+            "대답해 볼까요?\n"
             "여러분의 집 주소를 직접 소리내어 말해보세요! "
     );
     await tts.TextToSpeech(
@@ -111,15 +111,24 @@ class _Scenario_hurt_9_rightState extends State<Scenario_hurt_9_right> {
 
     _bool1?.value = true;
 
-    setState(() async{
-      answer = await stt.gettext(6);
-    });
+    answer = await stt.gettext(6);
 
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
 
     if (stateName == 'ExitState') {
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "참 잘했어요. "
+              "혹시 집 주소를 모른다면, 지금부터라도\n사고에 대비해서 집 주소를 꼭 외워보도록 해요. "
+      );
+      await tts.TextToSpeech("참 잘했어요."
+          "혹시 집 주소를 모른다면, 지금부터라도 사고에 대비해서 집 주소를 꼭 외워보도록 해요. ",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
+
       widget.step_data.sendStepData(
         "missing_child 9",
         "(119에 전화해 구급 대원에게 집 주소를 말해주는 상황)119 구급대원분께 집 주소를 말해보세요",
@@ -127,15 +136,7 @@ class _Scenario_hurt_9_rightState extends State<Scenario_hurt_9_right> {
         "응답(소리내어 말하기): $answer",
       );
 
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "혹시 집 주소를 모른다면, 지금부터라도 사고에 대비해서 집 주소를 꼭 외워보도록 해요. "
-      );
-      await tts.TextToSpeech("참 잘했어요."
-          "혹시 집 주소를 모른다면, 지금부터라도 사고에 대비해서 집 주소를 꼭 외워보도록 해요. ",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      tts.dispose();
+
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {

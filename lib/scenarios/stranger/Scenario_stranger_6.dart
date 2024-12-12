@@ -76,7 +76,7 @@ class _Scenario_stranger_6_rightState extends State<Scenario_stranger_6_right> {
         "ko-KR-Wavenet-C");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "남자분이 어떤 상황인지 물어보네요."
+        "남자분이 어떤 상황인지 물어보네요.\n"
             "\"도와주세요! 모르는 사람이에요!\"라고 다시 한 번 직접 소리내어 말해보세요. "
     );
     await tts.TextToSpeech("남자분이 어떤 상황인지 물어보네요."
@@ -104,23 +104,15 @@ class _Scenario_stranger_6_rightState extends State<Scenario_stranger_6_right> {
 
     _bool1?.value = true;
 
-    setState(() async {
-      answer = await stt.gettext(5);
-    });
+    answer = await stt.gettext(5);
+
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
-      widget.step_data.sendStepData(
-        "stranger 6",
-        "(도와달라는 소리를 듣고 온 사람에게 무슨 일인지 말하는 상황)도와주러온 남자분에게 \"도와주세요! 모르는 사람이에요!\" 라고 말해보세요",
-        "정답: \"도와주세요! 모르는 사람이에요!\"",
-        "응답(소리내어 말하기): $answer",
-      );
-
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
           "참 잘했어요. "
-              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요."
+              "앞으로 도움을 구할 땐\n꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요."
       );
       await tts.TextToSpeech(
           "참 잘했어요."
@@ -128,6 +120,15 @@ class _Scenario_stranger_6_rightState extends State<Scenario_stranger_6_right> {
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
+
+      widget.step_data.sendStepData(
+        "stranger 6",
+        "(도와달라는 소리를 듣고 온 사람에게 무슨 일인지 말하는 상황)도와주러온 남자분에게 \"도와주세요! 모르는 사람이에요!\" 라고 말해보세요",
+        "정답: \"도와주세요! 모르는 사람이에요!\"",
+        "응답(소리내어 말하기): $answer",
+      );
+
+
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {

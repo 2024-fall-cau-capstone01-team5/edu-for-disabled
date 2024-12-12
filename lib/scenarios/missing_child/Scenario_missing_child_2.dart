@@ -31,7 +31,7 @@ class _Scenario_missing_child_2_leftState
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "여러분은 지금 부모님과 함께 시내 길을 걷고 있어요. "
+        "여러분은 지금 부모님과 함께 시내 길을 걷고 있어요.\n"
             "주변에는 맛있는 빵을 파는 곳도 있고, "
             "예쁜 옷을 파는 곳도 있네요. "
     );
@@ -45,12 +45,17 @@ class _Scenario_missing_child_2_leftState
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag2();
 
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "그런데 이런! 여러분이 다른 곳에 한눈 팔린 사이 부모님이 없어져 버렸어요! "
-            "이럴 때 나의 기분은 어떤가요? "
+        "그런데 이런! 여러분이 다른 곳에 한눈 팔린 사이 부모님이 없어져 버렸어요!"
+    );
+    await tts.TextToSpeech(
+        "그런데 이런! 여러분이 다른 곳에 한눈 팔린 사이 부모님이 없어져 버렸어요! ",
+        "ko-KR-Wavenet-D");
+    await tts.player.onPlayerComplete.first;
+    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+            "이럴 때 나의 기분은 어떤가요?\n"
             "오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요! "
     );
     await tts.TextToSpeech(
-            "그런데 이런! 여러분이 다른 곳에 한눈 팔린 사이 부모님이 없어져 버렸어요! "
             "이럴 때 나의 기분은 어떤가요? "
             "오른쪽 화면의 자기가 느낀 기분을 손가락으로 직접 눌러보세요! ",
         "ko-KR-Wavenet-D");
@@ -152,9 +157,7 @@ class _Scenario_missing_child_2_rightState
     } else if (stateName == "Timer exit") {
       print("Timer exit!");
       _bool?.value = true;
-      print("${_trigger2?.value}");
       _trigger2?.value = true;
-      print("${_trigger2?.value}");
 
     } else if (stateName == "good") {
       await _audioPlayer.play(AssetSource("effect_incorrect.mp3"));

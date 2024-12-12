@@ -10,7 +10,6 @@ import 'package:rive/rive.dart' hide Image;
 final tts = TTS();
 final stt = STT();
 
-
 class Scenario_hurt_8_left extends StatefulWidget {
   final StatefulWidget acter;
 
@@ -26,7 +25,6 @@ class _Scenario_hurt_8_leftState extends State<Scenario_hurt_8_left> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -39,9 +37,7 @@ class _Scenario_hurt_8_leftState extends State<Scenario_hurt_8_left> {
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
-          Positioned.fill(
-              child: widget.acter
-          ),
+          Positioned.fill(child: widget.acter),
         ],
       ),
     );
@@ -58,8 +54,6 @@ class Scenario_hurt_8_right extends StatefulWidget {
 }
 
 class _Scenario_hurt_8_rightState extends State<Scenario_hurt_8_right> {
-
-
   SMIBool? _bool1;
   SMIBool? _bool2;
 
@@ -67,32 +61,23 @@ class _Scenario_hurt_8_rightState extends State<Scenario_hurt_8_right> {
 
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "네, 119 구급 대원입니다. 무엇을 도와드릴까요? "
-    );
-    await tts.TextToSpeech(
-            "네, 119 구급대원입니다. 무엇을 도와드릴까요? ",
-        "ko-KR-Wavenet-A");
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("네, 119 구급 대원입니다. 무엇을 도와드릴까요? ");
+    await tts.TextToSpeech("네, 119 구급대원입니다. 무엇을 도와드릴까요? ", "ko-KR-Wavenet-A");
     await tts.player.onPlayerComplete.first;
 
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "119 구급 대원분께서 무엇을 도와주냐고 물어봤네요. "
-            "대답해 볼까요? "
-            " \"도와주세요! 다쳤어요!\"라고 직접 소리내어 말해보세요! "
-    );
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("119 구급 대원분께서 무엇을 도와주냐고 물어봤네요. 대답해 볼까요?\n"
+            " \"도와주세요! 다쳤어요!\"라고 직접 소리내어 말해보세요! ");
     await tts.TextToSpeech(
         "일일구 구급대원분께서 무엇을 도와주냐고 물어봤네요. "
             "대답해 볼까요? "
             " 도와주세요! 다쳤어요!라고 직접 소리내어 말해보세요! ",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
-
-
-
-
   }
 
-  void _onRiveInit(Artboard artboard) async{
+  void _onRiveInit(Artboard artboard) async {
     await _playWelcomeTTS();
 
     final controller = StateMachineController.fromArtboard(
@@ -106,36 +91,32 @@ class _Scenario_hurt_8_rightState extends State<Scenario_hurt_8_right> {
 
       _bool1 = controller.findInput<bool>('Boolean 1') as SMIBool?;
       _bool2 = controller.findInput<bool>('Boolean 2') as SMIBool?;
-
     }
 
     _bool1?.value = true;
 
-    setState(() async{
-      answer = await stt.gettext(6);
-    });
-
+    answer = await stt.gettext(6);
+    print("ANSWER: $answer");
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-
     if (stateName == 'ExitState') {
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle(
+              "참 잘했어요. 앞으로 도움을 구할 땐 꼭 자기가\n어떤 상황에 처해있는지 잘 설명해 보도록 해요.");
+      await tts.TextToSpeech(
+          "참 잘했어요. "
+              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요.",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      tts.dispose();
+
       widget.step_data.sendStepData(
         "missing_child 8",
         "(119에 전화해 도와달라고 말하는 상황)119 구급대원분께 \"도와주세요! 다쳤어요!\" 라고 말해보세요",
         "정답: \"도와주세요. 다쳤어요.\"",
         "응답(소리내어 말하기): $answer",
       );
-
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요."
-              "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요."
-      );
-      await tts.TextToSpeech("참 잘했어요. "
-          "앞으로 도움을 구할 땐 꼭 자기가 어떤 상황에 처해있는지 잘 설명해 보도록 해요.",
-          "ko-KR-Wavenet-D");
-      await tts.player.onPlayerComplete.first;
-      tts.dispose();
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {

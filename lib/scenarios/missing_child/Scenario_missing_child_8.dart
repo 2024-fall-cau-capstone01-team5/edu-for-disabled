@@ -71,7 +71,7 @@ class _Scenario_missing_child_8_rightState
     await tts.TextToSpeech("경찰분께서 도와주기 위해 오셨네요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "안녕하세요. 경찰입니다. 길을 잃으셨군요. "
+        "안녕하세요. 경찰입니다. 길을 잃으셨군요.\n"
             "제가 도와드리겠습니다. 부모님의 전화번호가 어떻게 되시죠?"
     );
     await tts.TextToSpeech(
@@ -80,11 +80,11 @@ class _Scenario_missing_child_8_rightState
         "ko-KR-Wavenet-C");
     await tts.player.onPlayerComplete.first;
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "경찰 분께서 부모님의 전화번호를 물어봤네요. "
+        "경찰분께서 부모님의 전화번호를 물어봤네요.\n"
             "대답해 볼까요? 부모님의 전화번호를 직접 소리내어 말해보세요. "
     );
     await tts.TextToSpeech(
-        "경찰 분께서 부모님의 전화번호를 물어봤네요. "
+        "경찰분께서 부모님의 전화번호를 물어봤네요. "
             "대답해 볼까요? 부모님의 전화번호를 직접 소리내어 말해보세요. ", "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
   }
@@ -107,23 +107,16 @@ class _Scenario_missing_child_8_rightState
 
     _bool1?.value = true;
 
-    setState(() async {
-      answer = await stt.gettext(4);
-    });
+    answer = await stt.gettext(4);
+
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
     if (stateName == 'ExitState') {
-      widget.step_data.sendStepData(
-        "missing_child 8",
-        "(경찰분이 길을 잃은 사람이 있다는 신고를 가게 점원분에게 받고 가게를 찾아와 이용자에게 부모님의 전화번호를 물어보는 상황)경찰 분께 부모님의 전화번호를 직접 소리내어 말해보세요",
-        "정답: \"(부모님의 전화번호)\"",
-        "응답(소리내어 말하기): $answer",
-      );
 
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
           "참 잘했어요. "
-              "만약에 부모님의 전화번호를 모른다면 앞으로의 사고에 대비해, "
+              "만약에 부모님의 전화번호를 모른다면\n앞으로의 사고에 대비해 "
               "지금부터 꼭 외워보도록 해요. "
       );
       await tts.TextToSpeech(
@@ -134,6 +127,14 @@ class _Scenario_missing_child_8_rightState
       await tts.player.onPlayerComplete.first;
 
       tts.dispose();
+
+      widget.step_data.sendStepData(
+        "missing_child 8",
+        "(경찰분이 길을 잃은 사람이 있다는 신고를 가게 점원분에게 받고 가게를 찾아와 이용자에게 부모님의 전화번호를 물어보는 상황)경찰 분께 부모님의 전화번호를 직접 소리내어 말해보세요",
+        "정답: \"(부모님의 전화번호)\"",
+        "응답(소리내어 말하기): $answer",
+      );
+
 
       Provider.of<Scenario_Manager>(context, listen: false).updateIndex();
     } else if (stateName == "Timer exit") {

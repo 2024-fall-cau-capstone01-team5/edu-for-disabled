@@ -18,7 +18,6 @@ class Scenario_park_4_left extends StatefulWidget {
 }
 
 class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -26,17 +25,14 @@ class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
     _playWelcomeTTS();
   }
 
-
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
-    await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요. "
-            "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요!"
-    );
+    await Provider.of<Scenario_Manager>(context, listen: false)
+        .updateSubtitle("공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요.\n"
+            "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요!");
     await tts.TextToSpeech(
-        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요. "
-            "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요"
-            "!",
+        "공원에 도착했어요. 예쁜 나뭇잎들이 떨어져 있네요."
+            "한번 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 터치해보세요!",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -58,9 +54,7 @@ class _Scenario_park_4_leftState extends State<Scenario_park_4_left> {
               fit: BoxFit.cover, // 이미지가 Container에 꽉 차도록 설정
             ),
           ),
-          Positioned.fill(
-              child: widget.acter
-          ),
+          Positioned.fill(child: widget.acter),
         ],
       ),
     );
@@ -83,10 +77,7 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
   SMITrigger? _touch4;
   SMIBool? _bool;
 
-
-
   void _onRiveInit(Artboard artboard) async {
-
     final controller = StateMachineController.fromArtboard(
       artboard,
       'State Machine 1',
@@ -106,30 +97,23 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
   }
 
   void _onStateChange(String stateMachineName, String stateName) async {
-
     if (stateName == 'ExitState') {
-
-      if(_bool?.value == true){
+      if (_bool?.value == true) {
         widget.step_data.sendStepData(
             "park 4",
             "(공원에 도착해 노는 상황)나뭇잎들을 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 눌러보세요!",
             "정답: 터치 완료",
-            "응답(터치하기): 시간 초과"
-        );
-
-      }else {
+            "응답(터치하기): 시간 초과");
+      } else {
         widget.step_data.sendStepData(
             "park 4",
             "(공원에 도착해 노는 상황)나뭇잎들을 주워볼까요? 오른쪽 화면의 나뭇잎들을 손가락으로 직접 눌러보세요!",
             "정답: 터치 완료",
-            "응답(터치하기): 시간 초과"
-        );
-
+            "응답(터치하기): 시간 초과");
       }
 
-
-
-      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle("참 잘했어요.");
+      await Provider.of<Scenario_Manager>(context, listen: false)
+          .updateSubtitle("참 잘했어요.");
       await tts.TextToSpeech("참 잘했어요. ", "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();
@@ -152,7 +136,7 @@ class _Scenario_park_4_rightState extends State<Scenario_park_4_right> {
                   fit: BoxFit.contain,
                   onInit: _onRiveInit,
                 )
-              : const SizedBox.shrink(),
+              : const Text("먼저 설명을 들어보세요!"),
         ]),
       ),
     );

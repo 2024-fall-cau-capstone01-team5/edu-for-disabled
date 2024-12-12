@@ -27,7 +27,7 @@ class _Scenario_missing_child_5_leftState extends State<Scenario_missing_child_5
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "그럼 지금부터 도움을 요청하러 가볼까요? "
+        "그럼 지금부터 도움을 요청하러 가볼까요?\n"
             "오른쪽 화면의 문을 손가락으로 직접 눌러보세요."
     );
     await tts.TextToSpeech(
@@ -125,7 +125,7 @@ class _Scenario_missing_child_5_rightState extends State<Scenario_missing_child_
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-            "assets/ready/door_opening_and_closing.riv",
+            "assets/common/door_opening_and_closing.riv",
             fit: BoxFit.contain,
             onInit: _onRiveInit,
           )

@@ -371,7 +371,7 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
                       return Container(
                         width: screenWidth_for_right * 0.9,
                         height: screenHeight_for_right * 0.18,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                             color: Color(0xfff5f5dc),
                             borderRadius: BorderRadius.circular(8)
@@ -380,7 +380,7 @@ class _Scenario_CanvasState extends State<Scenario_Canvas> {
                           sinarioProvider.subtitle, // Scenario_Manager에서 제공하는 텍스트
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 18,
+                            fontSize: 21,
                           ),textAlign: TextAlign.center,
                         ),
                       );

@@ -172,14 +172,14 @@ class _Elevator_3_rightState extends State<Elevator_3_right> {
         child: Stack(children: [
           Provider.of<Scenario_Manager>(context, listen: false).flag == 1
               ? RiveAnimation.asset(
-                  "assets/common/elevator_number_button.riv",
-                  fit: BoxFit.contain,
-                  onInit: _onRiveInit,
-                )
+            "assets/common/elevator_number_button.riv",
+            fit: BoxFit.contain,
+            onInit: _onRiveInit,
+          )
               : const Text(
-                  "먼저 설명을 들어보세요!",
-                  style: TextStyle(fontSize: 15),
-                ),
+            "먼저 설명을 들어보세요!",
+            style: TextStyle(fontSize: 15),
+          ),
         ]),
       ),
     );

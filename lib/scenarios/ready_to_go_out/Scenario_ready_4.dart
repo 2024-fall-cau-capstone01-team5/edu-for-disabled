@@ -27,10 +27,10 @@ class _Scenario_ready_4_leftState extends State<Scenario_ready_4_left> {
   Future<void> _playWelcomeTTS() async {
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-        "그럼 밥을 먹어볼까요? 오른쪽 화면을 손가락으로 직접 눌러보세요. "
+        "그럼 밥을 먹어볼까요? 오른쪽 화면을 손가락으로 직접 눌러보세요."
     );
     await tts.TextToSpeech(
-        "그럼 밥을 먹어볼까요? 오른쪽 화면을 손가락으로 직접 눌러보세요. ",
+        "그럼 밥을 먹어볼까요? 오른쪽 화면을 손가락으로 직접 눌러보세요.",
         "ko-KR-Wavenet-D");
     await tts.player.onPlayerComplete.first;
     Provider.of<Scenario_Manager>(context, listen: false).increment_flag();
@@ -102,14 +102,19 @@ class _Scenario_ready_4_rightState extends State<Scenario_ready_4_right> {
         );
       }
       await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
-          "참 잘했어요. "
-              "앞으로 밥을 먹을 때에는 손으로 직접 음식을 집는 것이 아닌 꼭 숟가락과 젓가락을 사용해요. "
-              "그리고 음식을 흘리지 않도록 주의하며 먹어보도록 해요. "
+          "참 잘했어요. 앞으로 밥을 먹을 때에는 손으로 직접 음식을\n"
+              "집는 것이 아닌 꼭 숟가락과 젓가락을 사용해요."
       );
       await tts.TextToSpeech(
-          "참 잘했어요. "
-              "앞으로 밥을 먹을 때에는 손으로 직접 음식을 집는 것이 아닌 꼭 숟가락과 젓가락을 사용해요."
-              "그리고 음식을 흘리지 않도록 주의하며 먹어보도록 해요. ",
+          "참 잘했어요. 앞으로 밥을 먹을 때에는 손으로 직접 음식을 집는 것이 아닌 "
+              "꼭 숟가락과 젓가락을 사용해요.",
+          "ko-KR-Wavenet-D");
+      await tts.player.onPlayerComplete.first;
+      await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
+          "그리고 음식을 흘리지 않도록 주의하며 먹어보도록 해요."
+      );
+      await tts.TextToSpeech(
+          "그리고 음식을 흘리지 않도록 주의하며 먹어보도록 해요.",
           "ko-KR-Wavenet-D");
       await tts.player.onPlayerComplete.first;
       tts.dispose();

@@ -31,7 +31,7 @@ class _Scenario_hurt_13_leftState
     await Future.delayed(Duration(milliseconds: 300));
     await Provider.of<Scenario_Manager>(context, listen: false).updateSubtitle(
         "축하합니다. "
-            "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로 "
+            "모든 이야기를 마치셨습니다. 이번 경험을 바탕으로\n"
             "상처가 났을 때 어떻게 행동해야 할지 "
             "잘 생각해보시기 바랍니다."
     );
