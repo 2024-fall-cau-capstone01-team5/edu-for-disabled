@@ -1,16 +1,8 @@
-# flutterpractice
+현재 팀 레포지토리에는 stt private key가 포함되어 있지 않습니다.
+apk파일을 다운받아 실행하거나 json파일을 다운받아 assets/ 디렉토리에 추가해 주시기 바랍니다.
 
-A new Flutter project.
+감사합니다.
 
-## Getting Started
+apk파일: https://drive.google.com/file/d/1V5Og4lVVxwtjCtJyqrdxxgJ7C3YzcV9I/view?usp=drive_link
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://drive.google.com/file/d/19iuESrpgSDVTEYIPBozxekkW1SjYHAte/view?usp=sharing
